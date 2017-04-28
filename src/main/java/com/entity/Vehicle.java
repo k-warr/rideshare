@@ -1,14 +1,12 @@
 package com.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 /**
  * Created by student on 4/27/17.
  */
 @Entity
-@Table(name = "vehicle")
+@Table(name="vehicle")
 public class Vehicle {
     private int vehicleId;
     private String make;
@@ -16,8 +14,6 @@ public class Vehicle {
     private int year;
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "vehicle_id")
     public int getVehicleId() {
         return vehicleId;

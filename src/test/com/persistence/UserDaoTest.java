@@ -1,6 +1,8 @@
 package com.persistence;
 
 import com.entity.User;
+import com.persistence.SessionFactoryProvider;
+import com.persistence.UserDao;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.junit.After;
@@ -8,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -22,7 +23,11 @@ public class UserDaoTest {
     @Before
     public void setup() {
         dao = new UserDao();
-        testUser = new User("test", "test@test.com", 1234567890);
+        testUser = new User();
+        testUser.setUsername("test");
+        testUser.setPassword("test");
+        testUser.setEmail("test@test.test");
+        testUser.setPhone(1234567890);
     }
 
     @Test

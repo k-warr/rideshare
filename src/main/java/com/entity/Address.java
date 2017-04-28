@@ -1,7 +1,5 @@
 package com.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 /**
@@ -16,8 +14,6 @@ public class Address {
     private String businessName;
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "address_id")
     public int getAddressId() {
         return addressId;

@@ -1,7 +1,5 @@
 package com.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 /**
@@ -11,6 +9,8 @@ import javax.persistence.*;
 @Table(name = "vehicle_owner")
 public class VehicleOwner {
     private int vehicleOwnerId;
+    private int userId;
+    private int vehicleId;
     private int maxRidersInclDriver;
     private int vin;
     private String insuranceProvider;
@@ -18,8 +18,6 @@ public class VehicleOwner {
     private String licensePlate;
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "vehicle_owner_id")
     public int getVehicleOwnerId() {
         return vehicleOwnerId;
@@ -27,6 +25,26 @@ public class VehicleOwner {
 
     public void setVehicleOwnerId(int vehicleOwnerId) {
         this.vehicleOwnerId = vehicleOwnerId;
+    }
+
+    @Basic
+    @Column(name = "user_id")
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    @Basic
+    @Column(name = "vehicle_id")
+    public int getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
     @Basic
@@ -87,6 +105,8 @@ public class VehicleOwner {
         VehicleOwner that = (VehicleOwner) o;
 
         if (vehicleOwnerId != that.vehicleOwnerId) return false;
+        if (userId != that.userId) return false;
+        if (vehicleId != that.vehicleId) return false;
         if (maxRidersInclDriver != that.maxRidersInclDriver) return false;
         if (vin != that.vin) return false;
         if (insuranceProvider != null ? !insuranceProvider.equals(that.insuranceProvider) : that.insuranceProvider != null)
@@ -101,6 +121,8 @@ public class VehicleOwner {
     @Override
     public int hashCode() {
         int result = vehicleOwnerId;
+        result = 31 * result + userId;
+        result = 31 * result + vehicleId;
         result = 31 * result + maxRidersInclDriver;
         result = 31 * result + vin;
         result = 31 * result + (insuranceProvider != null ? insuranceProvider.hashCode() : 0);

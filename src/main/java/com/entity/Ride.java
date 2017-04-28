@@ -1,25 +1,35 @@
 package com.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 /**
  * Created by student on 4/27/17.
  */
 @Entity
+@IdClass(RidePK.class)
 @Table(name="ride")
 public class Ride {
+    private int userUserId;
     private int rideId;
+    private int startAddressId;
+    private int endAddressId;
     private String departTime;
     private String recurrenceDay;
     private Integer numOfRecurrences;
     private int vehicleId;
     private byte rideIsFull;
 
+    @Basic
+    @Column(name = "user_user_id")
+    public int getUserUserId() {
+        return userUserId;
+    }
+
+    public void setUserUserId(int userUserId) {
+        this.userUserId = userUserId;
+    }
+
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "ride_id")
     public int getRideId() {
         return rideId;
@@ -27,6 +37,26 @@ public class Ride {
 
     public void setRideId(int rideId) {
         this.rideId = rideId;
+    }
+
+    @Basic
+    @Column(name = "start_address_id")
+    public int getStartAddressId() {
+        return startAddressId;
+    }
+
+    public void setStartAddressId(int startAddressId) {
+        this.startAddressId = startAddressId;
+    }
+
+    @Basic
+    @Column(name = "end_address_id")
+    public int getEndAddressId() {
+        return endAddressId;
+    }
+
+    public void setEndAddressId(int endAddressId) {
+        this.endAddressId = endAddressId;
     }
 
     @Id
@@ -86,7 +116,10 @@ public class Ride {
 
         Ride ride = (Ride) o;
 
+        if (userUserId != ride.userUserId) return false;
         if (rideId != ride.rideId) return false;
+        if (startAddressId != ride.startAddressId) return false;
+        if (endAddressId != ride.endAddressId) return false;
         if (vehicleId != ride.vehicleId) return false;
         if (rideIsFull != ride.rideIsFull) return false;
         if (departTime != null ? !departTime.equals(ride.departTime) : ride.departTime != null) return false;
@@ -100,7 +133,10 @@ public class Ride {
 
     @Override
     public int hashCode() {
-        int result = rideId;
+        int result = userUserId;
+        result = 31 * result + rideId;
+        result = 31 * result + startAddressId;
+        result = 31 * result + endAddressId;
         result = 31 * result + (departTime != null ? departTime.hashCode() : 0);
         result = 31 * result + (recurrenceDay != null ? recurrenceDay.hashCode() : 0);
         result = 31 * result + (numOfRecurrences != null ? numOfRecurrences.hashCode() : 0);
