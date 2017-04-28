@@ -1,0 +1,12 @@
+<!--Added from Mike Young's comment in Slack #authentication Search on context.xml-->
+<Context docBase="mycine" path="/mycine" reloadable="true">
+    <Realm className="org.apache.catalina.realm.JDBCRealm"
+           driverName="com.mysql.jdbc.Driver"
+           connectionURL="jdbc:mysql://localhost:3306/ride_share?user=tomcat&amp;password=tomcat"
+           userTable="users" userNameCol="user_name" userCredCol="password"
+           userRoleTable="UserRoles" roleNameCol="role_name" >
+        <CredentialHandler
+                className="org.apache.catalina.realm.MessageDigestCredentialHandler"
+                algorithm="sha-256" />
+    </Realm>
+</Context>
