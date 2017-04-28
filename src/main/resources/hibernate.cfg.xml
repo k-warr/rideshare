@@ -10,20 +10,23 @@
 
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/ride_share</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">student</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/ride_share2</property>
 
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
+        <mapping class="com.entity.Address"/>
+        <mapping class="com.entity.Ride"/>
+        <mapping class="com.entity.RideRequest"/>
+        <mapping class="com.entity.User"/>
+        <mapping class="com.entity.Vehicle"/>
+        <mapping class="com.entity.VehicleOwner"/>
 
         <!-- List the annotated entity class/es -->
         <!--<mapping class="com.entity.User"/>-->
         <!--<mapping class="com.entity.Vehicle"/>-->
-
     </session-factory>
 
 </hibernate-configuration>
