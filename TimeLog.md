@@ -29,3 +29,9 @@
 
 ## Week 11
 * 1 hour backend work
+
+## Week 13 
+* 1.5 hours jsp work
+* 1.5 hours transfer to new repo
+* 1 hour talk with Glenn code review
+* 1 hour rework database
