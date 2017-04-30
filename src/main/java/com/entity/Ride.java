@@ -1,23 +1,36 @@
 package com.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
- * Created by student on 4/27/17.
+ * Created by student on 4/30/17.
  */
 @Entity
-@IdClass(RidePK.class)
 @Table(name="ride")
 public class Ride {
-    private int userUserId;
     private int rideId;
+    private int userUserId;
     private int startAddressId;
     private int endAddressId;
     private String departTime;
     private String recurrenceDay;
     private Integer numOfRecurrences;
-    private int vehicleOwnerId;
     private byte rideIsFull;
+    private int vehicleOwnerId;
+
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name="increment", strategy = "increment")
+    @Column(name = "ride_id")
+    public int getRideId() {
+        return rideId;
+    }
+
+    public void setRideId(int rideId) {
+        this.rideId = rideId;
+    }
 
     @Basic
     @Column(name = "user_user_id")
@@ -27,16 +40,6 @@ public class Ride {
 
     public void setUserUserId(int userUserId) {
         this.userUserId = userUserId;
-    }
-
-    @Id
-    @Column(name = "ride_id")
-    public int getRideId() {
-        return rideId;
-    }
-
-    public void setRideId(int rideId) {
-        this.rideId = rideId;
     }
 
     @Basic
@@ -59,7 +62,7 @@ public class Ride {
         this.endAddressId = endAddressId;
     }
 
-    @Id
+    @Basic
     @Column(name = "depart_time")
     public String getDepartTime() {
         return departTime;
@@ -90,16 +93,6 @@ public class Ride {
     }
 
     @Basic
-    @Column(name = "vehicle_owner_id")
-    public int getVehicleOwnerId() {
-        return vehicleOwnerId;
-    }
-
-    public void setVehicleOwnerId(int vehicleOwnerId) {
-        this.vehicleOwnerId = vehicleOwnerId;
-    }
-
-    @Basic
     @Column(name = "ride_is_full")
     public byte getRideIsFull() {
         return rideIsFull;
@@ -109,6 +102,16 @@ public class Ride {
         this.rideIsFull = rideIsFull;
     }
 
+    @Basic
+    @Column(name = "vehicle_owner_id")
+    public int getVehicleOwnerId() {
+        return vehicleOwnerId;
+    }
+
+    public void setVehicleOwnerId(int vehicleOwnerId) {
+        this.vehicleOwnerId = vehicleOwnerId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -116,12 +119,12 @@ public class Ride {
 
         Ride ride = (Ride) o;
 
-        if (userUserId != ride.userUserId) return false;
         if (rideId != ride.rideId) return false;
+        if (userUserId != ride.userUserId) return false;
         if (startAddressId != ride.startAddressId) return false;
         if (endAddressId != ride.endAddressId) return false;
-        if (vehicleOwnerId != ride.vehicleOwnerId) return false;
         if (rideIsFull != ride.rideIsFull) return false;
+        if (vehicleOwnerId != ride.vehicleOwnerId) return false;
         if (departTime != null ? !departTime.equals(ride.departTime) : ride.departTime != null) return false;
         if (recurrenceDay != null ? !recurrenceDay.equals(ride.recurrenceDay) : ride.recurrenceDay != null)
             return false;
@@ -133,15 +136,15 @@ public class Ride {
 
     @Override
     public int hashCode() {
-        int result = userUserId;
-        result = 31 * result + rideId;
+        int result = rideId;
+        result = 31 * result + userUserId;
         result = 31 * result + startAddressId;
         result = 31 * result + endAddressId;
         result = 31 * result + (departTime != null ? departTime.hashCode() : 0);
         result = 31 * result + (recurrenceDay != null ? recurrenceDay.hashCode() : 0);
         result = 31 * result + (numOfRecurrences != null ? numOfRecurrences.hashCode() : 0);
-        result = 31 * result + vehicleOwnerId;
         result = 31 * result + (int) rideIsFull;
+        result = 31 * result + vehicleOwnerId;
         return result;
     }
 }

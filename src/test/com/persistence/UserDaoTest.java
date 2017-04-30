@@ -1,8 +1,6 @@
 package com.persistence;
 
 import com.entity.User;
-import com.persistence.SessionFactoryProvider;
-import com.persistence.UserDao;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.junit.After;

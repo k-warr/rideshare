@@ -1,23 +1,27 @@
 package com.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
- * Created by student on 4/27/17.
+ * Created by student on 4/30/17.
  */
 @Entity
-@Table(name = "user")
+@Table(name="user")
 public class User {
     private int userId;
+    private String password;
     private String username;
     private String firstName;
     private String lastName;
     private String email;
     private int phone;
     private Integer homeAddressId;
-    private String password;
 
     @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "user_id")
     public int getUserId() {
         return userId;
@@ -25,6 +29,16 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    @Basic
+    @Column(name = "password")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Basic
@@ -87,16 +101,6 @@ public class User {
         this.homeAddressId = homeAddressId;
     }
 
-    @Basic
-    @Column(name = "password")
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,13 +110,13 @@ public class User {
 
         if (userId != user.userId) return false;
         if (phone != user.phone) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (homeAddressId != null ? !homeAddressId.equals(user.homeAddressId) : user.homeAddressId != null)
             return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
 
         return true;
     }
@@ -120,13 +124,13 @@ public class User {
     @Override
     public int hashCode() {
         int result = userId;
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + phone;
         result = 31 * result + (homeAddressId != null ? homeAddressId.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
 }

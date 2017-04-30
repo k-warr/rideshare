@@ -1,9 +1,11 @@
 package com.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
- * Created by student on 4/27/17.
+ * Created by student on 4/30/17.
  */
 @Entity
 @Table(name = "ride_request")
@@ -18,6 +20,8 @@ public class RideRequest {
     private Byte activeRequest;
 
     @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "request_id")
     public int getRequestId() {
         return requestId;

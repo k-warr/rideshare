@@ -1,9 +1,11 @@
 package com.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
- * Created by student on 4/27/17.
+ * Created by student on 4/30/17.
  */
 @Entity
 @Table(name = "vehicle_owner")
@@ -18,6 +20,8 @@ public class VehicleOwner {
     private String licensePlate;
 
     @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "vehicle_owner_id")
     public int getVehicleOwnerId() {
         return vehicleOwnerId;
