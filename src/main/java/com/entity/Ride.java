@@ -16,7 +16,7 @@ public class Ride {
     private String departTime;
     private String recurrenceDay;
     private Integer numOfRecurrences;
-    private int vehicleId;
+    private int vehicleOwnerId;
     private byte rideIsFull;
 
     @Basic
@@ -90,13 +90,13 @@ public class Ride {
     }
 
     @Basic
-    @Column(name = "vehicle_id")
-    public int getVehicleId() {
-        return vehicleId;
+    @Column(name = "vehicle_owner_id")
+    public int getVehicleOwnerId() {
+        return vehicleOwnerId;
     }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicleOwnerId(int vehicleOwnerId) {
+        this.vehicleOwnerId = vehicleOwnerId;
     }
 
     @Basic
@@ -120,7 +120,7 @@ public class Ride {
         if (rideId != ride.rideId) return false;
         if (startAddressId != ride.startAddressId) return false;
         if (endAddressId != ride.endAddressId) return false;
-        if (vehicleId != ride.vehicleId) return false;
+        if (vehicleOwnerId != ride.vehicleOwnerId) return false;
         if (rideIsFull != ride.rideIsFull) return false;
         if (departTime != null ? !departTime.equals(ride.departTime) : ride.departTime != null) return false;
         if (recurrenceDay != null ? !recurrenceDay.equals(ride.recurrenceDay) : ride.recurrenceDay != null)
@@ -140,7 +140,7 @@ public class Ride {
         result = 31 * result + (departTime != null ? departTime.hashCode() : 0);
         result = 31 * result + (recurrenceDay != null ? recurrenceDay.hashCode() : 0);
         result = 31 * result + (numOfRecurrences != null ? numOfRecurrences.hashCode() : 0);
-        result = 31 * result + vehicleId;
+        result = 31 * result + vehicleOwnerId;
         result = 31 * result + (int) rideIsFull;
         return result;
     }

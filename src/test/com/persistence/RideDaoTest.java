@@ -16,7 +16,9 @@ public class RideDaoTest {
 
     @Before
     public void setUp() throws Exception {
-
+        dao = new RideDao();
+        testRide = new Ride();
+        
     }
 
     @After
