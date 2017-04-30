@@ -11,8 +11,6 @@
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/ride_share2</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">student</property>
 
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
@@ -25,6 +23,7 @@
         <mapping class="com.entity.User"/>
         <mapping class="com.entity.Vehicle"/>
         <mapping class="com.entity.VehicleOwner"/>
+        <mapping class="com.entity.UserRole"/>
 
         <!-- List the annotated entity class/es -->
         <!--<mapping class="com.entity.User"/>-->
