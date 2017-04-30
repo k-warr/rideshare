@@ -67,7 +67,7 @@ public class UserDao {
                 session.close();
             }
         }
-
+        user.setUserId(id);
         return id;
     }
 

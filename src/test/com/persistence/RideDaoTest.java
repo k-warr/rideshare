@@ -1,6 +1,9 @@
 package com.persistence;
 
 import com.entity.Ride;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +17,7 @@ import static org.junit.Assert.*;
 public class RideDaoTest {
     RideDao dao;
     Ride testRide;
+    int newRide;
 
     @Before
     public void setUp() throws Exception {
@@ -23,18 +27,17 @@ public class RideDaoTest {
         testRide.setVehicleOwnerId(1);
         testRide.setStartAddressId(1);
         testRide.setEndAddressId(2);
-        testRide.setRecurrenceDay("M");
+        testRide.setRecurrenceDay("Z");
         testRide.setNumOfRecurrences(4);
+        newRide = 0;
     }
 
-//    @After
-//    public void tearDown() throws Exception {
-//        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-//        session.beginTransaction();
-//        SQLQuery query = session.createSQLQuery("DELETE FROM ride WHERE recurrence_day = \'M\'");
-//        query.executeUpdate();
-//        session.getTransaction().commit();
-//    }
+    @After
+    public void tearDown() throws Exception {
+        if (newRide != 0) {
+            dao.deleteRide(newRide);
+        }
+    }
 
     @Test
     public void getAllRides() throws Exception {
@@ -44,17 +47,21 @@ public class RideDaoTest {
 
     @Test
     public void getRide() throws Exception {
+        newRide = dao.addRide(testRide);
         assertEquals("Ride ID not returned correctly", 1, dao.getRide(1).getRideId());
     }
 
     @Test
     public void addRide() throws Exception {
-
+        newRide = dao.addRide(testRide);
+        assertEquals("Ride ID not returned correctly", testRide.getRideId(), newRide);
     }
 
     @Test
     public void deleteRide() throws Exception {
-
+        newRide = dao.addRide(testRide);
+        dao.deleteRide(newRide);
+        assertNull("deleteRide failed", dao.getRide(newRide));
     }
 
     @Test

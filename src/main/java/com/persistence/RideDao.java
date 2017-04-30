@@ -48,6 +48,7 @@ public class RideDao {
             }
         }
 
+        ride.setRideId(id);
         return id;
     }
 
