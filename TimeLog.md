@@ -35,3 +35,6 @@
 * 1.5 hours transfer to new repo
 * 1 hour talk with Glenn code review
 * 1 hour rework database
+
+## Week 14
+* 3 hours Tomee Security and DAOs

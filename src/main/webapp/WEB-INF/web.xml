@@ -1,18 +1,34 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
   <display-name>Archetype Created Web Application</display-name>
+  <!--TODO: Fix authentication. It looks like the WARNING may have something to do with it.
+      WARN: Establishing SSL connection without server's identity verification is not recommended.
+      According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit
+      option isn't set. For compliance with existing applications not using SSL the verifyServerCertificate property is set
+      to 'false'. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore
+       for server certificate verification. -->
+  <!--Add constraint for myProfile-->
   <security-constraint>
     <web-resource-collection>
-      <web-resource-name>edit</web-resource-name>
+      <web-resource-name>myProfile</web-resource-name>
       <url-pattern>/myProfile.jsp</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <!--<role-name>admin</role-name>-->
+      <role-name>administrator</role-name>
+      <role-name>registered-user</role-name>
     </auth-constraint>
   </security-constraint>
+
+  <security-role>
+    <role-name>registered-user</role-name>
+  </security-role>
+
+  <security-role>
+    <role-name>administrator</role-name>
+  </security-role>
 
   <login-config>
     <auth-method>FORM</auth-method>
@@ -21,12 +37,13 @@
       <form-error-page>/failedLogin.jsp</form-error-page>
     </form-login-config>
   </login-config>
-  <!--<servlet>-->
-    <!--<servlet-name>profilePage</servlet-name>-->
-    <!--<jsp-file>myProfile.jsp</jsp-file>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>profilePage</servlet-name>-->
-    <!--<url-pattern>/myprofile</url-pattern>-->
-  <!--</servlet-mapping>-->
+
+  <servlet>
+    <servlet-name>profilePage</servlet-name>
+    <jsp-file>/myProfile.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>profilePage</servlet-name>
+    <url-pattern>/myprofile</url-pattern>
+  </servlet-mapping>
 </web-app>
