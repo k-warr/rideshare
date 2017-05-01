@@ -1,4 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
@@ -11,16 +14,16 @@
       to 'false'. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore
        for server certificate verification. -->
   <!--Add constraint for myProfile-->
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>myProfile</web-resource-name>
-      <url-pattern>/myProfile.jsp</url-pattern>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>administrator</role-name>
-      <role-name>registered-user</role-name>
-    </auth-constraint>
-  </security-constraint>
+  <!--<security-constraint>-->
+    <!--<web-resource-collection>-->
+      <!--<web-resource-name>myProfile</web-resource-name>-->
+      <!--<url-pattern>/myProfile.jsp</url-pattern>-->
+    <!--</web-resource-collection>-->
+    <!--<auth-constraint>-->
+      <!--<role-name>administrator</role-name>-->
+      <!--<role-name>registered-user</role-name>-->
+    <!--</auth-constraint>-->
+  <!--</security-constraint>-->
 
   <security-role>
     <role-name>registered-user</role-name>
@@ -38,12 +41,12 @@
     </form-login-config>
   </login-config>
 
-  <servlet>
-    <servlet-name>profilePage</servlet-name>
-    <jsp-file>/myProfile.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>profilePage</servlet-name>
-    <url-pattern>/myprofile</url-pattern>
-  </servlet-mapping>
+  <!--<servlet>-->
+    <!--<servlet-name>profilePage</servlet-name>-->
+    <!--<jsp-file>/myProfile.jsp</jsp-file>-->
+  <!--</servlet>-->
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>profilePage</servlet-name>-->
+    <!--<url-pattern>/myprofile</url-pattern>-->
+  <!--</servlet-mapping>-->
 </web-app>
