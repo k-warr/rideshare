@@ -16,6 +16,14 @@
 <c:import url="theme/nav.jsp" />
 <div>
     You have reached myProfile.jsp
+
+</div>
+<div>
+    <nav>
+        <a href="editProfileInfoForm.jsp">Edit Personal Information</a>
+        <a href="addYourCarForm.jsp">Become a Driver</a>
+
+    </nav>
 </div>
 </body>
 </html>
