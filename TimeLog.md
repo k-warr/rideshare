@@ -38,4 +38,4 @@
 
 ## Week 14
 * 3 hours Tomee Security and DAOs
-* 3.5 hours working on logic, buidling forms, started google maps api
+* 4.5 hours working on logic, buidling forms, started google maps api

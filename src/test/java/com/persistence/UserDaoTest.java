@@ -28,6 +28,15 @@ public class UserDaoTest {
         testUser.setPhone(1234567890);
     }
 
+    @After
+    public void deleteTestUser() {
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        session.beginTransaction();
+        SQLQuery query = session.createSQLQuery("DELETE FROM user WHERE username = \'test\'");
+        query.executeUpdate();
+        session.getTransaction().commit();
+    }
+
     @Test
     public void getAUserTest() throws Exception {
         String username = "";
@@ -55,14 +64,5 @@ public class UserDaoTest {
         }
 
         assertEquals("addUser failed","test", username);
-    }
-
-    @After
-    public void deleteTestUser() {
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        session.beginTransaction();
-        SQLQuery query = session.createSQLQuery("DELETE FROM user WHERE username = \'test\'");
-        query.executeUpdate();
-        session.getTransaction().commit();
     }
 }

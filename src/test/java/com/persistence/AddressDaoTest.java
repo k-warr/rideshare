@@ -1,6 +1,8 @@
 package com.persistence;
 
 import com.entity.Address;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,15 +19,21 @@ public class AddressDaoTest {
     @Before
     public void setUp() throws Exception {
         dao = new AddressDao();
+        testAddress = new Address();
         testAddress.setAddressNumber(1);
         testAddress.setStreetName("Test");
         testAddress.setCity("Testopia");
-        testAddress.setState("");
+        testAddress.setState("TS");
+        testAddress.setZipCode("1");
     }
 
     @After
     public void tearDown() throws Exception {
-
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        session.beginTransaction();
+        SQLQuery query = session.createSQLQuery("DELETE FROM address WHERE state = \'TS\'");
+        query.executeUpdate();
+        session.getTransaction().commit();
     }
 
     @Test
@@ -35,7 +43,9 @@ public class AddressDaoTest {
 
     @Test
     public void addressExists() throws Exception {
-
+        dao.addAddress(testAddress);
+        int returnValue = dao.existsAddress(testAddress);
+        assertEquals("existsAddress failed", testAddress.getAddressId(), returnValue);
     }
 
 }
