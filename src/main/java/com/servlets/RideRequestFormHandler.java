@@ -1,5 +1,11 @@
 package com.servlets;
 
+import com.entity.Address;
+import com.entity.RideRequest;
+import com.entity.User;
+import com.persistence.AddressDao;
+import com.persistence.RideRequestDao;
+import com.persistence.UserDao;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -24,29 +30,47 @@ public class RideRequestFormHandler extends HttpServlet {
         HttpSession session = request.getSession();
 //        ServletContext context = getServletContext();
 
-//        EmployeeDirectory directory = (EmployeeDirectory) context.getAttribute("employeeDirectory");
         String username = request.getParameter("username");
         String addressNumberOrigin = request.getParameter("numberOrigin");
         String streetOrigin = request.getParameter("streetOrigin");
         String cityOrigin = request.getParameter("cityOrigin");
-        int zipCodeOrigin = Integer.parseInt(request.getParameter("zipCodeOrigin"));
+        String stateOrigin = request.getParameter("stateOrigin");
+        String zipCodeOrigin = request.getParameter("zipCodeOrigin");
         String addressNumberDestination = request.getParameter("numberDestination");
         String streetDestination = request.getParameter("streetDestination");
         String cityDestination = request.getParameter("cityDestination");
-        int zipCodeDestination = Integer.parseInt(request.getParameter("zipCodeDestination"));
+        String stateDestination = request.getParameter("stateDestination");
+        String zipCodeDestination = request.getParameter("zipCodeDestination");
+        int dropoffTime = Integer.parseInt(request.getParameter("dropoffTime"));
+        String recurrenceDay = request.getParameter("recurrenceDay");
 
-        
+        User requestor = new UserDao().getUserByUsername(username);
+        Address originAddress = new Address();
+        Address destinationAddress= new Address();
+        AddressDao addressDao = new AddressDao();
+        RideRequest rideRequest = new RideRequest();
+        RideRequestDao rideRequestDao = new RideRequestDao();
 
+        originAddress.setAddressNumber(addressNumberOrigin);
+        originAddress.setStreetName(streetOrigin);
+        originAddress.setCity(cityOrigin);
+        originAddress.setState(stateOrigin);
+        originAddress.setZipCode(zipCodeOrigin);
+        addressDao.addAddressIfDoesntExist(originAddress);
 
-//        String searchTerm = request.getParameter("searchTerm");
-//        String searchType = request.getParameter("searchType");
+        destinationAddress.setAddressNumber(addressNumberDestination);
+        destinationAddress.setStreetName(streetDestination);
+        destinationAddress.setCity(cityDestination);
+        destinationAddress.setState(stateDestination);
+        destinationAddress.setZipCode(zipCodeDestination);
+        addressDao.addAddressIfDoesntExist(destinationAddress);
 
-//        if (searchTerm == null || searchTerm.equals("")) {
-//            session.setAttribute("noResultsFound", "Please key in values in the search bar below.");
-//            response.sendRedirect("/java112/project4-search_display");
-//        } else {
-//            Search search = directory.searchDatabase(searchTerm, searchType);
-//            session.setAttribute("employeesResults", search);
+        rideRequest.setPickupAddressId(originAddress.getAddressId());
+        rideRequest.setDropoffAddressId(destinationAddress.getAddressId());
+        rideRequest.setDropoffTime(dropoffTime);
+        rideRequest.setRecurrenceDay(recurrenceDay);
+        rideRequest.setUserId(requestor.getUserId());
+        rideRequestDao.addRideRequest(rideRequest);
 
         String url = "/test.jsp";
 

@@ -16,11 +16,17 @@ public class RideRequestHandler {
     private final Logger log = Logger.getLogger(this.getClass());
     private final static PropertyManager propertyManager = new PropertyManager();
 
-    public RideRequest newRequest(Address originAddress, Address destinationAddress) {
+    public RideRequest newRequest(Address originAddress
+            , Address destinationAddress, int dropoffTime, String recurrenceDay) {
+        AddressDao dao = new AddressDao();
+        RideRequest rideRequest = new RideRequest();
         String urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
                 + "&key="
                 + propertyManager.getProperty("google_api_key"); // API Key from developers.google.com DO NOT CHANGE
-        Session session = null;
+        int originId = dao.addAddressIfDoesntExist(originAddress);
+        rideRequest.setPickupAddressId(originId);
+        int destinationId = dao.addAddressIfDoesntExist(destinationAddress);
+        rideRequest.setDropoffAddressId(destinationId);
 
         return new RideRequest();
     }

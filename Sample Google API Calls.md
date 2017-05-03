@@ -6,3 +6,5 @@
 * [Multiple Destinations](https://developers.google.com/maps/documentation/directions/intro)
     * https://maps.googleapis.com/maps/api/directions/json?origin=Boston,MA&destination=Concord,MA&waypoints=Charlestown,MA|Lexington,MA&key=AIzaSyBwHxvNrLSrxZA9GeY3ChYzPFzGbTWwMV8
 * [My API Key](https://console.developers.google.com/apis/library?project=pricecheckcrowdsourceapi)
+
+* [Dynamic search bar with JS](https://developers.google.com/maps/documentation/javascript/places-autocomplete)

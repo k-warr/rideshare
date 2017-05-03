@@ -3,6 +3,7 @@ package com.persistence;
 import com.entity.Address;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projection;
@@ -57,35 +58,47 @@ public class AddressDao {
                 session.close();
             }
         }
-        address.setAddressId(id);
+        setAddressString(address);
+        return id;
+    }
+
+    private void setAddressString(Address address) {
+        address.setFullAddress(address.getAddressNumber()
+                + " " + address.getStreetName()
+                + " " + address.getCity()
+                + ", " + address.getState()
+                + " " + address.getZipCode());
+    }
+
+    public int addAddressIfDoesntExist(Address address) {
+        int id = existsAddress(address);
+        if (id == -1) {
+            id = addAddress(address);
+            setAddressString(address);
+        }
+
         return id;
     }
 
     public int existsAddress(Address address) {
         Session session = null;
-        Transaction trans = null;
         List<Address> addresses = null;
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
-//            trans = session.beginTransaction();
-//            session.delete(getAddress(id));
-//            trans.commit();
+            Query query = session.createSQLQuery(
+                    "select * from address where address_number = :address_number "
+                    + "AND street_name = :street_name "
+                    + "AND city = :city "
+                    + "AND state = :state "
+                    + "AND zip_code = :zip_code LIMIT 1")
+                    .addEntity(Address.class)
+                    .setParameter("address_number", address.getAddressNumber())
+                    .setParameter("street_name", address.getStreetName())
+                    .setParameter("city", address.getCity())
+                    .setParameter("state", address.getState())
+                    .setParameter("zip_code", address.getZipCode());
+            addresses = query.list();
 
-//            addresses = session.createCriteria(Address.class)
-//                    .setProjection(Projections.property())
-//                    .add(Restrictions.eq("address_number", address.getAddressNumber()))
-//
-////                    .add(Restrictions.eq("street_name", address.getStreetName()))
-////                    .add(Restrictions.eq("city", address.getCity()))
-////                    .add(Restrictions.eq("state", address.getState()))
-////                    .add(Restrictions.eq("zip_code", address.getZipCode()))
-//                    .list();
-            addresses = session.createCriteria(Address.class)
-                    .setProjection( Projections.distinct( Projections.projectionList()
-                    .add( Projections.property("address_number"), "address_number")))
-                    .add(Restrictions.eq("address_number", address.getAddressNumber()))
-            .list();
-            // TODO: Address this issue - ERROR com.persistence.AddressDao  - HibernateException: org.hibernate.QueryException: could not resolve property: address_number of: com.entity.Address
         } catch (HibernateException he) {
             log.error("HibernateException: " + he);
         } catch (Exception e) {
@@ -95,8 +108,7 @@ public class AddressDao {
                 session.close();
             }
         }
-        if (addresses != null && addresses.size() > 0) {
-            log.info(addresses.get(0));
+        if (addresses != null && addresses.size() == 1 ) {
             return  addresses.get(0).getAddressId();
         }
         return -1;

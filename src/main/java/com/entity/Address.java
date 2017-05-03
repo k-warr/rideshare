@@ -1,5 +1,7 @@
 package com.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
@@ -11,13 +13,16 @@ public class Address {
     private int addressId;
     private byte isBusiness;
     private String businessName;
-    private int addressNumber;
+    private String addressNumber;
     private String streetName;
     private String city;
     private String state;
     private String zipCode;
+    private String fullAddress;
 
     @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "address_id")
     public int getAddressId() {
         return addressId;
@@ -26,6 +31,14 @@ public class Address {
     public void setAddressId(int addressId) {
         this.addressId = addressId;
     }
+
+    @Basic
+    @Column(name="full_address")
+    public String getFullAddress() {
+        return fullAddress;
+    }
+
+    public void setFullAddress(String fullAddress) { this.fullAddress = fullAddress;}
 
     @Basic
     @Column(name = "is_business")
@@ -49,11 +62,11 @@ public class Address {
 
     @Basic
     @Column(name = "address_number")
-    public int getAddressNumber() {
+    public String getAddressNumber() {
         return addressNumber;
     }
 
-    public void setAddressNumber(int addressNumber) {
+    public void setAddressNumber(String addressNumber) {
         this.addressNumber = addressNumber;
     }
 
@@ -122,7 +135,7 @@ public class Address {
         int result = addressId;
         result = 31 * result + (int) isBusiness;
         result = 31 * result + (businessName != null ? businessName.hashCode() : 0);
-        result = 31 * result + addressNumber;
+        result = 31 * result + (addressNumber != null ? addressNumber.hashCode() : 0);
         result = 31 * result + (streetName != null ? streetName.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);

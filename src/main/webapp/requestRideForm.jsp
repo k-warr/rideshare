@@ -162,7 +162,9 @@
                    placeholder="5-digit zip code" pattern="[0-9]{5}" >
         </fieldset>
         <label for="dropoffTime">Dropoff Time: </label>
-        <input type="text" id="dropoffTime" placeholder="Enter value between 0000 and 2359" >
+        <input type="text" id="dropoffTime"
+               pattern="[0-9]{4}"
+               placeholder="Enter value between 0000 and 2359. Must be 4 digits" >
         <br>
         <label for="recurrenceDay">Recurrence Day: </label>
         <select id="recurrenceDay">

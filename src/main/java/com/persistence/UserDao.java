@@ -3,6 +3,7 @@ package com.persistence;
 import com.entity.User;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -27,19 +28,35 @@ public class UserDao {
     }
 
     public User getUser(int id) {
-//        session = SessionFactoryProvider.getSessionFactory().openSession();
-//        session.beginTransaction();
-//
-//        SQLQuery output = session.createSQLQuery("SELECT * FROM user WHERE username=\'test\'");
-//        output.setResultTransformer(Transformers.aliasToBean(User.class));
-//        List users =  output.list();
-//        // TODO: get return from query to User Object
-//        System.out.println(users.get(0));
-//        return (User) users.get(0);
-
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         User user = (User) session.get(User.class, id);
         return user;
+    }
+
+    public User getUserByUsername(String username) {
+        Session session = null;
+        List<User> users = null;
+        try {
+            session = SessionFactoryProvider.getSessionFactory().openSession();
+            Query query = session.createSQLQuery(
+                    "select * from user where username = :username LIMIT 1")
+                    .addEntity(User.class)
+                    .setParameter("username", username);
+            users = query.list();
+
+        } catch (HibernateException he) {
+            log.error("HibernateException: " + he);
+        } catch (Exception e) {
+            log.error("Exception: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        if (users.size() != 1) {
+            return null;
+        }
+        return users.get(0);
     }
 
     /**

@@ -20,11 +20,12 @@ public class AddressDaoTest {
     public void setUp() throws Exception {
         dao = new AddressDao();
         testAddress = new Address();
-        testAddress.setAddressNumber(1);
+        testAddress.setAddressNumber("1");
         testAddress.setStreetName("Test");
         testAddress.setCity("Testopia");
         testAddress.setState("TS");
         testAddress.setZipCode("1");
+        testAddress.setIsBusiness((byte)0);
     }
 
     @After
