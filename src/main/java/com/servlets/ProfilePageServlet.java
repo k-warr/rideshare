@@ -1,6 +1,13 @@
 package com.servlets;
 
+import com.entity.RideRequest;
+import com.entity.User;
+import com.persistence.RideRequestDao;
+import com.persistence.UserDao;
+import org.apache.log4j.Logger;
+
 import java.io.*;
+import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
@@ -16,6 +23,7 @@ import javax.servlet.http.*;
         name = "profilePage",
         urlPatterns = {"/myprofile"}
 ) public class ProfilePageServlet extends HttpServlet {
+    private final Logger log = Logger.getLogger(this.getClass());
     /**
      *  Handles HTTP GET requests.
      *
@@ -25,24 +33,29 @@ import javax.servlet.http.*;
      *@exception  IOException       if there is an IO failure
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.info("Get request reached.");
+        HttpSession session = request.getSession();
+        String username = session.getAttribute("username").toString();
+        UserDao userDao = new UserDao();
+        User user = userDao.getUserByUsername(username);
+        RideRequestDao rideRequestDao = new RideRequestDao();
+        List<RideRequest> rideRequests = null;
 
-//        HttpSession session = request.getSession();
-//
-//        int sessionCounter;
-//
-//        Integer sessionCountInteger;
-//        sessionCountInteger = (Integer) session.getAttribute("sessionCounter");
-//
-//        if (sessionCountInteger == null) {
-//            sessionCounter = 1;
-//        } else {
-//            sessionCounter = sessionCountInteger;
-//            sessionCounter++;
-//        }
-//
-//        session.setAttribute("sessionCounter", sessionCounter);
 
-        // Create the url
+        if (!username.equals(null) && user != null) {
+            // TODO: get a list of all ride requests and set the list to a session var
+            rideRequests = rideRequestDao.getRideRequestByUserId(user.getUserId());
+            session.setAttribute("riderRideRequests", rideRequests);
+            // TODO: if driver, get a list of all open ride requests
+
+            // TODO: if driver, show all rides
+                // TODO: link to a page that shows directions to a location
+
+        } else {
+            log.info("no username found");
+            response.sendRedirect("/noLoginFound.jsp");
+        }
+
         String url = "/myProfile.jsp";
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

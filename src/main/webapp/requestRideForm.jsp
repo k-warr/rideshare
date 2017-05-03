@@ -21,21 +21,21 @@
     <h3>Ride Request Form</h3>
     <form action="/rideRequestFormHandler" method="POST">
         <label for="username">Username</label>
-        <input type="text" id="username" >
+        <input type="text" id="username" name="username">
         <br>
         <fieldset>
             <legend>Origin Information</legend>
             <label for="numberOrigin">Address Number: </label>
-            <input type="text" id="numberOrigin" pattern="[0-9]{0,}">
+            <input type="text" id="numberOrigin" name="numberOrigin" pattern="[0-9]{0,}">
             <br>
             <label for="streetOrigin">Street Name: </label>
-            <input type="text" id="streetOrigin" >
+            <input type="text" id="streetOrigin" name="streetOrigin">
             <br>
             <label for="cityOrigin">City: </label>
-            <input type="text" id="cityOrigin" >
+            <input type="text" id="cityOrigin" name="cityOrigin" >
             <br>
             <label for="stateOrigin">State: </label>
-            <select id="stateOrigin">
+            <select id="stateOrigin" name="stateOrigin">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>
@@ -89,22 +89,22 @@
                 <option value="WY">Wyoming</option>
             </select>
             <label for="zipCodeOrigin">Zip Code: </label>
-            <input type="text" id="zipCodeOrigin"
+            <input type="text" id="zipCodeOrigin" name="zipCodeOrigin"
                    placeholder="5-digit zip code" pattern="[0-9]{5}">
         </fieldset>
         <fieldset>
             <legend>Destination Information</legend>
             <label for="numberDestination">Address Number: </label>
-            <input type="text" id="numberDestination" pattern="[0-9]{0,}">
+            <input type="text" id="numberDestination" name="numberDestination" pattern="[0-9]{0,}">
             <br>
             <label for="streetDestination">Street Name: </label>
-            <input type="text" id="streetDestination" >
+            <input type="text" id="streetDestination" name="streetDestination" >
             <br>
             <label for="cityDestination">City: </label>
-            <input type="text" id="cityDestination" >
+            <input type="text" id="cityDestination" name="cityDestination">
             <br>
             <label for="stateDestination">State: </label>
-            <select id="stateDestination">
+            <select id="stateDestination" name="stateDestination">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>
@@ -158,16 +158,16 @@
                 <option value="WY">Wyoming</option>
             </select>
             <label for="zipCodeDestination">Zip Code: </label>
-            <input type="text" id="zipCodeDestination"
+            <input type="text" id="zipCodeDestination" name="zipCodeDestination"
                    placeholder="5-digit zip code" pattern="[0-9]{5}" >
         </fieldset>
         <label for="dropoffTime">Dropoff Time: </label>
-        <input type="text" id="dropoffTime"
+        <input type="text" id="dropoffTime" name="dropoffTime"
                pattern="[0-9]{4}"
                placeholder="Enter value between 0000 and 2359. Must be 4 digits" >
         <br>
         <label for="recurrenceDay">Recurrence Day: </label>
-        <select id="recurrenceDay">
+        <select id="recurrenceDay" name="recurrenceDay">
             <option value="M">Monday</option>
             <option value="T">Tuesday</option>
             <option value="W">Wednesday</option>

@@ -1,8 +1,10 @@
 package com.persistence;
 
+import com.entity.Ride;
 import com.entity.RideRequest;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -32,6 +34,51 @@ public class RideRequestDao {
         return rideRequest;
     }
 
+    public List<RideRequest> getRideRequestByUserId(int id) {
+        List<RideRequest> rideRequests = null;
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        try {
+            session = SessionFactoryProvider.getSessionFactory().openSession();
+            Query query = session.createSQLQuery(
+                    "select * from ride_request where user_id = :user_id ")
+                    .addEntity(RideRequest.class)
+                    .setParameter("user_id", id);
+            rideRequests = query.list();
+        } catch (HibernateException he) {
+            log.error("HibernateException: " + he);
+        } catch (Exception e) {
+            log.error("Exception: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return rideRequests;
+    }
+
+    public List<RideRequest> getAllOpenRequestsExcludeUser(int id) {
+        List<RideRequest> rideRequests = null;
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        try {
+            session = SessionFactoryProvider.getSessionFactory().openSession();
+            Query query = session.createSQLQuery(
+                    "SELECT * FROM ride_request WHERE NOT user_id = :user_id "
+                    + "AND active_request = 1")
+                    .addEntity(RideRequest.class)
+                    .setParameter("user_id", id);
+            rideRequests = query.list();
+        } catch (HibernateException he) {
+            log.error("HibernateException: " + he);
+        } catch (Exception e) {
+            log.error("Exception: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return rideRequests;
+    }
 
     /**
      * add a rideRequest

@@ -13,12 +13,21 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+                <% if (session.getAttribute("username") == null) { %>
+                <li>
+                    <a href="/login.jsp">Login</a>
+                </li>
+                <li>
+                    <a href="/signupForm.jsp">Signup</a>
+                </li>
+                <% } else {%>
                 <li>
                     <a href="/myprofile">Profile</a>
                 </li>
                 <li>
                     <a href="/myProfile.jsp">myProfile.jsp</a>
                 </li>
+                <% } %>
                 <li>
                     <a href="#">Contact</a>
                 </li>

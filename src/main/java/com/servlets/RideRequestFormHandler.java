@@ -27,10 +27,11 @@ public class RideRequestFormHandler extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.info("RideRequestFormHandler reached.");
         HttpSession session = request.getSession();
 //        ServletContext context = getServletContext();
-
         String username = request.getParameter("username");
+        log.info("Username: " + username);
         String addressNumberOrigin = request.getParameter("numberOrigin");
         String streetOrigin = request.getParameter("streetOrigin");
         String cityOrigin = request.getParameter("cityOrigin");
@@ -70,6 +71,7 @@ public class RideRequestFormHandler extends HttpServlet {
         rideRequest.setDropoffTime(dropoffTime);
         rideRequest.setRecurrenceDay(recurrenceDay);
         rideRequest.setUserId(requestor.getUserId());
+        rideRequest.setActiveRequest((byte) 1);
         rideRequestDao.addRideRequest(rideRequest);
 
         String url = "/test.jsp";

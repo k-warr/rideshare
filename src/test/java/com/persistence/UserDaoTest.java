@@ -61,6 +61,7 @@ public class UserDaoTest {
 
         if (users.size() > 0) {
             username = users.get(0);
+
         }
 
         assertEquals("addUser failed","test", username);

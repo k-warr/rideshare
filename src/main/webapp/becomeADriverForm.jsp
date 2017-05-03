@@ -13,31 +13,31 @@
 <body>
     <form action="becomeADriverFormHandler" method="POST">
         <label for="username">Username: </label>
-        <input type="text" id="username">
+        <input type="text" id="username" name="username">
         <br>
         <label for="make">Car Make: </label>
-        <input type="text" id="make">
+        <input type="text" id="make" name="make">
         <br>
         <label for="model">Car Model: </label>
-        <input type="text" id="model">
+        <input type="text" id="model" name="model">
         <br>
         <label for="year">Manufactured Year: </label>
-        <input type="text" id="year">
+        <input type="text" id="year" name="year">
         <br>
         <label for="maxOccupants">Max Occupants Including Driver: </label>
-        <input type="text" id="maxOccupants">
+        <input type="text" id="maxOccupants" name="maxOccupants">
         <br>
         <label for="vin">VIN: </label>
-        <input type="text" id="vin">
+        <input type="text" id="vin" name="vin">
         <br>
         <label for="driversLicense">Driver's License Number: </label>
-        <input type="text" id="driversLicense">
+        <input type="text" id="driversLicense" name="driversLicense">
         <br>
         <label for="licensePlate">License Plate Number: </label>
-        <input type="text" id="licensePlate">
+        <input type="text" id="licensePlate" name="licensePlate">
         <br>
         <label for="insuranceProvider">Insurance Provider: </label>
-        <input type="text" id="insuranceProvider">
+        <input type="text" id="insuranceProvider" name="insuranceProvider">
         <br>
         <input type="submit" value="Submit">
     </form>
