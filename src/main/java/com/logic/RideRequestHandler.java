@@ -4,6 +4,7 @@ import com.entity.Address;
 import com.entity.RideRequest;
 import com.persistence.AddressDao;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -15,13 +16,11 @@ public class RideRequestHandler {
     private final Logger log = Logger.getLogger(this.getClass());
     private final static PropertyManager propertyManager = new PropertyManager();
 
-    public RideRequestHandler() {
-    }
-
     public RideRequest newRequest(Address originAddress, Address destinationAddress) {
         String urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
                 + "&key="
                 + propertyManager.getProperty("google_api_key"); // API Key from developers.google.com DO NOT CHANGE
+        Session session = null;
 
         return new RideRequest();
     }
