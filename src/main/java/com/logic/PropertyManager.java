@@ -16,12 +16,10 @@ public class PropertyManager extends Properties {
         try {
             InputStream rideShareProperties =this.getClass().getResourceAsStream("/rideshare.properties");
             this.load(rideShareProperties);
-//                properties.load(this.getClass().getResourceAsStream("/rideshare.properties"));
         } catch (IOException ioException) {
             log.error("IOException in PropertyManager");
         } catch (Exception exception) {
             log.error("Exception in PropertyManager");
         }
-
     }
 }
