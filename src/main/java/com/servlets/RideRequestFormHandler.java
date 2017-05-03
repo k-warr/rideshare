@@ -1,5 +1,7 @@
 package com.servlets;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,12 +12,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Created by student on 5/2/17.
+ * Created by Kien Warren on 5/2/17.
  */
 @WebServlet(
         name = "RideRequestFormHandler",
         urlPatterns= {"/rideRequestFormHandler"})
 public class RideRequestFormHandler extends HttpServlet {
+    private final Logger log = Logger.getLogger(this.getClass());
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 //        ServletContext context = getServletContext();
@@ -31,7 +35,7 @@ public class RideRequestFormHandler extends HttpServlet {
         String cityDestination = request.getParameter("cityDestination");
         int zipCodeDestination = Integer.parseInt(request.getParameter("zipCodeDestination"));
 
-
+        
 
 
 //        String searchTerm = request.getParameter("searchTerm");

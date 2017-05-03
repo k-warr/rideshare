@@ -28,12 +28,6 @@ public class AddressDao {
         return address;
     }
 
-    public boolean AddressExists(Address address) {
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-
-        return false;
-    }
-
     /**
      * add a address
      *
@@ -44,6 +38,7 @@ public class AddressDao {
         int id = 0;
         Session session = null;
         Transaction trans = null;
+
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
             trans = session.beginTransaction();
@@ -61,6 +56,26 @@ public class AddressDao {
         }
         address.setAddressId(id);
         return id;
+    }
+
+    private int existsAddress(Address address) {
+//        Session session = null;
+//        Transaction trans = null;
+//        try {
+//            session = SessionFactoryProvider.getSessionFactory().openSession();
+//            trans = session.beginTransaction();
+//            session.delete(getAddress(id));
+//            trans.commit();
+//        } catch (HibernateException he) {
+//            log.error("HibernateException: " + he);
+//        } catch (Exception e) {
+//            log.error("Exception: " + e.getMessage());
+//        } finally {
+//            if (session != null) {
+//                session.close();
+//            }
+//        }
+        return -1;
     }
 
     /**
