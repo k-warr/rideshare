@@ -1,7 +1,9 @@
 package com.servlets;
 
 import com.entity.User;
+import com.logic.PropertyManager;
 import com.persistence.UserDao;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Properties;
 
 /**
  *  This servlet handles logic after the Submit button is pressed on the
@@ -25,6 +28,11 @@ import java.io.IOException;
         name = "testPage",
         urlPatterns = {"/test"}    // must be unique
 ) public class Test extends HttpServlet {
+    private final Logger log = Logger.getLogger(this.getClass());
+//    private Properties properties;
+
+    private final static PropertyManager propertyManager = new PropertyManager();
+
 
     /**
      *  Handles HTTP POST requests.
@@ -53,6 +61,7 @@ import java.io.IOException;
         newUser.setPhone(phone);
         UserDao dao = new UserDao();
         dao.addUser(newUser);
+        log.info("PROPERTIES: " + propertyManager.getProperty("google_api_key"));
 //        String searchTerm = request.getParameter("searchTerm");
 //        String searchType = request.getParameter("searchType");
 
