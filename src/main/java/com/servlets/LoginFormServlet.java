@@ -4,6 +4,7 @@ import com.entity.User;
 import com.persistence.UserDao;
 import org.apache.log4j.Logger;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,9 +35,11 @@ public class LoginFormServlet extends HttpServlet {
 
         if (user != null) {
             session.setAttribute("username", username);
-            String url = "j_security_check?j_username=" + username + "&j_password=" + password;
-            String redirectURL = response.encodeRedirectURL(url);
-            response.sendRedirect(redirectURL);
+//            String url = "j_security_check?j_username=" + username + "&j_password=" + password;
+            String url = "/myProfile.jsp";
+            RequestDispatcher dispatcher =
+                    getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
         } else {
             response.sendRedirect("/index.jsp");
         }

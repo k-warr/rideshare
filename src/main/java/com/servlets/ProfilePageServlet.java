@@ -43,6 +43,7 @@ import javax.servlet.http.*;
 
 
         if (!username.equals(null) && user != null) {
+            
             // TODO: get a list of all ride requests and set the list to a session var
             rideRequests = rideRequestDao.getRideRequestByUserId(user.getUserId());
             session.setAttribute("riderRideRequests", rideRequests);

@@ -22,10 +22,13 @@
                 </li>
                 <% } else {%>
                 <li>
+                    <a href="/logout">Logout</a>
+                </li>
+                <li>
                     <a href="/myprofile">Profile</a>
                 </li>
                 <li>
-                    <a href="/myProfile.jsp">myProfile.jsp</a>
+                    <a href="/toRideRequestForm">New Ride Request</a>
                 </li>
                 <% } %>
                 <li>
