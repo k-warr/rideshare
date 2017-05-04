@@ -42,11 +42,12 @@ import javax.servlet.http.*;
         List<RideRequest> rideRequests = null;
 
 
+
         if (!username.equals(null) && user != null) {
-            
+
             // TODO: get a list of all ride requests and set the list to a session var
             rideRequests = rideRequestDao.getRideRequestByUserId(user.getUserId());
-            session.setAttribute("riderRideRequests", rideRequests);
+            request.setAttribute("riderRideRequests", rideRequests);
             // TODO: if driver, get a list of all open ride requests
 
             // TODO: if driver, show all rides

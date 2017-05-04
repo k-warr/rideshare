@@ -19,7 +19,7 @@ public class Logout extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        session.setAttribute("username", null);
+        session.invalidate();
 
         String url = "/index.jsp";
         RequestDispatcher dispatcher =

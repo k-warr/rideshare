@@ -41,7 +41,7 @@ public class LoginFormServlet extends HttpServlet {
                     getServletContext().getRequestDispatcher(url);
             dispatcher.forward(request, response);
         } else {
-            response.sendRedirect("/index.jsp");
+            response.sendRedirect("/failedLogin.jsp");
         }
     }
 }

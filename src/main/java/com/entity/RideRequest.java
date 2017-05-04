@@ -18,6 +18,7 @@ public class RideRequest {
     private int dropoffTime;
     private Integer rideId;
     private Byte activeRequest;
+    private Address pickupAddress;
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -30,6 +31,14 @@ public class RideRequest {
     public void setRequestId(int requestId) {
         this.requestId = requestId;
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pickup_address_id", nullable = false)
+    public Address getPickupAddress() {
+        return this.pickupAddress;
+    }
+
+    public void setPickupAddress(Address address) {this.pickupAddress = address;}
 
     @Basic
     @Column(name = "user_id")

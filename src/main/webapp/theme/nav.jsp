@@ -31,9 +31,6 @@
                     <a href="/toRideRequestForm">New Ride Request</a>
                 </li>
                 <% } %>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
