@@ -1,6 +1,7 @@
 package com.persistence;
 
 import com.entity.Address;
+import com.entity.RideRequest;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.junit.After;
@@ -15,6 +16,8 @@ import static org.junit.Assert.*;
 public class AddressDaoTest {
     AddressDao dao;
     Address testAddress;
+    RideRequestDao rideRequestDao;
+    RideRequest rideRequest;
 
     @Before
     public void setUp() throws Exception {
@@ -26,6 +29,11 @@ public class AddressDaoTest {
         testAddress.setState("TS");
         testAddress.setZipCode("1");
         testAddress.setIsBusiness((byte)0);
+        rideRequest.setRecurrenceDay("M");
+        rideRequest.setPickupAddressId(1);
+        rideRequest.setDropoffAddressId(1);
+        rideRequest.setActiveRequest((byte)1);
+        rideRequest.setDropoffTime(830);
     }
 
     @After
@@ -34,6 +42,17 @@ public class AddressDaoTest {
         session.beginTransaction();
         SQLQuery query = session.createSQLQuery("DELETE FROM address WHERE state = \'TS\'");
         query.executeUpdate();
+        session.getTransaction().commit();
+    }
+
+    @Test
+    public void testRelationship() throws Exception {
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(testAddress);
+        rideRequest.setPickupAddress(testAddress);
+        testAddress.getRideRequests().add(rideRequest);
+        session.save(rideRequest);
         session.getTransaction().commit();
     }
 

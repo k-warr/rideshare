@@ -1,5 +1,6 @@
 package com.persistence;
 
+import com.entity.Address;
 import com.entity.Ride;
 import com.entity.RideRequest;
 import org.apache.log4j.Logger;
@@ -56,6 +57,8 @@ public class RideRequestDao {
 
         return rideRequests;
     }
+
+
 
     public List<RideRequest> getAllOpenRequestsExcludeUser(int id) {
         List<RideRequest> rideRequests = null;
