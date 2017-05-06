@@ -31,15 +31,21 @@ public class LoginFormServlet extends HttpServlet {
         String password = request.getParameter("j_password");
         User user = userDao.getUserByUsername(username);
 
-        log.info("LoginFormServlet reached. Username = " + username);
+        log.info("LoginFormServlet reached. Username = " + username + " User.getUsername: " + user.getUsername());
 
-        if (user != null) {
-            session.setAttribute("username", username);
+        // Check if user exists and password is not null
+        if (user != null && !password.equals(null) && !password.equals(' ')) {
+            // Check if password matches
+            if (user.getPassword().equals(password)) {
+                session.setAttribute("username", username);
 //            String url = "j_security_check?j_username=" + username + "&j_password=" + password;
-            String url = "/myProfile.jsp";
-            RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher(url);
-            dispatcher.forward(request, response);
+                String url = "/myProfile.jsp";
+                RequestDispatcher dispatcher =
+                        getServletContext().getRequestDispatcher(url);
+                dispatcher.forward(request, response);
+            } else {
+                response.sendRedirect("/failedLogin.jsp");
+            }
         } else {
             response.sendRedirect("/failedLogin.jsp");
         }

@@ -51,24 +51,35 @@ public class RideRequestFormHandler extends HttpServlet {
         AddressDao addressDao = new AddressDao();
         RideRequest rideRequest = new RideRequest();
         RideRequestDao rideRequestDao = new RideRequestDao();
+        int originAddressId;
+        Address originAddressConfirm;
+        int destinationAddressId;
+        Address destinationAddressConfirm;
 
         originAddress.setAddressNumber(addressNumberOrigin);
         originAddress.setStreetName(streetOrigin);
         originAddress.setCity(cityOrigin);
         originAddress.setState(stateOrigin);
         originAddress.setZipCode(zipCodeOrigin);
-        addressDao.addAddressIfDoesntExist(originAddress);
+        originAddress.setFullAddress(addressNumberOrigin + " " + streetOrigin + " " + cityOrigin + ", "
+                + stateOrigin + " " + zipCodeOrigin);
+        originAddressId = addressDao.addAddressIfDoesntExist(originAddress);
 
         destinationAddress.setAddressNumber(addressNumberDestination);
         destinationAddress.setStreetName(streetDestination);
         destinationAddress.setCity(cityDestination);
         destinationAddress.setState(stateDestination);
         destinationAddress.setZipCode(zipCodeDestination);
-        addressDao.addAddressIfDoesntExist(destinationAddress);
+        destinationAddress.setFullAddress(addressNumberDestination + " " + streetDestination + " " + cityDestination + ", "
+                + stateDestination + " " + zipCodeDestination);
+        destinationAddressId = addressDao.addAddressIfDoesntExist(destinationAddress);
 
 //        rideRequest.setPickupAddressId(originAddress.getAddressId());
 //        rideRequest.setDropoffAddressId(destinationAddress.getAddressId());
+
         rideRequest.setDropoffTime(dropoffTime);
+        rideRequest.setPickupAddress(addressDao.getAddress(originAddressId));
+        rideRequest.setDropoffAddress(addressDao.getAddress(destinationAddressId));
         rideRequest.setRecurrenceDay(recurrenceDay);
         rideRequest.setUserId(requestor.getUserId());
         rideRequest.setActiveRequest((byte) 1);

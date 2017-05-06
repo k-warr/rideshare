@@ -2,6 +2,7 @@ package com.servlets;
 
 import com.entity.RideRequest;
 import com.entity.User;
+import com.logic.LoginChecker;
 import com.persistence.RideRequestDao;
 import com.persistence.UserDao;
 import org.apache.log4j.Logger;
@@ -42,9 +43,8 @@ import javax.servlet.http.*;
         List<RideRequest> rideRequests = null;
 
 
-
+        if (LoginChecker.userIsLoggedIn(session))
         if (!username.equals(null) && user != null) {
-
             // TODO: get a list of all ride requests and set the list to a session var
             rideRequests = rideRequestDao.getRideRequestByUserId(user.getUserId());
             request.setAttribute("riderRideRequests", rideRequests);

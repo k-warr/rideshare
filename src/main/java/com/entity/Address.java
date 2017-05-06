@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name="address")
 public class Address {
     private int addressId;
-    private byte isBusiness;
+//    private byte isBusiness;
     private String businessName;
     private String addressNumber;
     private String streetName;
@@ -151,7 +151,7 @@ public class Address {
         Address address = (Address) o;
 
         if (addressId != address.addressId) return false;
-        if (isBusiness != address.isBusiness) return false;
+//        if (isBusiness != address.isBusiness) return false;
         if (addressNumber != address.addressNumber) return false;
         if (businessName != null ? !businessName.equals(address.businessName) : address.businessName != null)
             return false;
@@ -166,7 +166,7 @@ public class Address {
     @Override
     public int hashCode() {
         int result = addressId;
-        result = 31 * result + (int) isBusiness;
+//        result = 31 * result + (int) isBusiness;
         result = 31 * result + (businessName != null ? businessName.hashCode() : 0);
         result = 31 * result + (addressNumber != null ? addressNumber.hashCode() : 0);
         result = 31 * result + (streetName != null ? streetName.hashCode() : 0);

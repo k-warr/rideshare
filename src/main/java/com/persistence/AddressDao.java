@@ -86,7 +86,7 @@ public class AddressDao {
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
             Query query = session.createSQLQuery(
-                    "select * from address where address_number = :address_number "
+                    "select * from address where house_number = :address_number "
                     + "AND street_name = :street_name "
                     + "AND city = :city "
                     + "AND state = :state "
