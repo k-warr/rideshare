@@ -12,13 +12,31 @@ import javax.persistence.*;
 public class Ride {
     private int rideId;
     private int userUserId;
-    private int startAddressId;
-    private int endAddressId;
+//    private int startAddressId;
+//    private int endAddressId;
+    private Address startAddress;
+    private Address endAddress;
     private String departTime;
     private String recurrenceDay;
     private Integer numOfRecurrences;
     private byte rideIsFull;
     private int vehicleOwnerId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "start_address_id", nullable = false)
+    public Address getStartAddress() {
+        return this.startAddress;
+    }
+
+    public void setStartAddress(Address address) {this.startAddress = address;}
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "end_address_id", nullable = false)
+    public Address getEndAddress() {
+        return this.endAddress;
+    }
+
+    public void setEndAddress(Address address) {this.endAddress = address;}
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -42,25 +60,25 @@ public class Ride {
         this.userUserId = userUserId;
     }
 
-    @Basic
-    @Column(name = "start_address_id")
-    public int getStartAddressId() {
-        return startAddressId;
-    }
-
-    public void setStartAddressId(int startAddressId) {
-        this.startAddressId = startAddressId;
-    }
-
-    @Basic
-    @Column(name = "end_address_id")
-    public int getEndAddressId() {
-        return endAddressId;
-    }
-
-    public void setEndAddressId(int endAddressId) {
-        this.endAddressId = endAddressId;
-    }
+//    @Basic
+//    @Column(name = "start_address_id")
+//    public int getStartAddressId() {
+//        return startAddressId;
+//    }
+//
+//    public void setStartAddressId(int startAddressId) {
+//        this.startAddressId = startAddressId;
+//    }
+//
+//    @Basic
+//    @Column(name = "end_address_id")
+//    public int getEndAddressId() {
+//        return endAddressId;
+//    }
+//
+//    public void setEndAddressId(int endAddressId) {
+//        this.endAddressId = endAddressId;
+//    }
 
     @Basic
     @Column(name = "depart_time")
@@ -121,8 +139,8 @@ public class Ride {
 
         if (rideId != ride.rideId) return false;
         if (userUserId != ride.userUserId) return false;
-        if (startAddressId != ride.startAddressId) return false;
-        if (endAddressId != ride.endAddressId) return false;
+//        if (startAddressId != ride.startAddressId) return false;
+//        if (endAddressId != ride.endAddressId) return false;
         if (rideIsFull != ride.rideIsFull) return false;
         if (vehicleOwnerId != ride.vehicleOwnerId) return false;
         if (departTime != null ? !departTime.equals(ride.departTime) : ride.departTime != null) return false;
@@ -138,8 +156,8 @@ public class Ride {
     public int hashCode() {
         int result = rideId;
         result = 31 * result + userUserId;
-        result = 31 * result + startAddressId;
-        result = 31 * result + endAddressId;
+//        result = 31 * result + startAddressId;
+//        result = 31 * result + endAddressId;
         result = 31 * result + (departTime != null ? departTime.hashCode() : 0);
         result = 31 * result + (recurrenceDay != null ? recurrenceDay.hashCode() : 0);
         result = 31 * result + (numOfRecurrences != null ? numOfRecurrences.hashCode() : 0);

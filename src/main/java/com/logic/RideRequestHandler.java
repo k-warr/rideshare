@@ -24,9 +24,9 @@ public class RideRequestHandler {
                 + "&key="
                 + propertyManager.getProperty("google_api_key"); // API Key from developers.google.com DO NOT CHANGE
         int originId = dao.addAddressIfDoesntExist(originAddress);
-        rideRequest.setPickupAddressId(originId);
+//        rideRequest.setPickupAddressId(originId);
         int destinationId = dao.addAddressIfDoesntExist(destinationAddress);
-        rideRequest.setDropoffAddressId(destinationId);
+//        rideRequest.setDropoffAddressId(destinationId);
 
         return new RideRequest();
     }

@@ -17,7 +17,8 @@ public class User {
     private String lastName;
     private String email;
     private int phone;
-    private Integer homeAddressId;
+    private Address homeAddress;
+//    private Integer homeAddressId;
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -30,6 +31,14 @@ public class User {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "home_address_id", nullable = false)
+    public Address getHomeAddress() {
+        return this.homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {this.homeAddress = homeAddress;}
 
     @Basic
     @Column(name = "password")
@@ -91,15 +100,15 @@ public class User {
         this.phone = phone;
     }
 
-    @Basic
-    @Column(name = "home_address_id")
-    public Integer getHomeAddressId() {
-        return homeAddressId;
-    }
-
-    public void setHomeAddressId(Integer homeAddressId) {
-        this.homeAddressId = homeAddressId;
-    }
+//    @Basic
+//    @Column(name = "home_address_id")
+//    public Integer getHomeAddressId() {
+//        return homeAddressId;
+//    }
+//
+//    public void setHomeAddressId(Integer homeAddressId) {
+//        this.homeAddressId = homeAddressId;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -115,8 +124,8 @@ public class User {
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (homeAddressId != null ? !homeAddressId.equals(user.homeAddressId) : user.homeAddressId != null)
-            return false;
+////        if (homeAddressId != null ? !homeAddressId.equals(user.homeAddressId) : user.homeAddressId != null)
+//            return false;
 
         return true;
     }
@@ -130,7 +139,7 @@ public class User {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + phone;
-        result = 31 * result + (homeAddressId != null ? homeAddressId.hashCode() : 0);
+//        result = 31 * result + (homeAddressId != null ? homeAddressId.hashCode() : 0);
         return result;
     }
 }

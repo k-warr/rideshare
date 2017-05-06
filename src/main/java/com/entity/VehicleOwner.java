@@ -12,7 +12,8 @@ import javax.persistence.*;
 public class VehicleOwner {
     private int vehicleOwnerId;
     private int userId;
-    private int vehicleId;
+//    private int vehicleId;
+    private Vehicle vehicle;
     private int maxRidersInclDriver;
     private int vin;
     private String insuranceProvider;
@@ -31,6 +32,14 @@ public class VehicleOwner {
         this.vehicleOwnerId = vehicleOwnerId;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicle_id", nullable = false)
+    public Vehicle getVehicle() {
+        return this.vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {this.vehicle = vehicle;}
+
     @Basic
     @Column(name = "user_id")
     public int getUserId() {
@@ -41,15 +50,15 @@ public class VehicleOwner {
         this.userId = userId;
     }
 
-    @Basic
-    @Column(name = "vehicle_id")
-    public int getVehicleId() {
-        return vehicleId;
-    }
-
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
-    }
+//    @Basic
+//    @Column(name = "vehicle_id")
+//    public int getVehicleId() {
+//        return vehicleId;
+//    }
+//
+//    public void setVehicleId(int vehicleId) {
+//        this.vehicleId = vehicleId;
+//    }
 
     @Basic
     @Column(name = "max_riders_incl_driver")
@@ -110,7 +119,7 @@ public class VehicleOwner {
 
         if (vehicleOwnerId != that.vehicleOwnerId) return false;
         if (userId != that.userId) return false;
-        if (vehicleId != that.vehicleId) return false;
+//        if (vehicleId != that.vehicleId) return false;
         if (maxRidersInclDriver != that.maxRidersInclDriver) return false;
         if (vin != that.vin) return false;
         if (insuranceProvider != null ? !insuranceProvider.equals(that.insuranceProvider) : that.insuranceProvider != null)
@@ -126,7 +135,7 @@ public class VehicleOwner {
     public int hashCode() {
         int result = vehicleOwnerId;
         result = 31 * result + userId;
-        result = 31 * result + vehicleId;
+//        result = 31 * result + vehicleId;
         result = 31 * result + maxRidersInclDriver;
         result = 31 * result + vin;
         result = 31 * result + (insuranceProvider != null ? insuranceProvider.hashCode() : 0);

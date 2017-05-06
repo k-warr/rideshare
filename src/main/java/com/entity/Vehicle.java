@@ -3,6 +3,8 @@ package com.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by student on 4/30/17.
@@ -14,6 +16,16 @@ public class Vehicle {
     private String make;
     private String model;
     private int year;
+    private Set<VehicleOwner> vehicleOwners = new HashSet<VehicleOwner>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="vehicle")
+    public Set<VehicleOwner> getVehicleOwners() {
+        return this.vehicleOwners;
+    }
+
+    public void setVehicleOwners(Set<VehicleOwner> vehicleOwners) {
+        this.vehicleOwners = vehicleOwners;
+    }
 
     @Id
     @GeneratedValue(generator = "increment")

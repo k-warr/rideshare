@@ -66,8 +66,8 @@ public class RideRequestFormHandler extends HttpServlet {
         destinationAddress.setZipCode(zipCodeDestination);
         addressDao.addAddressIfDoesntExist(destinationAddress);
 
-        rideRequest.setPickupAddressId(originAddress.getAddressId());
-        rideRequest.setDropoffAddressId(destinationAddress.getAddressId());
+//        rideRequest.setPickupAddressId(originAddress.getAddressId());
+//        rideRequest.setDropoffAddressId(destinationAddress.getAddressId());
         rideRequest.setDropoffTime(dropoffTime);
         rideRequest.setRecurrenceDay(recurrenceDay);
         rideRequest.setUserId(requestor.getUserId());

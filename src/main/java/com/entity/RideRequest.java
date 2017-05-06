@@ -12,13 +12,12 @@ import javax.persistence.*;
 public class RideRequest {
     private int requestId;
     private int userId;
-    private int pickupAddressId;
-    private int dropoffAddressId;
     private String recurrenceDay;
     private int dropoffTime;
     private Integer rideId;
     private Byte activeRequest;
     private Address pickupAddress;
+    private Address dropoffAddress;
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -40,6 +39,14 @@ public class RideRequest {
 
     public void setPickupAddress(Address address) {this.pickupAddress = address;}
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dropoff_address_id", nullable = false)
+    public Address getDropoffAddress() {
+        return this.dropoffAddress;
+    }
+
+    public void setDropoffAddress(Address address) {this.dropoffAddress = address;}
+
     @Basic
     @Column(name = "user_id")
     public int getUserId() {
@@ -50,25 +57,6 @@ public class RideRequest {
         this.userId = userId;
     }
 
-    @Basic
-    @Column(name = "pickup_address_id")
-    public int getPickupAddressId() {
-        return pickupAddressId;
-    }
-
-    public void setPickupAddressId(int pickupAddressId) {
-        this.pickupAddressId = pickupAddressId;
-    }
-
-    @Basic
-    @Column(name = "dropoff_address_id")
-    public int getDropoffAddressId() {
-        return dropoffAddressId;
-    }
-
-    public void setDropoffAddressId(int dropoffAddressId) {
-        this.dropoffAddressId = dropoffAddressId;
-    }
 
     @Basic
     @Column(name = "recurrence_day")
@@ -119,8 +107,6 @@ public class RideRequest {
 
         if (requestId != that.requestId) return false;
         if (userId != that.userId) return false;
-        if (pickupAddressId != that.pickupAddressId) return false;
-        if (dropoffAddressId != that.dropoffAddressId) return false;
         if (dropoffTime != that.dropoffTime) return false;
         if (recurrenceDay != null ? !recurrenceDay.equals(that.recurrenceDay) : that.recurrenceDay != null)
             return false;
@@ -135,8 +121,6 @@ public class RideRequest {
     public int hashCode() {
         int result = requestId;
         result = 31 * result + userId;
-        result = 31 * result + pickupAddressId;
-        result = 31 * result + dropoffAddressId;
         result = 31 * result + (recurrenceDay != null ? recurrenceDay.hashCode() : 0);
         result = 31 * result + dropoffTime;
         result = 31 * result + (rideId != null ? rideId.hashCode() : 0);

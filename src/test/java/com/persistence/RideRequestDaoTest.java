@@ -35,7 +35,6 @@ public class RideRequestDaoTest {
         originAddress.setCity("Testopia");
         originAddress.setState("TS");
         originAddress.setZipCode("1");
-        originAddress.setIsBusiness((byte)0);
         int originAddressId = addressDao.addAddressIfDoesntExist(originAddress);
 
         destinationAddress.setAddressNumber("2");
@@ -43,31 +42,33 @@ public class RideRequestDaoTest {
         destinationAddress.setCity("Testopia");
         destinationAddress.setState("TS");
         destinationAddress.setZipCode("1");
-        destinationAddress.setIsBusiness((byte)0);
         int destinationAddressId = addressDao.addAddressIfDoesntExist(destinationAddress);
 
-        testRideRequest.setDropoffAddressId(destinationAddressId);
+//        testRideRequest.setDropoffAddressId(destinationAddressId);
         testRideRequest.setActiveRequest((byte) 1);
-        testRideRequest.setPickupAddressId(originAddressId);
+        testRideRequest.setUserId(1);
+//        testRideRequest.setPickupAddressId(originAddressId);
         testRideRequest.setRecurrenceDay("Z");
+        testRideRequest.setPickupAddress(originAddress);
+        testRideRequest.setDropoffAddress(destinationAddress);
     }
 
-    @After
-    public void tearDown() throws Exception {
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        session.beginTransaction();
-        SQLQuery query = session.createSQLQuery("DELETE FROM address WHERE state = \'TS\'");
-        query.executeUpdate();
-        session.getTransaction().commit();
-        session.close();
-
-        Session session2 = SessionFactoryProvider.getSessionFactory().openSession();
-        session2.beginTransaction();
-        SQLQuery query2 = session2.createSQLQuery("DELETE FROM ride_request WHERE recurrence_day = \'Z\'");
-        query2.executeUpdate();
-        session2.getTransaction().commit();
-        session2.close();
-    }
+//    @After
+//    public void tearDown() throws Exception {
+//        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+//        session.beginTransaction();
+//        SQLQuery query = session.createSQLQuery("DELETE FROM address WHERE state = \'TS\'");
+//        query.executeUpdate();
+//        session.getTransaction().commit();
+//        session.close();
+//
+//        Session session2 = SessionFactoryProvider.getSessionFactory().openSession();
+//        session2.beginTransaction();
+//        SQLQuery query2 = session2.createSQLQuery("DELETE FROM ride_request WHERE recurrence_day = \'Z\'");
+//        query2.executeUpdate();
+//        session2.getTransaction().commit();
+//        session2.close();
+//    }
     @Test
     public void getAllRideRequests() throws Exception {
         List<RideRequest> rideRequests = rideRequestDao.getAllRideRequests();

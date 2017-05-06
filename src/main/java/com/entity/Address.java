@@ -22,16 +22,55 @@ public class Address {
     private String zipCode;
     private String fullAddress;
 
-    private Set<RideRequest> rideRequests = new HashSet<RideRequest>(
-            0);
+    private Set<RideRequest> pickupRideRequests = new HashSet<RideRequest>(0);
+    private Set<RideRequest> dropoffRideRequests = new HashSet<RideRequest>(0);
+    private Set<Ride> rideStartingAddresses = new HashSet<Ride>(0);
+    private Set<Ride> rideEndingAddresses = new HashSet<Ride>(0);
+    private Set<User> usersAddresses = new HashSet<User>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "ride_request")
-    public Set<RideRequest> getRideRequests() {
-        return this.rideRequests;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="homeAddress")
+    public Set<User> getUsersAddresses() {
+        return this.usersAddresses;
     }
 
-    public void setRideRequests(Set<RideRequest> rideRequests) {
-        this.rideRequests = rideRequests;
+    public void setUsersAddresses(Set<User> usersAddresses) {
+        this.usersAddresses = usersAddresses;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="startAddress")
+    public Set<Ride> getRideStartingAddresses() {
+        return this.rideStartingAddresses;
+    }
+
+    public void setRideStartingAddresses(Set<Ride> rideStartingAddresses) {
+        this.rideStartingAddresses = rideStartingAddresses;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="endAddress")
+    public Set<Ride> getRideEndingAddresses() {
+        return this.rideEndingAddresses;
+    }
+
+    public void setRideEndingAddresses(Set<Ride> rideEndingAddresses) {
+        this.rideEndingAddresses = rideEndingAddresses;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="pickupAddress")
+    public Set<RideRequest> getPickupRideRequests() {
+        return this.pickupRideRequests;
+    }
+
+    public void setPickupRideRequests(Set<RideRequest> rideRequests) {
+        this.pickupRideRequests = rideRequests;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="dropoffAddress")
+    public Set<RideRequest> getDropoffRideRequests() {
+        return this.dropoffRideRequests;
+    }
+
+    public void setDropoffRideRequests(Set<RideRequest> rideRequests) {
+        this.dropoffRideRequests = rideRequests;
     }
 
     @Id
@@ -55,27 +94,7 @@ public class Address {
     public void setFullAddress(String fullAddress) { this.fullAddress = fullAddress;}
 
     @Basic
-    @Column(name = "is_business")
-    public byte getIsBusiness() {
-        return isBusiness;
-    }
-
-    public void setIsBusiness(byte isBusiness) {
-        this.isBusiness = isBusiness;
-    }
-
-    @Basic
-    @Column(name = "business_name")
-    public String getBusinessName() {
-        return businessName;
-    }
-
-    public void setBusinessName(String businessName) {
-        this.businessName = businessName;
-    }
-
-    @Basic
-    @Column(name = "address_number")
+    @Column(name = "house_number")
     public String getAddressNumber() {
         return addressNumber;
     }

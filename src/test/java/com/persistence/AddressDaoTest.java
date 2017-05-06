@@ -28,10 +28,9 @@ public class AddressDaoTest {
         testAddress.setCity("Testopia");
         testAddress.setState("TS");
         testAddress.setZipCode("1");
-        testAddress.setIsBusiness((byte)0);
         rideRequest.setRecurrenceDay("M");
-        rideRequest.setPickupAddressId(1);
-        rideRequest.setDropoffAddressId(1);
+//        rideRequest.setPickupAddressId(1);
+//        rideRequest.setDropoffAddressId(1);
         rideRequest.setActiveRequest((byte)1);
         rideRequest.setDropoffTime(830);
     }
@@ -51,7 +50,7 @@ public class AddressDaoTest {
         session.beginTransaction();
         session.save(testAddress);
         rideRequest.setPickupAddress(testAddress);
-        testAddress.getRideRequests().add(rideRequest);
+//        testAddress.getRideRequests().add(rideRequest);
         session.save(rideRequest);
         session.getTransaction().commit();
     }
