@@ -1,8 +1,10 @@
 package com.persistence;
 
+import com.entity.Vehicle;
 import com.entity.VehicleOwner;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -94,5 +96,31 @@ public class VehicleOwnerDao {
             }
         }
 
+    }
+
+    public boolean existsVehicleOwnerByUserId(int id) {
+        Session session = null;
+        List<VehicleOwner> vehicleOwners = null;
+        try {
+            session = SessionFactoryProvider.getSessionFactory().openSession();
+            Query query = session.createSQLQuery(
+                    "select * from vehicle_owner where user_id = :user_id")
+                    .addEntity(VehicleOwner.class)
+                    .setParameter("user_id", id);
+            vehicleOwners = query.list();
+
+        } catch (HibernateException he) {
+            log.error("HibernateException: " + he);
+        } catch (Exception e) {
+            log.error("Exception: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        if (vehicleOwners != null && vehicleOwners.size() > 0) {
+            return  true;
+        }
+        return false;
     }
 }

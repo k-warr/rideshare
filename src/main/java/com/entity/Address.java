@@ -37,7 +37,7 @@ public class Address {
         this.usersAddresses = usersAddresses;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="startAddress")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="startAddress")
     public Set<Ride> getRideStartingAddresses() {
         return this.rideStartingAddresses;
     }

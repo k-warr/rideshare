@@ -12,12 +12,21 @@ import javax.persistence.*;
 public class RideRequest {
     private int requestId;
     private int userId;
+    private User user;
     private String recurrenceDay;
     private int dropoffTime;
     private Integer rideId;
     private String requestStatus;
     private Address pickupAddress;
     private Address dropoffAddress;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {this.user = user;}
 
     @Id
     @GeneratedValue(generator = "increment")

@@ -5,6 +5,7 @@ import com.entity.User;
 import com.logic.LoginChecker;
 import com.persistence.RideRequestDao;
 import com.persistence.UserDao;
+import com.persistence.VehicleOwnerDao;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 
@@ -43,7 +44,9 @@ import javax.servlet.http.*;
         UserDao userDao = new UserDao();
         User user = userDao.getUserByUsername(username);
         RideRequestDao rideRequestDao = new RideRequestDao();
+        VehicleOwnerDao vehicleOwnerDao = new VehicleOwnerDao();
         List<RideRequest> rideRequests = null;
+        List<RideRequest> openRideRequests = null;
 
         if (!username.equals(null) && user != null) {
             // a list of all ride requests for current user
@@ -52,7 +55,10 @@ import javax.servlet.http.*;
             request.setAttribute("riderRideRequests", rideRequests);
 
             // TODO: if driver, get a list of all open ride requests
-            
+                // If the user has a vehicle (i.e. signed up as driver)
+                if (vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
+                    openRideRequests = rideRequestDao.getAllOpenRequestsExcludeUser(user.getUserId());
+                }
             // TODO: if driver, show all rides
                 // TODO: link to a page that shows directions to a location
 

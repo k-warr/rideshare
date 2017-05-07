@@ -51,6 +51,30 @@
     </div>
     <div>
         <%--if driver, show other's open ride requests to accept--%>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Day</th>
+                    <th>Dropoff Time</th>
+                    <th>Pickup Address</th>
+                    <th>Dropoff Address</th>
+                    <th>Time of Request</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="openRideRequest" items="${openRideRequests}">
+                    <tr>
+                        <%--<td>${openRideRequest.}</td>--%>
+                        <td>${openRideRequest.getRequestStatus()}</td>
+                        <td>${openRideRequest.getRecurrenceDay()}</td>
+                        <td>${openRideRequest.getPickupAddress().getFullAddress()}</td>
+                        <td>${openRideRequest.getDropoffAddress().getFullAddress()}</td>
+                        <td>${openRideRequest.getDropoffTime()}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
     </div>
     <div>
     </div>
