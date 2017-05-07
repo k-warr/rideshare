@@ -1,5 +1,7 @@
 package com.logic;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 

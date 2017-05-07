@@ -49,15 +49,22 @@ import javax.servlet.http.*;
         List<RideRequest> openRideRequests = null;
 
         if (!username.equals(null) && user != null) {
+
             // a list of all ride requests for current user
             rideRequests = rideRequestDao.getRideRequestByUserId(user.getUserId());
-            log.info("Ride Requests: " + rideRequests.get(0).toString());
-            request.setAttribute("riderRideRequests", rideRequests);
+            if (rideRequests != null && rideRequests.size() > 0) {
+                log.info("Ride Requests: " + rideRequests.get(0).toString());
+                request.setAttribute("riderRideRequests", rideRequests);
+            }
+
 
             // TODO: if driver, get a list of all open ride requests
                 // If the user has a vehicle (i.e. signed up as driver)
                 if (vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
+                    request.setAttribute("isDriver", true); // enables certain content to be visible on page
+                    log.info("Driver confirmed. Retrieving openRideRequests");
                     openRideRequests = rideRequestDao.getAllOpenRequestsExcludeUser(user.getUserId());
+                    request.setAttribute("openRideRequests", openRideRequests);
                 }
             // TODO: if driver, show all rides
                 // TODO: link to a page that shows directions to a location

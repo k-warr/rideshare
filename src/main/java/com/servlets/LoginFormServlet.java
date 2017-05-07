@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Created by student on 5/3/17.
+ * Created by Kien Warren on 5/3/17.
  */
 @WebServlet(
         name = "LoginFormServlet",
@@ -30,14 +30,15 @@ public class LoginFormServlet extends HttpServlet {
         String username = request.getParameter("j_username");
         String password = request.getParameter("j_password");
         User user = userDao.getUserByUsername(username);
-
-        log.info("LoginFormServlet reached. Username = " + username + " User.getUsername: " + user.getUsername());
+        log.info("Form Username: " + username + " Form password: " + password);
 
         // Check if user exists and password is not null
         if (user != null && !password.equals(null) && !password.equals(' ')) {
+            log.info("LoginFormServlet reached. Username = " + username + " User.getUsername: " + user.getUsername());
             // Check if password matches
             if (user.getPassword().equals(password)) {
                 session.setAttribute("username", username);
+
 //            String url = "j_security_check?j_username=" + username + "&j_password=" + password;
                 String url = "/myprofile";
 //                RequestDispatcher dispatcher =

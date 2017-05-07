@@ -67,7 +67,7 @@ public class RideRequestDao {
             session = SessionFactoryProvider.getSessionFactory().openSession();
             Query query = session.createSQLQuery(
                     "SELECT * FROM ride_request WHERE NOT user_id = :user_id "
-                    + "AND active_request = 1")
+                    + "AND request_status = 'Active'")
                     .addEntity(RideRequest.class)
                     .setParameter("user_id", id);
             rideRequests = query.list();
@@ -108,7 +108,7 @@ public class RideRequestDao {
                 session.close();
             }
         }
-        rideRequest.setUserId(id);
+        rideRequest.setRequestId(id);
         return id;
     }
 

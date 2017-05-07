@@ -24,6 +24,11 @@
         </nav>
     </div>
     <div>
+        <c:if test="${becomeADriverSignupSuccess}">
+            <h3>Successfully signed up to be a driver</h3>
+        </c:if>
+    </div>
+    <div>
         <%--Show my ride requests, fulfilled, open, or closed--%>
             <h2>My Rides</h2>
             <table>
@@ -49,33 +54,34 @@
                 </tbody>
             </table>
     </div>
-    <div>
-        <%--if driver, show other's open ride requests to accept--%>
-        <table>
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Day</th>
-                    <th>Dropoff Time</th>
-                    <th>Pickup Address</th>
-                    <th>Dropoff Address</th>
-                    <th>Time of Request</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="openRideRequest" items="${openRideRequests}">
+    <c:if test="${isDriver}">
+        <div>
+            <%--if driver, show other's open ride requests to accept--%>
+            <table>
+                <thead>
                     <tr>
-                        <%--<td>${openRideRequest.}</td>--%>
-                        <td>${openRideRequest.getRequestStatus()}</td>
-                        <td>${openRideRequest.getRecurrenceDay()}</td>
-                        <td>${openRideRequest.getPickupAddress().getFullAddress()}</td>
-                        <td>${openRideRequest.getDropoffAddress().getFullAddress()}</td>
-                        <td>${openRideRequest.getDropoffTime()}</td>
+                        <th>Username</th>
+                        <th>Day</th>
+                        <th>Dropoff Time</th>
+                        <th>Pickup Address</th>
+                        <th>Dropoff Address</th>
+                        <th>Time of Request</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    <c:forEach var="openRideRequest" items="${openRideRequests}">
+                        <tr>
+                            <td>${openRideRequest.getUser().getUsername()}</td>
+                            <td>${openRideRequest.getRecurrenceDay()}</td>
+                            <td>${openRideRequest.getPickupAddress().getFullAddress()}</td>
+                            <td>${openRideRequest.getDropoffAddress().getFullAddress()}</td>
+                            <td>${openRideRequest.getDropoffTime()}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div> <%-- end open ride requests div --%>
+    </c:if>
     <div>
     </div>
 </body>

@@ -2,6 +2,7 @@ package com.persistence;
 
 import com.entity.Address;
 import com.entity.RideRequest;
+import com.entity.User;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.junit.After;
@@ -21,14 +22,18 @@ public class RideRequestDaoTest {
     AddressDao addressDao;
     Address originAddress;
     Address destinationAddress;
+    UserDao userDao;
+    User user;
 
     @Before
     public void setUp() throws Exception {
+
         rideRequestDao = new RideRequestDao();
         addressDao = new AddressDao();
         testRideRequest = new RideRequest();
         originAddress = new Address();
         destinationAddress = new Address();
+        userDao = new UserDao();
 
         originAddress.setAddressNumber("1");
         originAddress.setStreetName("Test");
@@ -46,7 +51,7 @@ public class RideRequestDaoTest {
 
 //        testRideRequest.setDropoffAddressId(destinationAddressId);
         testRideRequest.setRequestStatus("Active");
-        testRideRequest.setUserId(1);
+        testRideRequest.setUser(userDao.getUser(1));
 //        testRideRequest.setPickupAddressId(originAddressId);
         testRideRequest.setRecurrenceDay("Z");
         testRideRequest.setPickupAddress(originAddress);

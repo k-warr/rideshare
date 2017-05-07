@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "ride_request")
 public class RideRequest {
     private int requestId;
-    private int userId;
+//    private int userId;
     private User user;
     private String recurrenceDay;
     private int dropoffTime;
@@ -56,15 +56,15 @@ public class RideRequest {
 
     public void setDropoffAddress(Address address) {this.dropoffAddress = address;}
 
-    @Basic
-    @Column(name = "user_id")
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+//    @Basic
+//    @Column(name = "user_id")
+//    public int getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(int userId) {
+//        this.userId = userId;
+//    }
 
 
     @Basic
@@ -127,7 +127,7 @@ public class RideRequest {
         RideRequest that = (RideRequest) o;
 
         if (requestId != that.requestId) return false;
-        if (userId != that.userId) return false;
+//        if (userId != that.userId) return false;
         if (dropoffTime != that.dropoffTime) return false;
         if (recurrenceDay != null ? !recurrenceDay.equals(that.recurrenceDay) : that.recurrenceDay != null)
             return false;
@@ -141,7 +141,7 @@ public class RideRequest {
     @Override
     public int hashCode() {
         int result = requestId;
-        result = 31 * result + userId;
+//        result = 31 * result + userId;
         result = 31 * result + (recurrenceDay != null ? recurrenceDay.hashCode() : 0);
         result = 31 * result + dropoffTime;
         result = 31 * result + (rideId != null ? rideId.hashCode() : 0);

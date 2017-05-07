@@ -18,6 +18,16 @@ public class Vehicle {
     private int year;
     private Set<VehicleOwner> vehicleOwners = new HashSet<VehicleOwner>(0);
 
+    public Vehicle() {
+    }
+
+    public Vehicle(String make, String model, int year) {
+        this();
+        setMake(make);
+        setModel(model);
+        setYear(year);
+    }
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy="vehicle")
     public Set<VehicleOwner> getVehicleOwners() {
         return this.vehicleOwners;

@@ -17,10 +17,6 @@ import java.util.List;
 public class VehicleOwnerDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
-    /** Return a list of all vehicleOwners
-     *
-     * @return All vehicleOwners
-     */
     public List<VehicleOwner> getAllVehicleOwners() {
         List<VehicleOwner> vehicleOwners = new ArrayList<VehicleOwner>();
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -119,8 +115,10 @@ public class VehicleOwnerDao {
             }
         }
         if (vehicleOwners != null && vehicleOwners.size() > 0) {
+            log.info("existsVehicleOwnerByUserId = true");
             return  true;
         }
+        log.info("existsVehicleOwnerByUserId = false");
         return false;
     }
 }

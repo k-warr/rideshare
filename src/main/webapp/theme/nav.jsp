@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.persistence.UserDao" %>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -31,9 +32,8 @@
                     <li>
                         <a href="/toRideRequestForm">New Ride Request</a>
                     </li>
-                    <%--<% if (new UserDao().getUserByUsername(session.getAttribute("username")))%>--%> If not a driver yet.
                     <li>
-                        <a href="/be"></a>
+                        <a href="/toBecomeADriverForm">Become a Driver</a>
                     </li>
                 <% } %>
             </ul>

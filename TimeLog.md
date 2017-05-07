@@ -44,4 +44,4 @@
 * 1.5 hours coding
 * 2 hours coding
 * 3.5 hours coding
-* 0.5 hours coding
+* 3.5 hours coding

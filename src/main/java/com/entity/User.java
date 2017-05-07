@@ -36,7 +36,7 @@ public class User {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name="increment", strategy = "increment")
-    @Column(name = "user_id")
+    @Column(name = "user_id", unique = true, nullable = false)
     public int getUserId() {
         return userId;
     }

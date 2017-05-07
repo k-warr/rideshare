@@ -53,9 +53,10 @@ public class UserDao {
                 session.close();
             }
         }
-        if (users.size() != 1) {
+        if (users == null || users.size() != 1 ) {
             return null;
         }
+        log.info("user found: " + username);
         return users.get(0);
     }
 

@@ -81,11 +81,12 @@ public class RideRequestFormHandler extends HttpServlet {
         rideRequest.setPickupAddress(addressDao.getAddress(originAddressId));
         rideRequest.setDropoffAddress(addressDao.getAddress(destinationAddressId));
         rideRequest.setRecurrenceDay(recurrenceDay);
-        rideRequest.setUserId(requestor.getUserId());
+        rideRequest.setUser(requestor);
         rideRequest.setRequestStatus("Active");
         rideRequestDao.addRideRequest(rideRequest);
 
-        String url = "/test.jsp";
+        String url = "/myprofile";
+        // TODO: Add variable to session that states successful form submission
 
         RequestDispatcher dispatcher =
                 getServletContext().getRequestDispatcher(url);

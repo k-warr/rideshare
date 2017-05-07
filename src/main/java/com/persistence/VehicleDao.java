@@ -16,10 +16,44 @@ import java.util.List;
 public class VehicleDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
-    /** Return a list of all users
-     *
-     * @return All users
-     */
+    public int addVehicleIfDoesntExist(Vehicle vehicle) {
+        int id = existsVehicle(vehicle);
+        if (id == -1) {
+            id = addVehicle(vehicle);
+        }
+        return id;
+    }
+
+    public int existsVehicle(Vehicle vehicle) {
+        Session session = null;
+        List<Vehicle> vehicles = null;
+        try {
+            session = SessionFactoryProvider.getSessionFactory().openSession();
+            Query query = session.createSQLQuery(
+                    "select * from vehicle where make = :make "
+                            + "AND model = :model "
+                            + "AND year = :year LIMIT 1")
+                    .addEntity(Vehicle.class)
+                    .setParameter("make", vehicle.getMake())
+                    .setParameter("model", vehicle.getModel())
+                    .setParameter("year", vehicle.getYear());
+            vehicles = query.list();
+
+        } catch (HibernateException he) {
+            log.error("HibernateException: " + he);
+        } catch (Exception e) {
+            log.error("Exception: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        if (vehicles != null && vehicles.size() == 1 ) {
+            return  vehicles.get(0).getVehicleId();
+        }
+        return -1;
+    }
+
     public List<Vehicle> getAllVehicles() {
         List<Vehicle> users = new ArrayList<Vehicle>();
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
