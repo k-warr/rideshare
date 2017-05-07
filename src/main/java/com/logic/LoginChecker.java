@@ -9,7 +9,7 @@ import javax.websocket.Session;
 public class LoginChecker {
 
     public static boolean userIsLoggedIn(HttpSession session) {
-        if (session.getAttribute("username") != null && session.getAttribute("username") != "") {
+        if (!session.getAttribute("username").equals(null) && !session.getAttribute("username").equals(' ')) {
             return true;
         } else {
             return false;

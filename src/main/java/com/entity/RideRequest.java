@@ -15,7 +15,7 @@ public class RideRequest {
     private String recurrenceDay;
     private int dropoffTime;
     private Integer rideId;
-    private Byte activeRequest;
+    private String requestStatus;
     private Address pickupAddress;
     private Address dropoffAddress;
 
@@ -31,7 +31,7 @@ public class RideRequest {
         this.requestId = requestId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pickup_address_id", nullable = false)
     public Address getPickupAddress() {
         return this.pickupAddress;
@@ -39,7 +39,7 @@ public class RideRequest {
 
     public void setPickupAddress(Address address) {this.pickupAddress = address;}
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dropoff_address_id", nullable = false)
     public Address getDropoffAddress() {
         return this.dropoffAddress;
@@ -89,14 +89,26 @@ public class RideRequest {
     }
 
     @Basic
-    @Column(name = "active_request")
-    public Byte getActiveRequest() {
-        return activeRequest;
+    @Column(name = "request_status")
+    public String getRequestStatus() {
+        return requestStatus;
     }
 
-    public void setActiveRequest(Byte activeRequest) {
-        this.activeRequest = activeRequest;
+    public void setRequestStatus(String requestStatus) {
+        this.requestStatus = requestStatus;
     }
+
+//    @Transient
+//    public String getActiveRequestAsString() {
+//        if (requestStatus == (byte) 1 && rideId == null) {
+//            return "Active";
+//        }
+//        else if (requestStatus == (byte) 0 && rideId != null) {
+//            return "";
+//        } else {
+//            return "Unknown";
+//        }
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -111,7 +123,7 @@ public class RideRequest {
         if (recurrenceDay != null ? !recurrenceDay.equals(that.recurrenceDay) : that.recurrenceDay != null)
             return false;
         if (rideId != null ? !rideId.equals(that.rideId) : that.rideId != null) return false;
-        if (activeRequest != null ? !activeRequest.equals(that.activeRequest) : that.activeRequest != null)
+        if (requestStatus != null ? !requestStatus.equals(that.requestStatus) : that.requestStatus != null)
             return false;
 
         return true;
@@ -124,7 +136,7 @@ public class RideRequest {
         result = 31 * result + (recurrenceDay != null ? recurrenceDay.hashCode() : 0);
         result = 31 * result + dropoffTime;
         result = 31 * result + (rideId != null ? rideId.hashCode() : 0);
-        result = 31 * result + (activeRequest != null ? activeRequest.hashCode() : 0);
+        result = 31 * result + (requestStatus != null ? requestStatus.hashCode() : 0);
         return result;
     }
 }

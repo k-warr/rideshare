@@ -22,7 +22,7 @@ public class Ride {
     private byte rideIsFull;
     private int vehicleOwnerId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "start_address_id", nullable = false)
     public Address getStartAddress() {
         return this.startAddress;
@@ -30,7 +30,7 @@ public class Ride {
 
     public void setStartAddress(Address address) {this.startAddress = address;}
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "end_address_id", nullable = false)
     public Address getEndAddress() {
         return this.endAddress;

@@ -42,3 +42,5 @@
 
 ## Week 15
 * 1.5 hours coding
+* 2 hours coding
+* 3 hours coding

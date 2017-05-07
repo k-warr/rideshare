@@ -32,7 +32,7 @@ public class VehicleOwner {
         this.vehicleOwnerId = vehicleOwnerId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vehicle_id", nullable = false)
     public Vehicle getVehicle() {
         return this.vehicle;

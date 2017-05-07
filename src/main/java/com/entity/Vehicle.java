@@ -18,7 +18,7 @@ public class Vehicle {
     private int year;
     private Set<VehicleOwner> vehicleOwners = new HashSet<VehicleOwner>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="vehicle")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="vehicle")
     public Set<VehicleOwner> getVehicleOwners() {
         return this.vehicleOwners;
     }

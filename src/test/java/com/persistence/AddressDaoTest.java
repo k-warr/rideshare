@@ -31,7 +31,7 @@ public class AddressDaoTest {
         rideRequest.setRecurrenceDay("M");
 //        rideRequest.setPickupAddressId(1);
 //        rideRequest.setDropoffAddressId(1);
-        rideRequest.setActiveRequest((byte)1);
+        rideRequest.setRequestStatus("Active");
         rideRequest.setDropoffTime(830);
     }
 

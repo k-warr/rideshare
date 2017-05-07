@@ -27,11 +27,29 @@
         <%--Show my ride requests, fulfilled, open, or closed--%>
             <h2>Fruits</h2>
             <table>
-                <c:forEach var="rideRequest" items="${riderRideRequests}">
+                <thead>
                     <tr>
-                        <td>${rideRequest.getPickupAddress().getCity()}</td>
+                        <th>Status</th>
+                        <th>Day</th>
+                        <th>Pickup Address</th>
+                        <th>Dropoff Address</th>
+                        <th>Dropoff Time</th>
                     </tr>
-                </c:forEach>
+                </thead>
+                <tbody>
+                    <c:forEach var="rideRequest" items="${riderRideRequests}">
+                        <tr>
+                            <td>${rideRequest.get}</td>
+                            <td>${rideRequest.getPickupAddress().getFullAddress()}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+
+                <%--<c:forEach var="address" items="${riderRideRequests}">--%>
+                    <%--<tr>--%>
+                        <%--<td>${address}</td>--%>
+                    <%--</tr>--%>
+                <%--</c:forEach>--%>
             </table>
     </div>
     <div>

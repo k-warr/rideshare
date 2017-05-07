@@ -6,8 +6,11 @@ import com.logic.LoginChecker;
 import com.persistence.RideRequestDao;
 import com.persistence.UserDao;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.*;
@@ -42,11 +45,10 @@ import javax.servlet.http.*;
         RideRequestDao rideRequestDao = new RideRequestDao();
         List<RideRequest> rideRequests = null;
 
-
-        if (LoginChecker.userIsLoggedIn(session))
         if (!username.equals(null) && user != null) {
             // TODO: get a list of all ride requests and set the list to a session var
             rideRequests = rideRequestDao.getRideRequestByUserId(user.getUserId());
+            log.info("Ride Requests: " + rideRequests.get(0).toString());
             request.setAttribute("riderRideRequests", rideRequests);
 
             // TODO: if driver, get a list of all open ride requests

@@ -82,7 +82,7 @@ public class RideRequestFormHandler extends HttpServlet {
         rideRequest.setDropoffAddress(addressDao.getAddress(destinationAddressId));
         rideRequest.setRecurrenceDay(recurrenceDay);
         rideRequest.setUserId(requestor.getUserId());
-        rideRequest.setActiveRequest((byte) 1);
+        rideRequest.setRequestStatus("Active");
         rideRequestDao.addRideRequest(rideRequest);
 
         String url = "/test.jsp";

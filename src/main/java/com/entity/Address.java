@@ -46,7 +46,7 @@ public class Address {
         this.rideStartingAddresses = rideStartingAddresses;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="endAddress")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="endAddress")
     public Set<Ride> getRideEndingAddresses() {
         return this.rideEndingAddresses;
     }
@@ -55,7 +55,7 @@ public class Address {
         this.rideEndingAddresses = rideEndingAddresses;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="pickupAddress")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="pickupAddress")
     public Set<RideRequest> getPickupRideRequests() {
         return this.pickupRideRequests;
     }
@@ -64,7 +64,7 @@ public class Address {
         this.pickupRideRequests = rideRequests;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="dropoffAddress")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="dropoffAddress")
     public Set<RideRequest> getDropoffRideRequests() {
         return this.dropoffRideRequests;
     }

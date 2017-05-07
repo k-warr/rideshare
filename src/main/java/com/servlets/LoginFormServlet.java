@@ -39,10 +39,11 @@ public class LoginFormServlet extends HttpServlet {
             if (user.getPassword().equals(password)) {
                 session.setAttribute("username", username);
 //            String url = "j_security_check?j_username=" + username + "&j_password=" + password;
-                String url = "/myProfile.jsp";
-                RequestDispatcher dispatcher =
-                        getServletContext().getRequestDispatcher(url);
-                dispatcher.forward(request, response);
+                String url = "/myprofile";
+//                RequestDispatcher dispatcher =
+//                        getServletContext().getRequestDispatcher(url);
+//                dispatcher.forward(request, response);
+                response.sendRedirect(url);
             } else {
                 response.sendRedirect("/failedLogin.jsp");
             }

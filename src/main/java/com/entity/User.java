@@ -32,7 +32,7 @@ public class User {
         this.userId = userId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "home_address_id", nullable = false)
     public Address getHomeAddress() {
         return this.homeAddress;

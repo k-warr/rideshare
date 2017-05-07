@@ -45,7 +45,7 @@ public class RideRequestDaoTest {
         int destinationAddressId = addressDao.addAddressIfDoesntExist(destinationAddress);
 
 //        testRideRequest.setDropoffAddressId(destinationAddressId);
-        testRideRequest.setActiveRequest((byte) 1);
+        testRideRequest.setRequestStatus("Active");
         testRideRequest.setUserId(1);
 //        testRideRequest.setPickupAddressId(originAddressId);
         testRideRequest.setRecurrenceDay("Z");
