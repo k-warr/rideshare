@@ -39,8 +39,11 @@
                 <tbody>
                     <c:forEach var="rideRequest" items="${riderRideRequests}">
                         <tr>
-                            <td>${rideRequest.get}</td>
+                            <td>${rideRequest.getRequestStatus()}</td>
+                            <td>${rideRequest.getRecurrenceDay()}</td>
                             <td>${rideRequest.getPickupAddress().getFullAddress()}</td>
+                            <td>${rideRequest.getDropoffAddress().getFullAddress()}</td>
+                            <td>${rideRequest.getDropoffTime()}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

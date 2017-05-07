@@ -11,8 +11,9 @@ import javax.persistence.*;
 @Table(name = "vehicle_owner")
 public class VehicleOwner {
     private int vehicleOwnerId;
-    private int userId;
+//    private int userId;
 //    private int vehicleId;
+    private User user;
     private Vehicle vehicle;
     private int maxRidersInclDriver;
     private int vin;
@@ -38,17 +39,25 @@ public class VehicleOwner {
         return this.vehicle;
     }
 
+    public void setUser(User user) {this.user = user;}
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
+    public User getUser() {
+        return this.user;
+    }
+
     public void setVehicle(Vehicle vehicle) {this.vehicle = vehicle;}
 
-    @Basic
-    @Column(name = "user_id")
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+//    @Basic
+//    @Column(name = "user_id")
+//    public int getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(int userId) {
+//        this.userId = userId;
+//    }
 
 //    @Basic
 //    @Column(name = "vehicle_id")
@@ -118,7 +127,7 @@ public class VehicleOwner {
         VehicleOwner that = (VehicleOwner) o;
 
         if (vehicleOwnerId != that.vehicleOwnerId) return false;
-        if (userId != that.userId) return false;
+//        if (userId != that.userId) return false;
 //        if (vehicleId != that.vehicleId) return false;
         if (maxRidersInclDriver != that.maxRidersInclDriver) return false;
         if (vin != that.vin) return false;
@@ -134,7 +143,7 @@ public class VehicleOwner {
     @Override
     public int hashCode() {
         int result = vehicleOwnerId;
-        result = 31 * result + userId;
+//        result = 31 * result + userId;
 //        result = 31 * result + vehicleId;
         result = 31 * result + maxRidersInclDriver;
         result = 31 * result + vin;

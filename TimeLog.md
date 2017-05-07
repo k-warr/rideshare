@@ -39,8 +39,8 @@
 ## Week 14
 * 3 hours Tomee Security and DAOs
 * 4.5 hours working on logic, buidling forms, started google maps api
-
+ 
 ## Week 15
 * 1.5 hours coding
 * 2 hours coding
-* 3 hours coding
+* 3.5 hours coding

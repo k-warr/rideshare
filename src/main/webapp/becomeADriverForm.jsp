@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: student
+  User: Kien Warren
   Date: 5/2/17
   Time: 1:51 PM
   To change this template use File | Settings | File Templates.
@@ -12,9 +12,9 @@
 </head>
 <body>
     <form action="becomeADriverFormHandler" method="POST">
-        <label for="username">Username: </label>
-        <input type="text" id="username" name="username">
-        <br>
+        <%--<label for="username">Username: </label>--%>
+        <%--<input type="text" id="username" name="username">--%>
+        <%--<br>--%>
         <label for="make">Car Make: </label>
         <input type="text" id="make" name="make">
         <br>
@@ -25,7 +25,7 @@
         <input type="text" id="year" name="year">
         <br>
         <label for="maxOccupants">Max Occupants Including Driver: </label>
-        <input type="text" id="maxOccupants" name="maxOccupants">
+        <input type="text" id="maxOccupants" name="maxOccupants" pattern="[0-9]{,2}">
         <br>
         <label for="vin">VIN: </label>
         <input type="text" id="vin" name="vin">

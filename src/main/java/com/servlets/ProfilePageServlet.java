@@ -46,13 +46,13 @@ import javax.servlet.http.*;
         List<RideRequest> rideRequests = null;
 
         if (!username.equals(null) && user != null) {
-            // TODO: get a list of all ride requests and set the list to a session var
+            // a list of all ride requests for current user
             rideRequests = rideRequestDao.getRideRequestByUserId(user.getUserId());
             log.info("Ride Requests: " + rideRequests.get(0).toString());
             request.setAttribute("riderRideRequests", rideRequests);
 
             // TODO: if driver, get a list of all open ride requests
-
+            
             // TODO: if driver, show all rides
                 // TODO: link to a page that shows directions to a location
 

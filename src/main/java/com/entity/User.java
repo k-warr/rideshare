@@ -18,6 +18,7 @@ public class User {
     private String email;
     private int phone;
     private Address homeAddress;
+    private VehicleOwner vehicleOwner;
 //    private Integer homeAddressId;
 
     @Id
@@ -30,6 +31,15 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    public VehicleOwner getVehicleOwner() {
+        return vehicleOwner;
+    }
+
+    public void setVehicleOwner(VehicleOwner vehicleOwner) {
+        this.vehicleOwner = vehicleOwner;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
