@@ -25,11 +25,11 @@
     </div>
     <div>
         <%--Show my ride requests, fulfilled, open, or closed--%>
-            <h2>Fruits</h2>
+            <h2>My Rides</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Status</th>
+                        <th>Request Status</th>
                         <th>Day</th>
                         <th>Pickup Address</th>
                         <th>Dropoff Address</th>
@@ -47,12 +47,6 @@
                         </tr>
                     </c:forEach>
                 </tbody>
-
-                <%--<c:forEach var="address" items="${riderRideRequests}">--%>
-                    <%--<tr>--%>
-                        <%--<td>${address}</td>--%>
-                    <%--</tr>--%>
-                <%--</c:forEach>--%>
             </table>
     </div>
     <div>

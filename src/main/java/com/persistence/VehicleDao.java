@@ -1,6 +1,6 @@
 package com.persistence;
 
-import com.entity.User;
+import com.entity.Vehicle;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -11,68 +11,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by student on 4/27/17.
+ * Created by student on 5/7/17.
  */
-public class UserDao {
+public class VehicleDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
     /** Return a list of all users
      *
      * @return All users
      */
-    public List<User> getAllUsers() {
-        List<User> users = new ArrayList<User>();
+    public List<Vehicle> getAllVehicles() {
+        List<Vehicle> users = new ArrayList<Vehicle>();
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        users = session.createCriteria(User.class).list();
+        users = session.createCriteria(Vehicle.class).list();
         return users;
     }
 
-    public User getUser(int id) {
+    public Vehicle getVehicle(int id) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        User user = (User) session.get(User.class, id);
-        return user;
-    }
-
-    public User getUserByUsername(String username) {
-        Session session = null;
-        List<User> users = null;
-        try {
-            session = SessionFactoryProvider.getSessionFactory().openSession();
-            Query query = session.createSQLQuery(
-                    "select * from user where username = :username LIMIT 1")
-                    .addEntity(User.class)
-                    .setParameter("username", username);
-            users = query.list();
-
-        } catch (HibernateException he) {
-            log.error("HibernateException: " + he);
-        } catch (Exception e) {
-            log.error("Exception: " + e.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-        if (users.size() != 1) {
-            return null;
-        }
-        return users.get(0);
+        Vehicle vehicle = (Vehicle) session.get(Vehicle.class, id);
+        return vehicle;
     }
 
     /**
-     * add a user
+     * add a vehicle
      *
-     * @param user
+     * @param vehicle
      * @return the id of the inserted record.
      */
-    public int addUser(User user) {
+    public int addVehicle(Vehicle vehicle) {
         int id = 0;
         Session session = null;
         Transaction trans = null;
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
             trans = session.beginTransaction();
-            id = (int) session.save(user); // INSERT statement
+            id = (int) session.save(vehicle); // INSERT statement
             trans.commit();
         } catch (HibernateException he) {
             if (trans!=null) trans.rollback();
@@ -84,21 +58,21 @@ public class UserDao {
                 session.close();
             }
         }
-        user.setUserId(id);
+        vehicle.setVehicleId(id);
         return id;
     }
 
     /**
-     * delete a user by id
-     * @param id the user's id
+     * delete a vehicle by id
+     * @param id the vehicle's id
      */
-    public void deleteUser(int id) {
+    public void deleteVehicle(int id) {
         Session session = null;
         Transaction trans = null;
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
             trans = session.beginTransaction();
-            session.delete(getUser(id));
+            session.delete(getVehicle(id));
             trans.commit();
         } catch (HibernateException he) {
             log.error("HibernateException: " + he);
@@ -112,17 +86,17 @@ public class UserDao {
     }
 
     /**
-     * Update the user
-     * @param user
+     * Update the vehicle
+     * @param vehicle
      */
-    public void updateUser(User user) {
+    public void updateVehicle(Vehicle vehicle) {
         Session session = null;
         Transaction trans = null;
 
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
             trans = session.beginTransaction();
-            session.saveOrUpdate(user);
+            session.saveOrUpdate(vehicle);
             trans.commit();
 
         } catch (HibernateException he) {
