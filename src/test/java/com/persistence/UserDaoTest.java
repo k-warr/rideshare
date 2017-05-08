@@ -1,6 +1,7 @@
 package com.persistence;
 
 import com.entity.User;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.junit.After;
@@ -56,14 +57,17 @@ public class UserDaoTest {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         session.beginTransaction();
 
-        SQLQuery output = session.createSQLQuery("SELECT username as Username FROM user WHERE username=\'test\'");
-        List<String> users = output.list();
+        Query query = session.createSQLQuery(
+                "select * from user where username = :username LIMIT 1")
+                .addEntity(User.class)
+                .setParameter("username", "test");
+        List<User> users = query.list();
 
         if (users.size() > 0) {
-            username = users.get(0);
-
+            assertEquals("addUser failed", userId, users.get(0).getUserId());
+        } else {
+            assertTrue(false);
         }
 
-        assertEquals("addUser failed","test", username);
     }
 }

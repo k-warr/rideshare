@@ -4,11 +4,14 @@ import com.entity.User;
 import com.entity.Vehicle;
 import com.entity.VehicleOwner;
 import com.logic.LoginChecker;
+import com.persistence.SessionFactoryProvider;
 import com.persistence.UserDao;
 import com.persistence.VehicleDao;
 import com.persistence.VehicleOwnerDao;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+import org.hibernate.Transaction;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by student on 5/6/17.
@@ -66,7 +71,7 @@ public class BecomeADriverFormHandler extends HttpServlet {
                 int vehicleId = vehicleDao.addVehicleIfDoesntExist(vehicle);
 
                 VehicleOwner vehicleOwner = new VehicleOwner();
-                vehicleOwner.setVehicle(vehicleDao.getVehicle(vehicleId));
+                vehicleOwner.setVehicle(vehicle);
                 vehicleOwner.setUser(user);
                 vehicleOwner.setVin(vin);
                 vehicleOwner.setDriversLicense(driversLicense);
@@ -75,7 +80,11 @@ public class BecomeADriverFormHandler extends HttpServlet {
                 vehicleOwner.setInsuranceProvider(insuranceProvider);
 
                 user.setVehicleOwner(vehicleOwner);
-
+//                userDao.updateUser(user);
+                Set<VehicleOwner> set = new HashSet<VehicleOwner>();
+                set.add(vehicleOwner);
+                vehicle.setVehicleOwners(set);
+                vehicleDao.addVehicleIfDoesntExist(vehicle);
                 vehicleOwnerDao.addVehicleOwner(vehicleOwner);
 
                 request.setAttribute("becomeADriverSignupSuccess", true);

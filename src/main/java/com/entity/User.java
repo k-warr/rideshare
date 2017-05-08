@@ -34,9 +34,10 @@ public class User {
     }
 
     @Id
-    @GeneratedValue(generator = "increment")
+//    @GeneratedValue(generator = "increment")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @GenericGenerator(name="increment", strategy = "increment")
-    @Column(name = "user_id", unique = true, nullable = false)
+    @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;
     }
@@ -55,7 +56,8 @@ public class User {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "home_address_id", nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "home_address_id")
     public Address getHomeAddress() {
         return this.homeAddress;
     }

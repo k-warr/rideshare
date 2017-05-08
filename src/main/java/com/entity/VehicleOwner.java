@@ -39,7 +39,7 @@ public class VehicleOwner {
         return this.vehicle;
     }
 
-    public void setUser(User user) {this.user = user;}
+    public void setVehicle(Vehicle vehicle) {this.vehicle = vehicle;}
 
     @OneToOne(fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
@@ -47,7 +47,7 @@ public class VehicleOwner {
         return this.user;
     }
 
-    public void setVehicle(Vehicle vehicle) {this.vehicle = vehicle;}
+    public void setUser(User user) {this.user = user;}
 
 //    @Basic
 //    @Column(name = "user_id")
