@@ -19,22 +19,25 @@ public class Ride {
 //    private int endAddressId;
     private Address startAddress;
     private Address endAddress;
-    private String departTime;
+    private int departTime;
     private String recurrenceDay;
     private int numOfRecurrences;
     private byte rideIsFull;
 //    private int vehicleOwnerId;
     private Date requestDateTime;
-    private RideRequest rideRequest;
+    private int numRidersInclDriver;
     private Set<RideRequest> rideRequests = new HashSet<>();
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "request_id")
-//    public RideRequest getRideRequest() {
-//        return this.rideRequest;
-//    }
-//
-//    public void setRideRequest(RideRequest rideRequest) {this.rideRequest = rideRequest;}
+    @Basic
+    @Column(name = "num_riders_incl_driver")
+    public int getNumRidersInclDriver() {
+        return numRidersInclDriver;
+    }
+
+    public void setNumRidersInclDriver(int numRidersInclDriver) {
+        this.numRidersInclDriver = numRidersInclDriver;
+    }
+
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy="ride")
     public Set<RideRequest> getRideRequests() {
@@ -116,11 +119,11 @@ public class Ride {
 
     @Basic
     @Column(name = "depart_time")
-    public String getDepartTime() {
+    public int getDepartTime() {
         return departTime;
     }
 
-    public void setDepartTime(String departTime) {
+    public void setDepartTime(int departTime) {
         this.departTime = departTime;
     }
 
@@ -177,7 +180,7 @@ public class Ride {
 //        if (endAddressId != ride.endAddressId) return false;
         if (rideIsFull != ride.rideIsFull) return false;
 //        if (vehicleOwnerId != ride.vehicleOwnerId) return false;
-        if (departTime != null ? !departTime.equals(ride.departTime) : ride.departTime != null) return false;
+//        if (departTime != null ? !departTime.equals(ride.departTime) : ride.departTime != null) return false;
         if (recurrenceDay != null ? !recurrenceDay.equals(ride.recurrenceDay) : ride.recurrenceDay != null)
             return false;
 //        if (numOfRecurrences != null ? !numOfRecurrences.equals(ride.numOfRecurrences) : ride.numOfRecurrences != null)
@@ -192,7 +195,7 @@ public class Ride {
 //        result = 31 * result + userUserId;
 //        result = 31 * result + startAddressId;
 //        result = 31 * result + endAddressId;
-        result = 31 * result + (departTime != null ? departTime.hashCode() : 0);
+//        result = 31 * result + (departTime != null ? departTime.hashCode() : 0);
         result = 31 * result + (recurrenceDay != null ? recurrenceDay.hashCode() : 0);
 //        result = 31 * result + (numOfRecurrences != null ? numOfRecurrences.hashCode() : 0);
         result = 31 * result + (int) rideIsFull;

@@ -22,6 +22,9 @@
                 <c:if test="${alreadyDriver}">
                     <h3>You are already signed up to be a driver.</h3>
                 </c:if>
+                <c:if test="${acceptedRide}">
+                    <h3>You have accepted a ride. It has either created a new Ride or been added to an existing Ride.</h3>
+                </c:if>
             </div>
         </div>
         <c:if test="${riderRideRequests.size() > 0}">
@@ -39,6 +42,7 @@
                             <th>Pickup Address</th>
                             <th>Dropoff Address</th>
                             <th>Dropoff Time</th>
+                            <th>Ride Info</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -50,6 +54,7 @@
                                 <td>${rideRequest.getPickupAddress().getFullAddress()}</td>
                                 <td>${rideRequest.getDropoffAddress().getFullAddress()}</td>
                                 <td>${rideRequest.getDropoffTime()}</td>
+                                <td><a href="/getRideInfo?rideId=${rideRequest.getRequestId()}"></a></td>
                             </tr>
                         </c:forEach>
                         </tbody>

@@ -24,7 +24,9 @@ public class RideDao {
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
             Query query = session.createSQLQuery(
-                    "select * from ride where user_user_id = :user_id AND ride_datetime > :currentDate")
+                    "select * from ride where user_user_id = :user_id "
+                    + "AND ride_datetime > :currentDate "
+                    + "AND ride_is_full <> 1")
                     .addEntity(Ride.class)
                     .setParameter("user_id", user_id)
                     .setParameter("currentDate", currentDate);

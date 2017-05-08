@@ -3,6 +3,7 @@ package com.servlets;
 import com.entity.Ride;
 import com.entity.RideRequest;
 import com.entity.User;
+import com.logic.DateManipulator;
 import com.logic.LoginChecker;
 import com.persistence.RideDao;
 import com.persistence.RideRequestDao;
@@ -39,25 +40,37 @@ public class CreateOrUpdateRide extends HttpServlet {
             RideDao rideDao = new RideDao();
             RideRequestDao rideRequestDao = new RideRequestDao();
             User user = userDao.getUserByUsername(session.getAttribute("username").toString());
-            int requestId = Integer.parseInt(session.getAttribute("requestId").toString());
+//            int requestId = Integer.parseInt(session.getAttribute("requestId").toString());
+            int requestId = Integer.parseInt(request.getParameter("requestId"));
             RideRequest rideRequest = rideRequestDao.getRideRequest(requestId);
             List<Ride> existingRides = rideDao.getAllUpcomingRidesByUserId(user.getUserId());
+            rideRequest.setRequestStatus("Accepted");
+            rideRequestDao.updateRideRequest(rideRequest);
 
             if (existingRides != null) {
-
+                
             } else {
                 Ride ride = new Ride();
+                Set<RideRequest> rideRequests = new HashSet<>();
 
+                rideRequests.add(rideRequest);
                 ride.setUserUserId(user.getUserId());
                 ride.setNumOfRecurrences(1);
                 ride.setRecurrenceDay(rideRequest.getRecurrenceDay());
                 ride.setEndAddress(rideRequest.getDropoffAddress());
                 ride.setStartAddress(rideRequest.getPickupAddress());
-//                rideSet.add(ride);
-//                rideRequest.setRides();
+                ride.setDepartTime(rideRequest.getDropoffTime() - 30);
+                ride.setNumRidersInclDriver(2);
+                ride.setRideRequests(rideRequests);
+                ride.setRequestDateTime(DateManipulator.nextDateTime(rideRequest.getDropoffTime() - 30, rideRequest.getRecurrenceDay()));
+                rideDao.addRide(ride);
 
             }
+            request.setAttribute("acceptedRide", true);
 
+            RequestDispatcher dispatcher =
+                    getServletContext().getRequestDispatcher("/myprofile");
+            dispatcher.forward(request, response);
 
         } else {
             log.info("no username found");

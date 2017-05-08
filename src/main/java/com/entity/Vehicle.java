@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by student on 4/30/17.
+ * Created by Kien Warren on 4/30/17.
  */
 @Entity
 @Table(name="vehicle")

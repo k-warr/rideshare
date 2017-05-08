@@ -31,11 +31,15 @@ public class RideRequestFormHandler extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("RideRequestFormHandler reached.");
         HttpSession session = request.getSession();
+        UserDao userDao = new UserDao();
 //        ServletContext context = getServletContext();
 
         if (LoginChecker.userIsLoggedIn(session)) {
-            String username = request.getParameter("username");
+            User user = userDao.getUserByUsername(session.getAttribute("username").toString());
+            String username = user.getUsername();
+//            String username = request.getParameter("username");
             log.info("Username: " + username);
+
             String addressNumberOrigin = request.getParameter("numberOrigin");
             String streetOrigin = request.getParameter("streetOrigin");
             String cityOrigin = request.getParameter("cityOrigin");
