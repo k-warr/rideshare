@@ -45,10 +45,14 @@ public class LoginFormServlet extends HttpServlet {
 //                dispatcher.forward(request, response);
                 response.sendRedirect(url);
             } else {
+                session.invalidate();
                 response.sendRedirect("/failedLogin.jsp");
+                return;
             }
         } else {
+            session.invalidate();
             response.sendRedirect("/failedLogin.jsp");
+            return;
         }
     }
 }

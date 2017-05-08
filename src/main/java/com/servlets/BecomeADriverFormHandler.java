@@ -1,8 +1,10 @@
 package com.servlets;
 
+import com.entity.Address;
 import com.entity.User;
 import com.entity.Vehicle;
 import com.logic.LoginChecker;
+import com.persistence.AddressDao;
 import com.persistence.SessionFactoryProvider;
 import com.persistence.UserDao;
 import com.persistence.VehicleDao;
@@ -33,11 +35,13 @@ public class BecomeADriverFormHandler extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
     private UserDao userDao;
     private VehicleDao vehicleDao;
+    private AddressDao addressDao;
 //    private VehicleOwnerDao vehicleOwnerDao;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("RideRequestFormHandler reached.");
         HttpSession session = request.getSession();
+
         if (LoginChecker.userIsLoggedIn(session)) {
             int year = -1;
             int maxOccupants = -1;
@@ -52,6 +56,8 @@ public class BecomeADriverFormHandler extends HttpServlet {
             userDao = new UserDao();
 //            vehicleOwnerDao = new VehicleOwnerDao();
             vehicleDao = new VehicleDao();
+            addressDao = new AddressDao();
+
             User user = userDao.getUserByUsername(session.getAttribute("username").toString());
             String make = request.getParameter("make");
             String model = request.getParameter("model");
@@ -59,12 +65,20 @@ public class BecomeADriverFormHandler extends HttpServlet {
             String licensePlate = request.getParameter("licensePlate");
             String insuranceProvider = request.getParameter("insuranceProvider");
             String vin = request.getParameter("vin");
+            String houseNumber = request.getParameter("houseNumber");
+            String street = request.getParameter("street");
+            String city = request.getParameter("city");
+            String state = request.getParameter("state");
+            String zipCode = request.getParameter("zipCode");
 
 //            if (!vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
             if (!userDao.isDriverByUsername(user.getUsername())) {
                 Vehicle vehicle = new Vehicle(make, model, year);
                 int vehicleId = vehicleDao.addVehicleIfDoesntExist(vehicle);
+                Address homeAddress = new Address(houseNumber, street, city, state, zipCode);
+                addressDao.addAddressIfDoesntExist(homeAddress);
 
+                user.setHomeAddress(homeAddress);
                 user.setVehicle(vehicle);
                 user.setDriversLicense(driversLicense);
                 user.setLicensePlate(licensePlate);
@@ -107,6 +121,5 @@ public class BecomeADriverFormHandler extends HttpServlet {
                     getServletContext().getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
         }
-
     }
 }

@@ -18,21 +18,30 @@ public class RideRequest {
     private User user;
     private String recurrenceDay;
     private int dropoffTime;
-    private Integer rideId;
+//    private Integer rideId;
     private String requestStatus;
     private Address pickupAddress;
     private Address dropoffAddress;
     private Date requestTime;
-    private Set<Ride> rides = new HashSet<>();
+    private Ride ride;
+//    private Set<Ride> rides = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="rideRequest")
-    public Set<Ride> getRides() {
-        return this.rides;
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy="rideRequest")
+//    public Set<Ride> getRides() {
+//        return this.rides;
+//    }
+//
+//    public void setRides(Set<Ride> rides) {
+//        this.rides = rides;
+//    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ride_ride_id")
+    public Ride getRide() {
+        return this.ride;
     }
 
-    public void setRides(Set<Ride> rides) {
-        this.rides = rides;
-    }
+    public void setRide(Ride ride) {this.ride = ride;}
 
     @Basic
     @Column(name = "request_time", columnDefinition="DATETIME")
@@ -112,15 +121,15 @@ public class RideRequest {
         this.dropoffTime = dropoffTime;
     }
 
-    @Basic
-    @Column(name = "ride_id")
-    public Integer getRideId() {
-        return rideId;
-    }
-
-    public void setRideId(Integer rideId) {
-        this.rideId = rideId;
-    }
+//    @Basic
+//    @Column(name = "ride_ride_id")
+//    public Integer getRideId() {
+//        return rideId;
+//    }
+//
+//    public void setRideId(Integer rideId) {
+//        this.rideId = rideId;
+//    }
 
     @Basic
     @Column(name = "request_status")
@@ -156,7 +165,7 @@ public class RideRequest {
         if (dropoffTime != that.dropoffTime) return false;
         if (recurrenceDay != null ? !recurrenceDay.equals(that.recurrenceDay) : that.recurrenceDay != null)
             return false;
-        if (rideId != null ? !rideId.equals(that.rideId) : that.rideId != null) return false;
+//        if (rideId != null ? !rideId.equals(that.rideId) : that.rideId != null) return false;
         if (requestStatus != null ? !requestStatus.equals(that.requestStatus) : that.requestStatus != null)
             return false;
 
@@ -169,7 +178,7 @@ public class RideRequest {
 //        result = 31 * result + userId;
         result = 31 * result + (recurrenceDay != null ? recurrenceDay.hashCode() : 0);
         result = 31 * result + dropoffTime;
-        result = 31 * result + (rideId != null ? rideId.hashCode() : 0);
+//        result = 31 * result + (rideId != null ? rideId.hashCode() : 0);
         result = 31 * result + (requestStatus != null ? requestStatus.hashCode() : 0);
         return result;
     }

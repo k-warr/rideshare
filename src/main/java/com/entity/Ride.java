@@ -4,10 +4,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by student on 4/30/17.
+ * Created by Kien Warren on 4/30/17.
  */
 @Entity
 @Table(name="ride")
@@ -20,19 +21,29 @@ public class Ride {
     private Address endAddress;
     private String departTime;
     private String recurrenceDay;
-    private Integer numOfRecurrences;
+    private int numOfRecurrences;
     private byte rideIsFull;
-    private int vehicleOwnerId;
+//    private int vehicleOwnerId;
     private Date requestDateTime;
     private RideRequest rideRequest;
+    private Set<RideRequest> rideRequests = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ride_id")
-    public RideRequest getRideRequest() {
-        return this.rideRequest;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "request_id")
+//    public RideRequest getRideRequest() {
+//        return this.rideRequest;
+//    }
+//
+//    public void setRideRequest(RideRequest rideRequest) {this.rideRequest = rideRequest;}
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="ride")
+    public Set<RideRequest> getRideRequests() {
+        return this.rideRequests;
     }
 
-    public void setRideRequest(RideRequest rideRequest) {this.rideRequest = rideRequest;}
+    public void setRideRequests(Set<RideRequest> rideRequests) {
+        this.rideRequests = rideRequests;
+    }
 
     @Basic
     @Column(name = "ride_datetime", columnDefinition="DATETIME")
@@ -143,15 +154,15 @@ public class Ride {
         this.rideIsFull = rideIsFull;
     }
 
-    @Basic
-    @Column(name = "vehicle_owner_id")
-    public int getVehicleOwnerId() {
-        return vehicleOwnerId;
-    }
-
-    public void setVehicleOwnerId(int vehicleOwnerId) {
-        this.vehicleOwnerId = vehicleOwnerId;
-    }
+//    @Basic
+//    @Column(name = "vehicle_owner_id")
+//    public int getVehicleOwnerId() {
+//        return vehicleOwnerId;
+//    }
+//
+//    public void setVehicleOwnerId(int vehicleOwnerId) {
+//        this.vehicleOwnerId = vehicleOwnerId;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -161,16 +172,16 @@ public class Ride {
         Ride ride = (Ride) o;
 
         if (rideId != ride.rideId) return false;
-        if (userUserId != ride.userUserId) return false;
+//        if (userUserId != ride.userUserId) return false;
 //        if (startAddressId != ride.startAddressId) return false;
 //        if (endAddressId != ride.endAddressId) return false;
         if (rideIsFull != ride.rideIsFull) return false;
-        if (vehicleOwnerId != ride.vehicleOwnerId) return false;
+//        if (vehicleOwnerId != ride.vehicleOwnerId) return false;
         if (departTime != null ? !departTime.equals(ride.departTime) : ride.departTime != null) return false;
         if (recurrenceDay != null ? !recurrenceDay.equals(ride.recurrenceDay) : ride.recurrenceDay != null)
             return false;
-        if (numOfRecurrences != null ? !numOfRecurrences.equals(ride.numOfRecurrences) : ride.numOfRecurrences != null)
-            return false;
+//        if (numOfRecurrences != null ? !numOfRecurrences.equals(ride.numOfRecurrences) : ride.numOfRecurrences != null)
+//            return false;
 
         return true;
     }
@@ -178,14 +189,14 @@ public class Ride {
     @Override
     public int hashCode() {
         int result = rideId;
-        result = 31 * result + userUserId;
+//        result = 31 * result + userUserId;
 //        result = 31 * result + startAddressId;
 //        result = 31 * result + endAddressId;
         result = 31 * result + (departTime != null ? departTime.hashCode() : 0);
         result = 31 * result + (recurrenceDay != null ? recurrenceDay.hashCode() : 0);
-        result = 31 * result + (numOfRecurrences != null ? numOfRecurrences.hashCode() : 0);
+//        result = 31 * result + (numOfRecurrences != null ? numOfRecurrences.hashCode() : 0);
         result = 31 * result + (int) rideIsFull;
-        result = 31 * result + vehicleOwnerId;
+//        result = 31 * result + vehicleOwnerId;
         return result;
     }
 }

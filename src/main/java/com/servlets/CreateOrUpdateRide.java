@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Kien Warren on 5/8/17.
@@ -45,7 +47,14 @@ public class CreateOrUpdateRide extends HttpServlet {
 
             } else {
                 Ride ride = new Ride();
-//                rideRequest.set
+
+                ride.setUserUserId(user.getUserId());
+                ride.setNumOfRecurrences(1);
+                ride.setRecurrenceDay(rideRequest.getRecurrenceDay());
+                ride.setEndAddress(rideRequest.getDropoffAddress());
+                ride.setStartAddress(rideRequest.getPickupAddress());
+//                rideSet.add(ride);
+//                rideRequest.setRides();
 
             }
 

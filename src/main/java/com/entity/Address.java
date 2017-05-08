@@ -28,6 +28,24 @@ public class Address {
     private Set<Ride> rideEndingAddresses = new HashSet<Ride>(0);
     private Set<User> usersAddresses = new HashSet<User>(0);
 
+    public Address() {
+
+    }
+
+    public Address(String addressNumber, String streetName, String city, String state, String zipCode) {
+        this();
+        setAddressNumber(addressNumber);
+        setStreetName(streetName);
+        setCity(city);
+        setState(state);
+        setZipCode(zipCode);
+        setFullAddress(getAddressNumber()
+                + " " + getStreetName()
+                + " " + getCity()
+                + ", " + getState()
+                + " " + getZipCode());
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy="homeAddress")
     public Set<User> getUsersAddresses() {
         return this.usersAddresses;

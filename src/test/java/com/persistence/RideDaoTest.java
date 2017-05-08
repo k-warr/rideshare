@@ -24,7 +24,7 @@ public class RideDaoTest {
         dao = new RideDao();
         testRide = new Ride();
         testRide.setUserUserId(2);
-        testRide.setVehicleOwnerId(1);
+//        testRide.setVehicleOwnerId(1);
 //        testRide.setStartAddressId(1);
 //        testRide.setEndAddressId(2);
         testRide.setRecurrenceDay("Z");
