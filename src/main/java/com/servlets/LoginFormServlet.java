@@ -38,7 +38,6 @@ public class LoginFormServlet extends HttpServlet {
             // Check if password matches
             if (user.getPassword().equals(password)) {
                 session.setAttribute("username", username);
-
 //            String url = "j_security_check?j_username=" + username + "&j_password=" + password;
                 String url = "/myprofile";
 //                RequestDispatcher dispatcher =

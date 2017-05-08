@@ -69,6 +69,8 @@ public class BecomeADriverFormHandler extends HttpServlet {
                 user.setDriversLicense(driversLicense);
                 user.setLicensePlate(licensePlate);
                 user.setInsuranceProvider(insuranceProvider);
+                user.setVin(vin);
+                user.setIsDriver(1);
                 userDao.updateUser(user);
 
 //                VehicleOwner vehicleOwner = new VehicleOwner();

@@ -19,7 +19,7 @@
     <c:import url="theme/nav.jsp" />
 
     <h3>Ride Request Form</h3>
-    <form action="/rideRequestFormHandler" method="POST">
+    <form action="/rideRequestFormHandler" method="GET">
         <label for="username">Username</label>
         <input type="text" id="username" name="username">
         <br>

@@ -58,8 +58,6 @@ public class RideRequestDao {
         return rideRequests;
     }
 
-
-
     public List<RideRequest> getAllOpenRequestsExcludeUser(int id) {
         List<RideRequest> rideRequests = null;
         Session session = SessionFactoryProvider.getSessionFactory().openSession();

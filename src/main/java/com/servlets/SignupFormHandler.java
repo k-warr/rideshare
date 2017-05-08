@@ -59,6 +59,7 @@ import java.util.Properties;
         newUser.setPassword(password);
         newUser.setEmail(email);
         newUser.setPhone(phone);
+        newUser.setMaxRidersInclDriver(0);
         dao.addUser(newUser);
         log.info("PROPERTIES: " + propertyManager.getProperty("google_api_key"));
 

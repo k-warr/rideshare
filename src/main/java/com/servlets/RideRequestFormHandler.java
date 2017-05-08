@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by Kien Warren on 5/2/17.
@@ -27,7 +28,7 @@ import java.io.IOException;
 public class RideRequestFormHandler extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("RideRequestFormHandler reached.");
         HttpSession session = request.getSession();
 //        ServletContext context = getServletContext();
@@ -86,6 +87,7 @@ public class RideRequestFormHandler extends HttpServlet {
             rideRequest.setRecurrenceDay(recurrenceDay);
             rideRequest.setUser(requestor);
             rideRequest.setRequestStatus("Active");
+            rideRequest.setRequestTime(new Date());
             rideRequestDao.addRideRequest(rideRequest);
 
             String url = "/myprofile";
