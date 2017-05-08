@@ -21,9 +21,75 @@ public class User {
     private int phone;
     private Address homeAddress;
     private Vehicle vehicle;
-//    private VehicleOwner vehicleOwner;
+    private int maxRidersInclDriver;
+    private String vin;
+    private String insuranceProvider;
+    private String driversLicense;
+    private String licensePlate;
+    private int isDriver;
+    //    private VehicleOwner vehicleOwner;
 //    private Integer homeAddressId;
     private Set<RideRequest> rideRequests = new HashSet<RideRequest>(0);
+
+    @Basic
+    @Column(name = "max_riders_incl_driver")
+    public int getMaxRidersInclDriver() {
+        return maxRidersInclDriver;
+    }
+
+    public void setMaxRidersInclDriver(int maxRidersInclDriver) {
+        this.maxRidersInclDriver = maxRidersInclDriver;
+    }
+
+    @Basic
+    @Column(name = "isDriver")
+    public int getIsDriver() {
+        return isDriver;
+    }
+
+    public void setIsDriver(int isDriver) {
+        this.isDriver = isDriver;
+    }
+
+    @Basic
+    @Column(name = "vin")
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
+
+    @Basic
+    @Column(name = "insurance_provider")
+    public String getInsuranceProvider() {
+        return insuranceProvider;
+    }
+
+    public void setInsuranceProvider(String insuranceProvider) {
+        this.insuranceProvider = insuranceProvider;
+    }
+
+    @Basic
+    @Column(name = "drivers_license")
+    public String getDriversLicense() {
+        return driversLicense;
+    }
+
+    public void setDriversLicense(String driversLicense) {
+        this.driversLicense = driversLicense;
+    }
+
+    @Basic
+    @Column(name = "license_plate")
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
+    }
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy="user")
     public Set<RideRequest> getRideStartingAddresses() {

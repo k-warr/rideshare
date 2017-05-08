@@ -25,9 +25,9 @@ import java.util.Properties;
  *@author    Kien Warren
  */
 @WebServlet(
-        name = "testPage",
-        urlPatterns = {"/test"}    // must be unique
-) public class Test extends HttpServlet {
+        name = "SignupFormHandler",
+        urlPatterns = {"/signupFormHandler"}    // must be unique
+) public class SignupFormHandler extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
 //    private Properties properties;
 

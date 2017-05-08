@@ -16,10 +16,6 @@ import java.util.List;
 public class UserDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
-    /** Return a list of all users
-     *
-     * @return All users
-     */
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -136,5 +132,33 @@ public class UserDao {
             }
         }
 
+    }
+
+    public boolean isDriverByUsername(String username) {
+        Session session = null;
+        List<User> users = null;
+        try {
+            session = SessionFactoryProvider.getSessionFactory().openSession();
+            Query query = session.createSQLQuery(
+                    "select * from USER where username = :username LIMIT 1")
+                    .addEntity(User.class)
+                    .setParameter("username", username);
+            users = query.list();
+
+        } catch (HibernateException he) {
+            log.error("HibernateException: " + he);
+        } catch (Exception e) {
+            log.error("Exception: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        if (users != null && users.size() > 0) {
+            log.info("isDriverByUsername = true");
+            return  true;
+        }
+        log.info("isDriverByUsername = false");
+        return false;
     }
 }
