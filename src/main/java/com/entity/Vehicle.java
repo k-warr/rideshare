@@ -16,7 +16,8 @@ public class Vehicle {
     private String make;
     private String model;
     private int year;
-    private Set<VehicleOwner> vehicleOwners = new HashSet<VehicleOwner>(0);
+//    private Set<VehicleOwner> vehicleOwners = new HashSet<VehicleOwner>(0);
+    private Set<User> users = new HashSet<>();
 
     public Vehicle() {
     }
@@ -28,13 +29,22 @@ public class Vehicle {
         setYear(year);
     }
 
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy="vehicle")
+//    public Set<VehicleOwner> getVehicleOwners() {
+//        return this.vehicleOwners;
+//    }
+//
+//    public void setVehicleOwners(Set<VehicleOwner> vehicleOwners) {
+//        this.vehicleOwners = vehicleOwners;
+//    }
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy="vehicle")
-    public Set<VehicleOwner> getVehicleOwners() {
-        return this.vehicleOwners;
+    public Set<User> getUsers() {
+        return this.users;
     }
 
-    public void setVehicleOwners(Set<VehicleOwner> vehicleOwners) {
-        this.vehicleOwners = vehicleOwners;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     @Id

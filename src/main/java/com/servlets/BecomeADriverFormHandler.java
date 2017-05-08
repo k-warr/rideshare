@@ -2,12 +2,10 @@ package com.servlets;
 
 import com.entity.User;
 import com.entity.Vehicle;
-import com.entity.VehicleOwner;
 import com.logic.LoginChecker;
 import com.persistence.SessionFactoryProvider;
 import com.persistence.UserDao;
 import com.persistence.VehicleDao;
-import com.persistence.VehicleOwnerDao;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -35,7 +33,7 @@ public class BecomeADriverFormHandler extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
     private UserDao userDao;
     private VehicleDao vehicleDao;
-    private VehicleOwnerDao vehicleOwnerDao;
+//    private VehicleOwnerDao vehicleOwnerDao;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("RideRequestFormHandler reached.");
@@ -55,7 +53,7 @@ public class BecomeADriverFormHandler extends HttpServlet {
             }
 
             userDao = new UserDao();
-            vehicleOwnerDao = new VehicleOwnerDao();
+//            vehicleOwnerDao = new VehicleOwnerDao();
             vehicleDao = new VehicleDao();
             User user = userDao.getUserByUsername(session.getAttribute("username").toString());
             String make = request.getParameter("make");
@@ -66,26 +64,27 @@ public class BecomeADriverFormHandler extends HttpServlet {
             String licensePlate = request.getParameter("licensePlate");
             String insuranceProvider = request.getParameter("insuranceProvider");
 
-            if (!vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
+//            if (!vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
+            if (true) {
                 Vehicle vehicle = new Vehicle(make, model, year);
                 int vehicleId = vehicleDao.addVehicleIfDoesntExist(vehicle);
 
-                VehicleOwner vehicleOwner = new VehicleOwner();
-                vehicleOwner.setVehicle(vehicle);
-                vehicleOwner.setUser(user);
-                vehicleOwner.setVin(vin);
-                vehicleOwner.setDriversLicense(driversLicense);
-                vehicleOwner.setLicensePlate(licensePlate);
-                vehicleOwner.setMaxRidersInclDriver(maxOccupants);
-                vehicleOwner.setInsuranceProvider(insuranceProvider);
-
-                user.setVehicleOwner(vehicleOwner);
-//                userDao.updateUser(user);
-                Set<VehicleOwner> set = new HashSet<VehicleOwner>();
-                set.add(vehicleOwner);
-                vehicle.setVehicleOwners(set);
-                vehicleDao.addVehicleIfDoesntExist(vehicle);
-                vehicleOwnerDao.addVehicleOwner(vehicleOwner);
+//                VehicleOwner vehicleOwner = new VehicleOwner();
+//                vehicleOwner.setVehicle(vehicle);
+//                vehicleOwner.setUser(user);
+//                vehicleOwner.setVin(vin);
+//                vehicleOwner.setDriversLicense(driversLicense);
+//                vehicleOwner.setLicensePlate(licensePlate);
+//                vehicleOwner.setMaxRidersInclDriver(maxOccupants);
+//                vehicleOwner.setInsuranceProvider(insuranceProvider);
+//
+//                user.setVehicleOwner(vehicleOwner);
+////                userDao.updateUser(user);
+//                Set<VehicleOwner> set = new HashSet<VehicleOwner>();
+//                set.add(vehicleOwner);
+//                vehicle.setVehicleOwners(set);
+//                vehicleDao.addVehicleIfDoesntExist(vehicle);
+//                vehicleOwnerDao.addVehicleOwner(vehicleOwner);
 
                 request.setAttribute("becomeADriverSignupSuccess", true);
                 RequestDispatcher dispatcher =

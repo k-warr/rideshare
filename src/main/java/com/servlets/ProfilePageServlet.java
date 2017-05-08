@@ -5,7 +5,6 @@ import com.entity.User;
 import com.logic.LoginChecker;
 import com.persistence.RideRequestDao;
 import com.persistence.UserDao;
-import com.persistence.VehicleOwnerDao;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 
@@ -44,7 +43,7 @@ import javax.servlet.http.*;
         UserDao userDao = new UserDao();
         User user = userDao.getUserByUsername(username);
         RideRequestDao rideRequestDao = new RideRequestDao();
-        VehicleOwnerDao vehicleOwnerDao = new VehicleOwnerDao();
+//        VehicleOwnerDao vehicleOwnerDao = new VehicleOwnerDao();
         List<RideRequest> rideRequests = null;
         List<RideRequest> openRideRequests = null;
 
@@ -60,7 +59,8 @@ import javax.servlet.http.*;
 
             // TODO: if driver, get a list of all open ride requests
                 // If the user has a vehicle (i.e. signed up as driver)
-                if (vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
+//                if (vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
+                if (true) {
                     request.setAttribute("isDriver", true); // enables certain content to be visible on page
                     log.info("Driver confirmed. Retrieving openRideRequests");
                     openRideRequests = rideRequestDao.getAllOpenRequestsExcludeUser(user.getUserId());

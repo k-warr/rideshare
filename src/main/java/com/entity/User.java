@@ -20,7 +20,8 @@ public class User {
     private String email;
     private int phone;
     private Address homeAddress;
-    private VehicleOwner vehicleOwner;
+    private Vehicle vehicle;
+//    private VehicleOwner vehicleOwner;
 //    private Integer homeAddressId;
     private Set<RideRequest> rideRequests = new HashSet<RideRequest>(0);
 
@@ -46,17 +47,24 @@ public class User {
         this.userId = userId;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-    public VehicleOwner getVehicleOwner() {
-        return vehicleOwner;
-    }
-
-    public void setVehicleOwner(VehicleOwner vehicleOwner) {
-        this.vehicleOwner = vehicleOwner;
-    }
+//    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+//    public VehicleOwner getVehicleOwner() {
+//        return vehicleOwner;
+//    }
+//
+//    public void setVehicleOwner(VehicleOwner vehicleOwner) {
+//        this.vehicleOwner = vehicleOwner;
+//    }
 
     @ManyToOne(fetch = FetchType.EAGER)
-//    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicle_vehicle_id")
+    public Vehicle getVehicle() {
+        return this.vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {this.vehicle = vehicle;}
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "home_address_id")
     public Address getHomeAddress() {
         return this.homeAddress;

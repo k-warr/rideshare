@@ -24,7 +24,7 @@
         <mapping class="com.entity.RideRequest"/>
         <mapping class="com.entity.User"/>
         <mapping class="com.entity.Vehicle"/>
-        <mapping class="com.entity.VehicleOwner"/>
+        <!--<mapping class="com.entity.VehicleOwner"/>-->
         <mapping class="com.entity.UserRole"/>
 
     </session-factory>
