@@ -3,10 +3,12 @@ package com.persistence;
 import com.entity.Ride;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,6 +16,34 @@ import java.util.List;
  */
 public class RideDao {
     private final Logger log = Logger.getLogger(this.getClass());
+
+    public List<Ride> getAllUpcomingRidesByUserId(int user_id) {
+        List<Ride> rides = new ArrayList<Ride>();
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Date currentDate = new Date();
+        try {
+            session = SessionFactoryProvider.getSessionFactory().openSession();
+            Query query = session.createSQLQuery(
+                    "select * from ride where user_user_id = :user_id AND ride_datetime > :currentDate")
+                    .addEntity(Ride.class)
+                    .setParameter("user_id", user_id)
+                    .setParameter("currentDate", currentDate);
+            rides = query.list();
+
+        } catch (HibernateException he) {
+            log.error("HibernateException: " + he);
+        } catch (Exception e) {
+            log.error("Exception: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        if (rides != null && rides.size() > 0) {
+            return rides;
+        }
+        return null;
+    }
 
     public List<Ride> getAllRides() {
         List<Ride> rides = new ArrayList<Ride>();

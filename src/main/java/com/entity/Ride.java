@@ -3,6 +3,8 @@ package com.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by student on 4/30/17.
@@ -21,6 +23,27 @@ public class Ride {
     private Integer numOfRecurrences;
     private byte rideIsFull;
     private int vehicleOwnerId;
+    private Date requestDateTime;
+    private RideRequest rideRequest;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ride_id")
+    public RideRequest getRideRequest() {
+        return this.rideRequest;
+    }
+
+    public void setRideRequest(RideRequest rideRequest) {this.rideRequest = rideRequest;}
+
+    @Basic
+    @Column(name = "ride_datetime", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getRequestDateTime() {
+        return requestDateTime;
+    }
+
+    public void setRequestDateTime(Date requestDateTime) {
+        this.requestDateTime = requestDateTime;
+    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "start_address_id", nullable = false)

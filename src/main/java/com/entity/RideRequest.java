@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by student on 4/30/17.
@@ -21,6 +23,16 @@ public class RideRequest {
     private Address pickupAddress;
     private Address dropoffAddress;
     private Date requestTime;
+    private Set<Ride> rides = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="rideRequest")
+    public Set<Ride> getRides() {
+        return this.rides;
+    }
+
+    public void setRides(Set<Ride> rides) {
+        this.rides = rides;
+    }
 
     @Basic
     @Column(name = "request_time", columnDefinition="DATETIME")
