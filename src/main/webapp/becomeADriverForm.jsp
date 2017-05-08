@@ -16,7 +16,7 @@
         <%--<input type="text" id="username" name="username">--%>
         <%--<br>--%>
         <label for="make">Car Make: </label>
-        <select id="make" name="make">
+        <select id="make" name="make" required>
             <option value="Alfa Romeo">Alfa Romeo</option>
             <option value="Aston Martin">Aston Martin</option>
             <option value="Audi">Audi</option>
@@ -70,25 +70,25 @@
         </select>
         <br>
         <label for="model">Car Model: </label>
-        <input type="text" id="model" name="model">
+        <input type="text" id="model" name="model" required>
         <br>
         <label for="year">Manufactured Year: </label>
-        <input type="text" id="year" name="year" placeholder="Ex. 1991" pattern="[0-9]{4}">
+        <input type="text" id="year" name="year" placeholder="Ex. 1991" pattern="[0-9]{4}" required>
         <br>
         <label for="maxOccupants">Max Occupants Including Driver: </label>
-        <input type="text" id="maxOccupants" name="maxOccupants" pattern="[0-9]{,2}">
+        <input type="text" id="maxOccupants" name="maxOccupants" pattern="[0-9]{,2}" required>
         <br>
         <label for="vin">VIN: </label>
         <input type="text" id="vin" name="vin">
         <br>
         <label for="driversLicense">Driver's License Number: </label>
-        <input type="text" id="driversLicense" name="driversLicense">
+        <input type="text" id="driversLicense" name="driversLicense" required>
         <br>
         <label for="licensePlate">License Plate Number: </label>
-        <input type="text" id="licensePlate" name="licensePlate">
+        <input type="text" id="licensePlate" name="licensePlate" required>
         <br>
         <label for="insuranceProvider">Insurance Provider: </label>
-        <input type="text" id="insuranceProvider" name="insuranceProvider">
+        <input type="text" id="insuranceProvider" name="insuranceProvider" required>
         <br>
         <input type="submit" value="Submit">
     </form>

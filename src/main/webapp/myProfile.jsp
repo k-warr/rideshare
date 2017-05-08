@@ -25,7 +25,10 @@
     </div>
     <div>
         <c:if test="${becomeADriverSignupSuccess}">
-            <h3>Successfully signed up to be a driver</h3>
+            <h3>Successfully signed up to be a driver.</h3>
+        </c:if>
+        <c:if test="${alreadyDriver}">
+            <h3>You are already signed up to be a driver.</h3>
         </c:if>
     </div>
     <div>

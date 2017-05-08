@@ -27,7 +27,10 @@ public class ToRideRequestForm extends HttpServlet {
                     getServletContext().getRequestDispatcher("/requestRideForm.jsp");
             dispatcher.forward(request, response);
         } else {
-            response.sendRedirect("/login.jsp");
+            request.setAttribute("notLoggedIn", true);
+            RequestDispatcher dispatcher =
+                    getServletContext().getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }

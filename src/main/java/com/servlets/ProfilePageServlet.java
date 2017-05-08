@@ -58,20 +58,24 @@ import javax.servlet.http.*;
 
 
             // TODO: if driver, get a list of all open ride requests
-                // If the user has a vehicle (i.e. signed up as driver)
+            // If the user has a vehicle (i.e. signed up as driver)
 //                if (vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
-                if (true) {
-                    request.setAttribute("isDriver", true); // enables certain content to be visible on page
-                    log.info("Driver confirmed. Retrieving openRideRequests");
-                    openRideRequests = rideRequestDao.getAllOpenRequestsExcludeUser(user.getUserId());
-                    request.setAttribute("openRideRequests", openRideRequests);
-                }
+            if (userDao.isDriverByUsername(username)) {
+                request.setAttribute("isDriver", true); // enables certain content to be visible on page
+                log.info("Driver confirmed. Retrieving openRideRequests");
+                openRideRequests = rideRequestDao.getAllOpenRequestsExcludeUser(user.getUserId());
+                request.setAttribute("openRideRequests", openRideRequests);
+            }
             // TODO: if driver, show all rides
                 // TODO: link to a page that shows directions to a location
-
+            if (userDao.isDriverByUsername(username)) {
+            }
         } else {
             log.info("no username found");
-            response.sendRedirect("/noLoginFound.jsp");
+            request.setAttribute("notLoggedIn", true);
+            RequestDispatcher dispatcher =
+                    getServletContext().getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
         }
 
         String url = "/myProfile.jsp";

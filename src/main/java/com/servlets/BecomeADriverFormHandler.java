@@ -38,16 +38,13 @@ public class BecomeADriverFormHandler extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("RideRequestFormHandler reached.");
         HttpSession session = request.getSession();
-        log.info("User logged in? (LoginChecker.userIsLoggedIn) " + LoginChecker.userIsLoggedIn(session));
         if (LoginChecker.userIsLoggedIn(session)) {
             int year = -1;
             int maxOccupants = -1;
-            int vin = -1;
 
             try {
                 year = Integer.parseInt(request.getParameter("year"));
                 maxOccupants = Integer.parseInt(request.getParameter("maxOccupants"));
-                vin = Integer.parseInt(request.getParameter("vin"));
             } catch (NumberFormatException nfe) {
                 log.error("NumberFormatException");
             }
@@ -58,16 +55,21 @@ public class BecomeADriverFormHandler extends HttpServlet {
             User user = userDao.getUserByUsername(session.getAttribute("username").toString());
             String make = request.getParameter("make");
             String model = request.getParameter("model");
-
-
             String driversLicense = request.getParameter("driversLicense");
             String licensePlate = request.getParameter("licensePlate");
             String insuranceProvider = request.getParameter("insuranceProvider");
+            String vin = request.getParameter("vin");
 
 //            if (!vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
-            if (true) {
+            if (!userDao.isDriverByUsername(user.getUsername())) {
                 Vehicle vehicle = new Vehicle(make, model, year);
                 int vehicleId = vehicleDao.addVehicleIfDoesntExist(vehicle);
+
+                user.setVehicle(vehicle);
+                user.setDriversLicense(driversLicense);
+                user.setLicensePlate(licensePlate);
+                user.setInsuranceProvider(insuranceProvider);
+                userDao.updateUser(user);
 
 //                VehicleOwner vehicleOwner = new VehicleOwner();
 //                vehicleOwner.setVehicle(vehicle);
@@ -91,12 +93,17 @@ public class BecomeADriverFormHandler extends HttpServlet {
                         getServletContext().getRequestDispatcher("/myprofile");
                 dispatcher.forward(request, response);
             } else {
-                // TODO: redirect to user already exists
-
+                request.setAttribute("alreadyDriver", true);
+                RequestDispatcher dispatcher =
+                        getServletContext().getRequestDispatcher("/myprofile");
+                dispatcher.forward(request, response);
             }
         } else {
             log.info("no username found");
-            response.sendRedirect("/noLoginFound.jsp");
+            request.setAttribute("notLoggedIn", true);
+            RequestDispatcher dispatcher =
+                    getServletContext().getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
         }
 
     }

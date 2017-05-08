@@ -48,34 +48,24 @@ import java.util.Properties;
         HttpSession session = request.getSession();
 //        ServletContext context = getServletContext();
 
-//        EmployeeDirectory directory = (EmployeeDirectory) context.getAttribute("employeeDirectory");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         int phone = Integer.parseInt(request.getParameter("phoneNumber"));
 
         User newUser = new User();
+        UserDao dao = new UserDao();
         newUser.setUsername(username);
         newUser.setPassword(password);
         newUser.setEmail(email);
         newUser.setPhone(phone);
-        UserDao dao = new UserDao();
         dao.addUser(newUser);
         log.info("PROPERTIES: " + propertyManager.getProperty("google_api_key"));
-//        String searchTerm = request.getParameter("searchTerm");
-//        String searchType = request.getParameter("searchType");
 
-//        if (searchTerm == null || searchTerm.equals("")) {
-//            session.setAttribute("noResultsFound", "Please key in values in the search bar below.");
-//            response.sendRedirect("/java112/project4-search_display");
-//        } else {
-//            Search search = directory.searchDatabase(searchTerm, searchType);
-//            session.setAttribute("employeesResults", search);
-
-            String url = "/test.jsp";
+        request.setAttribute("newUser", true);
 
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher(url);
+                    getServletContext().getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
 //        }
     }

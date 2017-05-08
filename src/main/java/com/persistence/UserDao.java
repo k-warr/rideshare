@@ -140,7 +140,7 @@ public class UserDao {
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
             Query query = session.createSQLQuery(
-                    "select * from USER where username = :username LIMIT 1")
+                    "select * from user where username = :username LIMIT 1")
                     .addEntity(User.class)
                     .setParameter("username", username);
             users = query.list();
@@ -155,10 +155,13 @@ public class UserDao {
             }
         }
         if (users != null && users.size() > 0) {
-            log.info("isDriverByUsername = true");
-            return  true;
+            if (users.get(0).getIsDriver() == 1) {
+                log.info("isDriverByUsername = true");
+                return  true;
+            }
+            return false;
         }
-        log.info("isDriverByUsername = false");
+        log.error("isDriverByUsername() couldn't find user");
         return false;
     }
 }

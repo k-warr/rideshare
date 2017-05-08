@@ -11,6 +11,11 @@ import javax.websocket.Session;
 public class LoginChecker {
 
     public static boolean userIsLoggedIn(HttpSession session) {
+        try {
+            String username =  session.getAttribute("username").toString();
+        } catch (NullPointerException e) {
+            return false;
+        }
         if (!session.getAttribute("username").equals(null) && !session.getAttribute("username").equals(' ')) {
             return true;
         } else {
