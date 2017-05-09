@@ -43,7 +43,7 @@ public class LoginFormServlet extends HttpServlet {
                     session.setAttribute("isDriverSession", true);
                 }
                 session.setAttribute("username", username);
-                response.sendRedirect(propertyManager.getProperty("servlet.myprofile"));
+                response.sendRedirect(propertyManager.getProperty("servlet.no_context.myprofile"));
             } else {
                 session.invalidate();
 //                response.sendRedirect("/failedLogin.jsp");

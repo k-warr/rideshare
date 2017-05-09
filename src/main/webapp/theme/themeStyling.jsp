@@ -20,7 +20,7 @@
     /* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
     .business-header {
         height: 400px;
-        background: url('../content/homePageBanner.jpg') center center no-repeat scroll;
+        background: url('http://wallpaperpulse.com/img/914733.jpg') center center no-repeat scroll;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         background-size: cover;

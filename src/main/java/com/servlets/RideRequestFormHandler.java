@@ -91,7 +91,7 @@ public class RideRequestFormHandler extends HttpServlet {
             request.setAttribute("successfulRideRequestSubmission", true);
 
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.myprofile"));
+                    getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.no_context.myprofile"));
             dispatcher.forward(request, response);
         } else {
             log.info("no username found");

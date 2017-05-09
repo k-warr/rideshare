@@ -28,7 +28,7 @@ public class ToSignupForm extends HttpServlet {
 
         if (LoginChecker.userIsLoggedIn(session)) {
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.myprofile"));
+                    getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.no_context.myprofile"));
 //                    getServletContext().getRequestDispatcher("/myprofile");
             dispatcher.forward(request, response);
         } else {

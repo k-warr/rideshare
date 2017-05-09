@@ -110,13 +110,13 @@ public class BecomeADriverFormHandler extends HttpServlet {
                 request.setAttribute("becomeADriverSignupSuccess", true);
                 RequestDispatcher dispatcher =
 //                        getServletContext().getRequestDispatcher("/myprofile");
-                        getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.myprofile"));
+                        getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.no_context.myprofile"));
                 dispatcher.forward(request, response);
             } else {
                 request.setAttribute("alreadyDriver", true);
                 RequestDispatcher dispatcher =
 //                        getServletContext().getRequestDispatcher("/myprofile");
-                        getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.myprofile"));
+                        getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.no_context.myprofile"));
                 dispatcher.forward(request, response);
             }
         } else {
