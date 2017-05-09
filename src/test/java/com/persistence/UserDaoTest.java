@@ -77,12 +77,8 @@ public class UserDaoTest {
     @Test
     public void getAUserTest() throws Exception {
         String username = "";
-        dao.addUser(testUser);
-
         User returnUser = dao.getUser(1);
-        System.out.println("----Email: " + returnUser.getEmail());
-
-        assertEquals("getAUserTest failed","test", returnUser.getUsername());
+        assertEquals("getAUserTest failed","admin", returnUser.getUsername());
     }
 
     @Test

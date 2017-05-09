@@ -6,6 +6,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -52,6 +53,7 @@ public class AddressDaoTest {
         assertEquals("1+Test+Testopia+TS+1", dao.getAddressWebUrlFormat(testAddress));
     }
 
+    @Ignore
     @Test
     public void testRelationship() throws Exception {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
