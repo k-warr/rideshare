@@ -2,6 +2,7 @@ package com.servlets;
 
 import com.entity.User;
 import com.logic.LoginChecker;
+import com.logic.PropertyManager;
 import com.persistence.UserDao;
 import org.apache.log4j.Logger;
 
@@ -17,7 +18,9 @@ import java.io.IOException;
 /**
  * Created by Kien Warren on 5/8/17.
  */
-@WebServlet(name = "RideInfo")
+@WebServlet(
+        name = "RideInfo",
+        urlPatterns = {"/rideInfo"})
 public class RideInfo extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
     private UserDao userDao;
@@ -27,8 +30,16 @@ public class RideInfo extends HttpServlet {
         HttpSession session = request.getSession();
         User user = userDao.getUserByUsername(session.getAttribute("username").toString());
 
-        if (LoginChecker.userIsLoggedIn(session)) {
 
+        if (LoginChecker.userIsLoggedIn(session)) {
+            PropertyManager properties = new PropertyManager();
+
+            request.setAttribute("apiKey", properties.getProperty("google_api_key"));
+//            request.setAttribute("originAddress", );
+
+            RequestDispatcher dispatcher =
+                    getServletContext().getRequestDispatcher("/rideInfo.jsp");
+            dispatcher.forward(request, response);
         } else {
             log.info("no username found");
             request.setAttribute("notLoggedIn", true);

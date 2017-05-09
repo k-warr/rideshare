@@ -54,7 +54,9 @@
                                 <td>${rideRequest.getPickupAddress().getFullAddress()}</td>
                                 <td>${rideRequest.getDropoffAddress().getFullAddress()}</td>
                                 <td>${rideRequest.getDropoffTime()}</td>
-                                <td><a href="/getRideInfo?rideId=${rideRequest.getRequestId()}"></a></td>
+                                <c:if test="${rideRequest.getRide() != null}">
+                                    <td><a href="/getRideInfo?rideId=${rideRequest.getRequestId()}"></a></td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                         </tbody>

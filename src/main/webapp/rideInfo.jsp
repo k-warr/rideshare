@@ -15,7 +15,13 @@
     <c:import url="theme/nav.jsp" />
     <div class="container">
         <div class="row">
-
+            <iframe
+                    width="600"
+                    height="450"
+                    frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=3158+Ridegeway+Ave+Madison,+WI+53704&destination=525+Junction+Rd+Madison+WI+53715&avoid=tolls|highways"
+                    allowfullscreen>
+            </iframe>
         </div>
     </div>
 </body>

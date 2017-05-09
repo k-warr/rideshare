@@ -24,6 +24,7 @@ public class RideRequest {
     private Address dropoffAddress;
     private Date requestTime;
     private Ride ride;
+
 //    private Set<Ride> rides = new HashSet<>();
 
 //    @OneToMany(fetch = FetchType.EAGER, mappedBy="rideRequest")

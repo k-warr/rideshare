@@ -70,6 +70,10 @@ public class AddressDao {
                 + " " + address.getZipCode());
     }
 
+    public String getAddressWebUrlFormat(Address address) {
+        return address.getFullAddress().replace(" ", "+");
+    }
+
     public int addAddressIfDoesntExist(Address address) {
         int id = existsAddress(address);
         if (id == -1) {

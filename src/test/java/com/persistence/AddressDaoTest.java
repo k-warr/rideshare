@@ -11,7 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by student on 5/2/17.
+ * Created by Kien Warren on 5/2/17.
  */
 public class AddressDaoTest {
     AddressDao dao;
@@ -23,11 +23,14 @@ public class AddressDaoTest {
     public void setUp() throws Exception {
         dao = new AddressDao();
         testAddress = new Address();
+        rideRequest = new RideRequest();
+        rideRequestDao = new RideRequestDao();
         testAddress.setAddressNumber("1");
         testAddress.setStreetName("Test");
         testAddress.setCity("Testopia");
         testAddress.setState("TS");
         testAddress.setZipCode("1");
+        testAddress.setFullAddress( "1 Test Testopia TS 1");
         rideRequest.setRecurrenceDay("M");
 //        rideRequest.setPickupAddressId(1);
 //        rideRequest.setDropoffAddressId(1);
@@ -42,6 +45,11 @@ public class AddressDaoTest {
         SQLQuery query = session.createSQLQuery("DELETE FROM address WHERE state = \'TS\'");
         query.executeUpdate();
         session.getTransaction().commit();
+    }
+
+    @Test
+    public void getFormattedAddressTest() throws Exception {
+        assertEquals("1+Test+Testopia+TS+1", dao.getAddressWebUrlFormat(testAddress));
     }
 
     @Test
