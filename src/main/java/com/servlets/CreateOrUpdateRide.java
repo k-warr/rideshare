@@ -51,9 +51,10 @@ public class CreateOrUpdateRide extends HttpServlet {
             boolean rideExistsAtSameTime = false;
 
             // If there are any active rides coming up
-            if (existingRides != null) {
-                log.info("Rides exist. ");
+            if (existingRides != null && existingRides.size() > 0) {
+                log.info("Rides exist.");
                 Date rideRequestDateTime;
+                // Loop through existing rides
                 for (Ride ride : existingRides) {
                     rideRequestDateTime = DateManipulator.nextDateTime(rideRequest.getDropoffTime(), rideRequest.getRecurrenceDay());
                     Date rideDateTime = ride.getRequestDateTime();
@@ -74,52 +75,53 @@ public class CreateOrUpdateRide extends HttpServlet {
 
                             ride.setNumRidersInclDriver(ride.getNumRidersInclDriver() + 1);
                             rideRequests.add(rideRequest);
-
+                            ride.setRideRequests(rideRequests);
                             rideRequestDao.updateRideRequest(rideRequest);
                             rideDao.updateRide(ride);
 
                             request.setAttribute("acceptedRide", true);
                             RequestDispatcher dispatcher =
-                                    getServletContext().getRequestDispatcher("myprofile");
+                                    getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.myprofile"));
                             dispatcher.forward(request, response);
                             return;
                         }
                         log.info("Ride was full.");
                     }
                 }
+                log.info("finished for loop");
 
                 if (rideExistsAtSameTime == true) {
                     log.info("Already has a full ride at the same time as accepted ride request...going back to myprofile page.");
 
                     request.setAttribute("fullRide", true);
                     RequestDispatcher dispatcher =
-                            getServletContext().getRequestDispatcher("myprofile");
+                            getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.myprofile"));
                     dispatcher.forward(request, response);
                     return;
                 }
                 log.info("No matching rides found.");
+
             } // end check if there are any existing rides
+            log.info("No matching rides found. Creating new ride.");
+            Ride ride = new Ride();
+            Set<RideRequest> rideRequests = new HashSet<>();
 
+            rideRequest.setRide(ride);
+            rideRequest.setRequestStatus("Accepted");
+            rideRequests.add(rideRequest);
 
-                Ride ride = new Ride();
-                Set<RideRequest> rideRequests = new HashSet<>();
-
-                rideRequests.add(rideRequest);
-
-                ride.setUserUserId(user.getUserId());
-                ride.setNumOfRecurrences(1);
-                ride.setRecurrenceDay(rideRequest.getRecurrenceDay());
-                ride.setEndAddress(rideRequest.getDropoffAddress());
+            ride.setUserUserId(user.getUserId());
+            ride.setNumOfRecurrences(1);
+            ride.setRecurrenceDay(rideRequest.getRecurrenceDay());
+            ride.setEndAddress(rideRequest.getDropoffAddress());
 //                ride.setStartAddress(rideRequest.getPickupAddress());
-                ride.setStartAddress(user.getHomeAddress());
-                ride.setDepartTime(rideRequest.getDropoffTime());
-                ride.setNumRidersInclDriver(2);
-                ride.setRideRequests(rideRequests);
-                ride.setRequestDateTime(DateManipulator.nextDateTime(rideRequest.getDropoffTime(), rideRequest.getRecurrenceDay()));
-                rideRequest.setRide(ride);
-                rideRequest.setRequestStatus("Accepted");
-                rideRequestDao.updateRideRequest(rideRequest);
-                rideDao.addRide(ride);
+            ride.setStartAddress(user.getHomeAddress());
+            ride.setDepartTime(rideRequest.getDropoffTime());
+            ride.setNumRidersInclDriver(2);
+            ride.setRideRequests(rideRequests);
+            ride.setRequestDateTime(DateManipulator.nextDateTime(rideRequest.getDropoffTime(), rideRequest.getRecurrenceDay()));
+            rideDao.addRide(ride);
+            rideRequestDao.updateRideRequest(rideRequest);
 
             request.setAttribute("acceptedRide", true);
             RequestDispatcher dispatcher =

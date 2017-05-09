@@ -15,7 +15,7 @@
     <h3>Account Creation Successful!</h3>
 </c:if>
 <c:if test="${notLoggedIn}">
-    <h2>Please login before proceeding</h2>
+    <h2>Please login before proceeding.</h2>
 </c:if>
 <h3>Please enter your username and password below to login.</h3>
     <form action="loginFormServlet" method="post">

@@ -80,7 +80,6 @@ public class AddressDao {
             id = addAddress(address);
             setAddressString(address);
         }
-
         return id;
     }
 

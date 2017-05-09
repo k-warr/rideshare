@@ -31,47 +31,19 @@
 
     <div class="row">
         <div class="col-sm-8">
-            <h2>What We Do</h2>
-            <p>Introduce the visitor to the business using clear, informative text. Use well-targeted keywords within your sentences to make sure search engines can find the business.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et molestiae similique eligendi reiciendis sunt distinctio odit? Quia, neque, ipsa, adipisci quisquam ullam deserunt accusantium illo iste exercitationem nemo voluptates asperiores.</p>
+            <h2>Problem Description</h2>
+            <p>The idea came to me last summer when I saw that other interns at my internship didn't have rides and bussed to work. I had a potential web app project that involved creating a solution to help interns sign up for a ride share and assigned passengers to vehicles. Unfortunately, that didn't come to fruition since it would have taken too long to create. I decided that I would give it a shot for my Individual Project since I liked the idea at the time and I still do now.</p>
             <p>
-                <a class="btn btn-default btn-lg" href="#">Call to Action &raquo;</a>
+                <a class="btn btn-default btn-lg" href="https://github.com/Tubakien/rideshare">Link to Github &raquo;</a>
             </p>
         </div>
         <div class="col-sm-4">
             <h2>Contact Us</h2>
             <address>
-                <strong>Start Bootstrap</strong>
-                <br>3481 Melrose Place
-                <br>Beverly Hills, CA 90210
+                <strong>Kien Warren</strong>
                 <br>
+                <abbr title="Email">E:</abbr> <a href="mailto:kwarren2@madisoncollege.edu">kwarren2@madisoncollege.edu</a>
             </address>
-            <address>
-                <abbr title="Phone">P:</abbr>(123) 456-7890
-                <br>
-                <abbr title="Email">E:</abbr> <a href="mailto:#">name@example.com</a>
-            </address>
-        </div>
-    </div>
-    <!-- /.row -->
-
-    <hr>
-
-    <div class="row">
-        <div class="col-sm-4">
-            <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
-            <h2>Marketing Box #1</h2>
-            <p>These marketing boxes are a great place to put some information. These can contain summaries of what the company does, promotional information, or anything else that is relevant to the company. These will usually be below-the-fold.</p>
-        </div>
-        <div class="col-sm-4">
-            <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
-            <h2>Marketing Box #2</h2>
-            <p>The images are set to be circular and responsive. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-        </div>
-        <div class="col-sm-4">
-            <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
-            <h2>Marketing Box #3</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
         </div>
     </div>
     <!-- /.row -->

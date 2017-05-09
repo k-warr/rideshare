@@ -6,6 +6,7 @@ import com.entity.User;
 import com.logic.LoginChecker;
 import com.logic.PropertyManager;
 import com.persistence.RideDao;
+import com.persistence.RideRequestDao;
 import com.persistence.UserDao;
 import org.apache.log4j.Logger;
 
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -38,17 +40,42 @@ public class RideInfo extends HttpServlet {
 
         if (LoginChecker.userIsLoggedIn(session)) {
             RideDao rideDao = new RideDao();
-            int rideId = Integer.parseInt(session.getAttribute("rideId").toString());
+            int rideId = Integer.parseInt(request.getParameter("rideId").toString());
             Ride ride = rideDao.getRide(rideId);
+            RideRequestDao rideRequestDao = new RideRequestDao();
             Set<RideRequest> rideRequests = ride.getRideRequests();
             log.info("rideId found: " + rideId);
 
-            String origin = "";
+            String origin = user.getHomeAddress().getFullAddress();
             String waypoints = "";
-            String destination = "";
+            String destination = ride.getEndAddress().getFullAddress();
 
-            // TODO: Start here
+            log.info("Number of ride requests attached to this ride: " + rideRequests.size());
 
+            for (Iterator<RideRequest> rideRequestIterator = rideRequests.iterator(); rideRequestIterator.hasNext(); ) {
+                RideRequest rideRequest = rideRequestIterator.next();
+                String pickupAddress = rideRequest.getPickupAddress().getFullAddress();
+                String dropoffAddress = rideRequest.getDropoffAddress().getFullAddress();
+                if (!pickupAddress.equals(destination)) {
+                    waypoints += pickupAddress + "|";
+                }
+                if (!dropoffAddress.equals(destination)) {
+                    waypoints += dropoffAddress + "|";
+                }
+            }
+
+            origin = origin.replace(" ", "+");
+            destination = destination.replace(" ", "+");
+            waypoints = waypoints.replace(" ", "+");
+            waypoints = waypoints.substring(0, waypoints.length() - 1);
+
+            log.info("Waypoints: " + waypoints);
+            log.info("Origin: " + origin);
+            log.info("Destination: " + destination);
+
+            request.setAttribute("origin", origin);
+            request.setAttribute("destination", destination);
+            request.setAttribute("waypoints", waypoints);
             request.setAttribute("apiKey", propertyManager.getProperty("google_api_key"));
 
             RequestDispatcher dispatcher =

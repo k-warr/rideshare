@@ -24,7 +24,7 @@
                     </li>
                 <% } else {%>
                     <li>
-                        <a href="logout">Logout</a>
+                        <a href="logout">Logout (${username})</a>
                     </li>
                     <li>
                         <a href="myprofile">Profile</a>

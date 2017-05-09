@@ -15,15 +15,12 @@ import java.util.Set;
 public class Ride {
     private int rideId;
     private int userUserId;
-//    private int startAddressId;
-//    private int endAddressId;
     private Address startAddress;
     private Address endAddress;
     private int departTime;
     private String recurrenceDay;
     private int numOfRecurrences;
     private byte rideIsFull;
-//    private int vehicleOwnerId;
     private Date requestDateTime;
     private int numRidersInclDriver;
     private Set<RideRequest> rideRequests = new HashSet<>();
@@ -97,26 +94,6 @@ public class Ride {
         this.userUserId = userUserId;
     }
 
-//    @Basic
-//    @Column(name = "start_address_id")
-//    public int getStartAddressId() {
-//        return startAddressId;
-//    }
-//
-//    public void setStartAddressId(int startAddressId) {
-//        this.startAddressId = startAddressId;
-//    }
-//
-//    @Basic
-//    @Column(name = "end_address_id")
-//    public int getEndAddressId() {
-//        return endAddressId;
-//    }
-//
-//    public void setEndAddressId(int endAddressId) {
-//        this.endAddressId = endAddressId;
-//    }
-
     @Basic
     @Column(name = "depart_time")
     public int getDepartTime() {
@@ -156,16 +133,6 @@ public class Ride {
     public void setRideIsFull(byte rideIsFull) {
         this.rideIsFull = rideIsFull;
     }
-
-//    @Basic
-//    @Column(name = "vehicle_owner_id")
-//    public int getVehicleOwnerId() {
-//        return vehicleOwnerId;
-//    }
-//
-//    public void setVehicleOwnerId(int vehicleOwnerId) {
-//        this.vehicleOwnerId = vehicleOwnerId;
-//    }
 
     @Override
     public boolean equals(Object o) {
