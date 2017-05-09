@@ -58,7 +58,7 @@
                                 <td>${rideRequest.getDropoffTime()}</td>
                                 <td>
                                     <c:if test="${rideRequest.getRequestStatus().equals(\'Accepted\')}">
-                                        <a href="/rideInfo?rideId=${rideRequest.getRequestId()}">Ride Info</a>
+                                        <a href="/rideInfo?rideId=${rideRequest.getRide().getRideId()}">Ride Info</a>
                                     </c:if>
                                 </td>
                             </tr>
@@ -71,7 +71,6 @@
         <c:if test="${isDriver}">
             <div class="row">
                 <div class="col-lg-12">
-                    <p>if test="${isDriver}"</p>
                     <h3>Open Ride Requests</h3>
                         <%--if driver, show other's open ride requests to accept--%>
                     <table>
@@ -94,7 +93,7 @@
                                 <td>${openRideRequest.getPickupAddress().getFullAddress()}</td>
                                 <td>${openRideRequest.getDropoffAddress().getFullAddress()}</td>
                                 <td>${openRideRequest.getDropoffTime()}</td>
-                                <td>${openRideRequest}</td>
+                                <td>${openRideRequest.getRequestTime()}</td>
                                 <td><a href="/createOrUpdateRide?requestId=${openRideRequest.getRequestId()}">Accept</a></td>
                             </tr>
                         </c:forEach>
@@ -102,12 +101,34 @@
                     </table>
                 </div>
             </div> <%-- end open ride requests div --%>
-        </c:if>
-        <div class="row">
-            <div class="col-lg-12">
-
+            <%-- Show user's rides div --%>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>My Rides</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Ride DateTime</th>
+                            <th>Number of Riders</th>
+                            <th>Depart Time</th>
+                            <th>Ride Info</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="ride" items="${rides}">
+                                <tr>
+                                    <td>${ride.getRequestDateTime()}</td>
+                                    <td>${ride.getNumRidersInclDriver() - 1}</td>
+                                    <td>${ride.getDepartTime()}</td>
+                                    <td><a href="/rideInfo?rideId=${ride.getRideId()}">Ride Info</a></td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        </c:if>
+
     </div>
 </body>
 </html>

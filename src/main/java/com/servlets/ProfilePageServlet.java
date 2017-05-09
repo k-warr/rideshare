@@ -1,8 +1,10 @@
 package com.servlets;
 
+import com.entity.Ride;
 import com.entity.RideRequest;
 import com.entity.User;
 import com.logic.LoginChecker;
+import com.persistence.RideDao;
 import com.persistence.RideRequestDao;
 import com.persistence.UserDao;
 import org.apache.log4j.Logger;
@@ -43,32 +45,33 @@ import javax.servlet.http.*;
         UserDao userDao = new UserDao();
         User user = userDao.getUserByUsername(username);
         RideRequestDao rideRequestDao = new RideRequestDao();
-//        VehicleOwnerDao vehicleOwnerDao = new VehicleOwnerDao();
+        RideDao rideDao = new RideDao();
         List<RideRequest> rideRequests = null;
         List<RideRequest> openRideRequests = null;
 
+        // If logged in
         if (!username.equals(null) && user != null) {
 
-            // a list of all ride requests for current user
+            // A list of all ride requests for current user
             rideRequests = rideRequestDao.getRideRequestByUserId(user.getUserId());
             if (rideRequests != null && rideRequests.size() > 0) {
                 log.info("Ride Requests: " + rideRequests.get(0).toString());
                 request.setAttribute("riderRideRequests", rideRequests);
-//                rideRequests.get(0).getRequestStatus()
+//                rideRequests.get(0).getRide().getRideId()
             }
-
 
             // If the user has a vehicle (i.e. signed up as driver)
-//                if (vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
             if (userDao.isDriverByUsername(username)) {
                 request.setAttribute("isDriver", true); // enables certain content to be visible on page
-                log.info("Driver confirmed. Retrieving openRideRequests");
+                log.info("Driver confirmed. Retrieving rides and open ride requests");
+
+                // Get open ride requests
                 openRideRequests = rideRequestDao.getAllOpenRequestsExcludeUser(user.getUserId());
                 request.setAttribute("openRideRequests", openRideRequests);
-            }
-            // TODO: if driver, show all rides
-                // TODO: link to a page that shows directions to a location
-            if (userDao.isDriverByUsername(username)) {
+
+                // Get user's rides
+                List<Ride> rides = rideDao.getAllUpcomingRidesByUserId(user.getUserId());
+                request.setAttribute("rides", rides);
             }
         } else {
             log.info("no username found");
@@ -76,11 +79,10 @@ import javax.servlet.http.*;
             RequestDispatcher dispatcher =
                     getServletContext().getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
+            return;
         }
 
-        String url = "/myProfile.jsp";
-
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/myProfile.jsp");
         dispatcher.forward(request, response);
     }
 

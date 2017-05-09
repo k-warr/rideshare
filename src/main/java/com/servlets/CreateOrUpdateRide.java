@@ -31,8 +31,6 @@ import java.util.Set;
         urlPatterns = {"/createOrUpdateRide"})
 public class CreateOrUpdateRide extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
-    public static final int REQUEST_DATETIME_DIFF_MINUTES = 30;
-    public static final int LEEWAY_TIME_MINUTES = 30;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("Get request reached.");

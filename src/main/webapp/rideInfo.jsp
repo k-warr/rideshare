@@ -15,20 +15,20 @@
     <c:import url="theme/nav.jsp" />
     <div class="container">
         <div class="row">
-            <%--<iframe--%>
-                    <%--width="800"--%>
-                    <%--height="600"--%>
-                    <%--frameborder="0" style="border:0"--%>
-                    <%--src="https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=3158+Ridegeway+Ave+Madison,+WI+53704&destination=525+Junction+Rd+Madison+WI+53715&avoid=tolls&mode=driving"--%>
-                    <%--allowfullscreen >--%>
-            <%--</iframe>--%>
             <iframe
                     width="800"
                     height="600"
                     frameborder="0" style="border:0"
-                    src="https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${origin}&destination=${destination}&avoid=tolls&mode=driving"
+                    src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBwHxvNrLSrxZA9GeY3ChYzPFzGbTWwMV8&origin=3158+Ridegeway+Ave+Madison,+WI+53704&waypoints=5345+W+River+Rd+Waunakee,+WI+53597&destination=525+Junction+Rd+Madison+WI+53715&avoid=tolls&mode=driving"
                     allowfullscreen >
             </iframe>
+            <%--<iframe--%>
+                    <%--width="800"--%>
+                    <%--height="600"--%>
+                    <%--frameborder="0" style="border:0"--%>
+                    <%--src="https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${origin}&destination=${destination}&avoid=tolls&mode=driving"--%>
+                    <%--allowfullscreen >--%>
+            <%--</iframe>--%>
         </div>
     </div>
 </body>
