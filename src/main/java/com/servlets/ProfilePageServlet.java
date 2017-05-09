@@ -54,10 +54,10 @@ import javax.servlet.http.*;
             if (rideRequests != null && rideRequests.size() > 0) {
                 log.info("Ride Requests: " + rideRequests.get(0).toString());
                 request.setAttribute("riderRideRequests", rideRequests);
+//                rideRequests.get(0).getRequestStatus()
             }
 
 
-            // TODO: if driver, get a list of all open ride requests
             // If the user has a vehicle (i.e. signed up as driver)
 //                if (vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
             if (userDao.isDriverByUsername(username)) {

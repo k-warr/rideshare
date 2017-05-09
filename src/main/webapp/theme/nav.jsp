@@ -17,10 +17,10 @@
             <ul class="nav navbar-nav">
                 <% if (session.getAttribute("username") == null) { %>
                     <li>
-                        <a href="/login.jsp">Login</a>
+                        <a href="/toLoginForm">Login</a>
                     </li>
                     <li>
-                        <a href="/signupForm.jsp">Signup</a>
+                        <a href="/toSignupForm">Signup</a>
                     </li>
                 <% } else {%>
                     <li>

@@ -27,10 +27,13 @@
         -o-background-size: cover;
     }
 
-    table {
+    table, tr, td, th {
         border: .1em solid black;
     }
 
+    tr, td, th {
+        text-align: center;
+    }
     /* Customize the text color and shadow color and to optimize text legibility. */
     .tagline {
         text-shadow: 0 0 10px #000;

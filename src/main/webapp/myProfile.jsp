@@ -25,10 +25,12 @@
                 <c:if test="${acceptedRide}">
                     <h3>You have accepted a ride. It has either created a new Ride or been added to an existing Ride.</h3>
                 </c:if>
+                <c:if test="${fullRide}">
+                    <h3>The ride request you have accepted has not been added. It appears you already have a full ride scheduled for the same time.</h3>
+                </c:if>
             </div>
         </div>
         <c:if test="${riderRideRequests.size() > 0}">
-            <p>if test="${riderRideRequests.size() > 0}</p>
             <div class="row">
                 <div class="col-lg-12">
                         <%--Show my ride requests, fulfilled, open, or closed--%>
@@ -54,9 +56,11 @@
                                 <td>${rideRequest.getPickupAddress().getFullAddress()}</td>
                                 <td>${rideRequest.getDropoffAddress().getFullAddress()}</td>
                                 <td>${rideRequest.getDropoffTime()}</td>
-                                <c:if test="${rideRequest.getRide() != null}">
-                                    <td><a href="/getRideInfo?rideId=${rideRequest.getRequestId()}"></a></td>
-                                </c:if>
+                                <td>
+                                    <c:if test="${rideRequest.getRequestStatus().equals(\'Accepted\')}">
+                                        <a href="/rideInfo?rideId=${rideRequest.getRequestId()}">Ride Info</a>
+                                    </c:if>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -90,6 +94,7 @@
                                 <td>${openRideRequest.getPickupAddress().getFullAddress()}</td>
                                 <td>${openRideRequest.getDropoffAddress().getFullAddress()}</td>
                                 <td>${openRideRequest.getDropoffTime()}</td>
+                                <td>${openRideRequest}</td>
                                 <td><a href="/createOrUpdateRide?requestId=${openRideRequest.getRequestId()}">Accept</a></td>
                             </tr>
                         </c:forEach>
