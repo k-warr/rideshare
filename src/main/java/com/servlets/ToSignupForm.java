@@ -1,6 +1,7 @@
 package com.servlets;
 
 import com.logic.LoginChecker;
+import com.logic.PropertyManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -23,14 +24,17 @@ public class ToSignupForm extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        PropertyManager propertyManager = new PropertyManager();
 
         if (LoginChecker.userIsLoggedIn(session)) {
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher("/myprofile");
+                    getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.myprofile"));
+//                    getServletContext().getRequestDispatcher("/myprofile");
             dispatcher.forward(request, response);
         } else {
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher("/signupForm.jsp");
+                    getServletContext().getRequestDispatcher(propertyManager.getProperty("jsp.signup_form"));
+//                    getServletContext().getRequestDispatcher("/signupForm.jsp");
             dispatcher.forward(request, response);
         }
     }

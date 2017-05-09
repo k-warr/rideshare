@@ -4,6 +4,7 @@ import com.entity.Address;
 import com.entity.RideRequest;
 import com.entity.User;
 import com.logic.LoginChecker;
+import com.logic.PropertyManager;
 import com.persistence.AddressDao;
 import com.persistence.RideRequestDao;
 import com.persistence.UserDao;
@@ -29,16 +30,14 @@ public class RideRequestFormHandler extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.info("RideRequestFormHandler reached.");
+        log.info("RideRequestFormHandler get request reached.");
         HttpSession session = request.getSession();
+        PropertyManager propertyManager = new PropertyManager();
         UserDao userDao = new UserDao();
-//        ServletContext context = getServletContext();
 
         if (LoginChecker.userIsLoggedIn(session)) {
-            User user = userDao.getUserByUsername(session.getAttribute("username").toString());
-            String username = user.getUsername();
-//            String username = request.getParameter("username");
-            log.info("Username: " + username);
+            String username = session.getAttribute("username").toString();
+            User user = userDao.getUserByUsername(username);
 
             String addressNumberOrigin = request.getParameter("numberOrigin");
             String streetOrigin = request.getParameter("streetOrigin");
@@ -60,9 +59,7 @@ public class RideRequestFormHandler extends HttpServlet {
             RideRequest rideRequest = new RideRequest();
             RideRequestDao rideRequestDao = new RideRequestDao();
             int originAddressId;
-            Address originAddressConfirm;
             int destinationAddressId;
-            Address destinationAddressConfirm;
 
             originAddress.setAddressNumber(addressNumberOrigin);
             originAddress.setStreetName(streetOrigin);
@@ -82,9 +79,6 @@ public class RideRequestFormHandler extends HttpServlet {
                     + stateDestination + " " + zipCodeDestination);
             destinationAddressId = addressDao.addAddressIfDoesntExist(destinationAddress);
 
-    //        rideRequest.setPickupAddressId(originAddress.getAddressId());
-    //        rideRequest.setDropoffAddressId(destinationAddress.getAddressId());
-
             rideRequest.setDropoffTime(dropoffTime);
             rideRequest.setPickupAddress(addressDao.getAddress(originAddressId));
             rideRequest.setDropoffAddress(addressDao.getAddress(destinationAddressId));
@@ -94,17 +88,17 @@ public class RideRequestFormHandler extends HttpServlet {
             rideRequest.setRequestTime(new Date());
             rideRequestDao.addRideRequest(rideRequest);
 
-            String url = "/myprofile";
-            // TODO: Add variable to session that states successful form submission
+            request.setAttribute("successfulRideRequestSubmission", true);
 
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher(url);
+                    getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.myprofile"));
             dispatcher.forward(request, response);
         } else {
             log.info("no username found");
             request.setAttribute("notLoggedIn", true);
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher("/login.jsp");
+                    getServletContext().getRequestDispatcher(propertyManager.getProperty("jsp.login"));
+//                    getServletContext().getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
         }
     }

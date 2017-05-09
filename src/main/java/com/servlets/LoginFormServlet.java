@@ -1,6 +1,7 @@
 package com.servlets;
 
 import com.entity.User;
+import com.logic.PropertyManager;
 import com.persistence.UserDao;
 import org.apache.log4j.Logger;
 
@@ -24,8 +25,9 @@ public class LoginFormServlet extends HttpServlet {
     private UserDao userDao;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        userDao = new UserDao();
         HttpSession session = request.getSession();
+        PropertyManager propertyManager = new PropertyManager();
+        userDao = new UserDao();
 
         String username = request.getParameter("j_username");
         String password = request.getParameter("j_password");
@@ -41,16 +43,17 @@ public class LoginFormServlet extends HttpServlet {
                     session.setAttribute("isDriverSession", true);
                 }
                 session.setAttribute("username", username);
-                String url = "myprofile";
-                response.sendRedirect(url);
+                response.sendRedirect(propertyManager.getProperty("servlet.myprofile"));
             } else {
                 session.invalidate();
-                response.sendRedirect("/failedLogin.jsp");
+//                response.sendRedirect("/failedLogin.jsp");
+                response.sendRedirect(propertyManager.getProperty("jsp.failed_login"));
                 return;
             }
         } else {
             session.invalidate();
-            response.sendRedirect("/failedLogin.jsp");
+//            response.sendRedirect("/failedLogin.jsp");
+            response.sendRedirect(propertyManager.getProperty("jsp.failed_login"));
             return;
         }
     }

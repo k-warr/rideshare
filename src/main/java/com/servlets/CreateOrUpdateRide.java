@@ -5,6 +5,7 @@ import com.entity.RideRequest;
 import com.entity.User;
 import com.logic.DateManipulator;
 import com.logic.LoginChecker;
+import com.logic.PropertyManager;
 import com.persistence.RideDao;
 import com.persistence.RideRequestDao;
 import com.persistence.UserDao;
@@ -35,7 +36,9 @@ public class CreateOrUpdateRide extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("Get request reached.");
         HttpSession session = request.getSession();
+        PropertyManager propertyManager = new PropertyManager();
 
+        // Check if user is logged in
         if (LoginChecker.userIsLoggedIn(session)) {
             UserDao userDao = new UserDao();
             RideDao rideDao = new RideDao();
@@ -57,8 +60,8 @@ public class CreateOrUpdateRide extends HttpServlet {
                     int rideId = ride.getRideId();
                     Set<RideRequest> rideRequests = ride.getRideRequests();
 
-                    // Check if the ride datetime and request datetime are within 30 minute sof one another
-                    if (Math.abs(rideRequestDateTime.getTime() - rideDateTime.getTime()) <= 30) {
+                    // Check if the ride datetime and request datetime are within 30 minutes sof one another
+                    if (Math.abs(rideRequestDateTime.getTime() - rideDateTime.getTime()) <= Integer.parseInt(propertyManager.getProperty("thirty_minutes_in_milliseconds"))) {
                         log.info("Found ride within timeframe. RideId = " + rideId);
                         rideExistsAtSameTime = true;
                         // Check if ride is full
@@ -77,7 +80,7 @@ public class CreateOrUpdateRide extends HttpServlet {
 
                             request.setAttribute("acceptedRide", true);
                             RequestDispatcher dispatcher =
-                                    getServletContext().getRequestDispatcher("/myprofile");
+                                    getServletContext().getRequestDispatcher("myprofile");
                             dispatcher.forward(request, response);
                             return;
                         }
@@ -90,7 +93,7 @@ public class CreateOrUpdateRide extends HttpServlet {
 
                     request.setAttribute("fullRide", true);
                     RequestDispatcher dispatcher =
-                            getServletContext().getRequestDispatcher("/myprofile");
+                            getServletContext().getRequestDispatcher("myprofile");
                     dispatcher.forward(request, response);
                     return;
                 }
@@ -120,7 +123,8 @@ public class CreateOrUpdateRide extends HttpServlet {
 
             request.setAttribute("acceptedRide", true);
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher("/myprofile");
+//                    getServletContext().getRequestDispatcher("myprofile");
+                    getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.myprofile"));
             dispatcher.forward(request, response);
             return;
 
@@ -128,7 +132,8 @@ public class CreateOrUpdateRide extends HttpServlet {
             log.info("no username found");
             request.setAttribute("notLoggedIn", true);
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher("/login.jsp");
+                    getServletContext().getRequestDispatcher(propertyManager.getProperty("jsp.login"));
+//                    getServletContext().getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
             return;
         }

@@ -31,6 +31,9 @@
                 <c:if test="${(riderRideRequests == null) && !isDriver}">
                     <h3>Welcome to your Profile Page. To get started, either sign up to become a driver or create a ride request in the navigation bar above.</h3>
                 </c:if>
+                <c:if test="${successfulRideRequestSubmission}">
+                    <h3>You have successfully submitted the ride request.</h3>
+                </c:if>
             </div>
         </div>
         <c:if test="${riderRideRequests != null}">

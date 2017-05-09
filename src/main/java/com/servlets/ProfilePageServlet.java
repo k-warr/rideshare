@@ -19,9 +19,6 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
-// TODO: How to force redirect to login.jsp when this servlet is targeted and user is not logged in?
-// Maybe I have to add the servlet path to the web.xml
-
 /**
  * Created by Kien Warren on 3/22/17.
  */

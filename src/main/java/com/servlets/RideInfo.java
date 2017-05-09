@@ -30,9 +30,10 @@ public class RideInfo extends HttpServlet {
     private UserDao userDao;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        PropertyManager propertyManager = new PropertyManager();
         log.info("Reached get request.");
         userDao = new UserDao();
-        HttpSession session = request.getSession();
         User user = userDao.getUserByUsername(session.getAttribute("username").toString());
 
         if (LoginChecker.userIsLoggedIn(session)) {
@@ -41,7 +42,6 @@ public class RideInfo extends HttpServlet {
             Ride ride = rideDao.getRide(rideId);
             Set<RideRequest> rideRequests = ride.getRideRequests();
             log.info("rideId found: " + rideId);
-            PropertyManager properties = new PropertyManager();
 
             String origin = "";
             String waypoints = "";
@@ -49,16 +49,16 @@ public class RideInfo extends HttpServlet {
 
             // TODO: Start here
 
-            request.setAttribute("apiKey", properties.getProperty("google_api_key"));
+            request.setAttribute("apiKey", propertyManager.getProperty("google_api_key"));
 
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher("/rideInfo.jsp");
+                    getServletContext().getRequestDispatcher(propertyManager.getProperty("jsp.ride_info"));
             dispatcher.forward(request, response);
         } else {
             log.info("no username found");
             request.setAttribute("notLoggedIn", true);
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher("/login.jsp");
+                    getServletContext().getRequestDispatcher(propertyManager.getProperty("jsp.login"));
             dispatcher.forward(request, response);
         }
 

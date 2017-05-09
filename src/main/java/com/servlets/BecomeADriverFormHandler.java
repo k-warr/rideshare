@@ -4,6 +4,7 @@ import com.entity.Address;
 import com.entity.User;
 import com.entity.Vehicle;
 import com.logic.LoginChecker;
+import com.logic.PropertyManager;
 import com.persistence.AddressDao;
 import com.persistence.SessionFactoryProvider;
 import com.persistence.UserDao;
@@ -36,9 +37,9 @@ public class BecomeADriverFormHandler extends HttpServlet {
     private UserDao userDao;
     private VehicleDao vehicleDao;
     private AddressDao addressDao;
-//    private VehicleOwnerDao vehicleOwnerDao;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PropertyManager propertyManager = new PropertyManager();
         log.info("RideRequestFormHandler reached.");
         HttpSession session = request.getSession();
 
@@ -54,7 +55,6 @@ public class BecomeADriverFormHandler extends HttpServlet {
             }
 
             userDao = new UserDao();
-//            vehicleOwnerDao = new VehicleOwnerDao();
             vehicleDao = new VehicleDao();
             addressDao = new AddressDao();
 
@@ -85,6 +85,9 @@ public class BecomeADriverFormHandler extends HttpServlet {
                 user.setInsuranceProvider(insuranceProvider);
                 user.setVin(vin);
                 user.setIsDriver(1);
+                if (maxOccupants > 0) {
+                    user.setMaxRidersInclDriver(maxOccupants);
+                }
                 userDao.updateUser(user);
 
 //                VehicleOwner vehicleOwner = new VehicleOwner();
@@ -106,19 +109,22 @@ public class BecomeADriverFormHandler extends HttpServlet {
 
                 request.setAttribute("becomeADriverSignupSuccess", true);
                 RequestDispatcher dispatcher =
-                        getServletContext().getRequestDispatcher("/myprofile");
+//                        getServletContext().getRequestDispatcher("/myprofile");
+                        getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.myprofile"));
                 dispatcher.forward(request, response);
             } else {
                 request.setAttribute("alreadyDriver", true);
                 RequestDispatcher dispatcher =
-                        getServletContext().getRequestDispatcher("/myprofile");
+//                        getServletContext().getRequestDispatcher("/myprofile");
+                        getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.myprofile"));
                 dispatcher.forward(request, response);
             }
         } else {
             log.info("no username found");
             request.setAttribute("notLoggedIn", true);
             RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher("/login.jsp");
+//                    getServletContext().getRequestDispatcher("/login.jsp");
+                    getServletContext().getRequestDispatcher(propertyManager.getProperty("jsp.login"));
             dispatcher.forward(request, response);
         }
     }

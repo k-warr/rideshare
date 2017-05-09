@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by student on 5/7/17.
+ * Created by Kien Warren on 5/7/17.
  */
 public class VehicleDao {
     private final Logger log = Logger.getLogger(this.getClass());

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by student on 4/27/17.
+ * Created by Kien Warren on 4/27/17.
  */
 public class UserDao {
     private final Logger log = Logger.getLogger(this.getClass());
