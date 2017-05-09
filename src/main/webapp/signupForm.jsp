@@ -17,7 +17,7 @@
 <c:import url="theme/nav.jsp" />
 
 <h3>Signup Form</h3>
-<form action="/signupFormHandler" method="POST">
+<form action="signupFormHandler" method="POST">
     <label for="username">Username: </label>
     <input type="text" id="username" name="username" >
     <br>

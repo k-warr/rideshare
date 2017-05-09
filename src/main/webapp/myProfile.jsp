@@ -28,9 +28,12 @@
                 <c:if test="${fullRide}">
                     <h3>The ride request you have accepted has not been added. It appears you already have a full ride scheduled for the same time.</h3>
                 </c:if>
+                <c:if test="${(riderRideRequests == null) && !isDriver}">
+                    <h3>Welcome to your Profile Page. To get started, either sign up to become a driver or create a ride request in the navigation bar above.</h3>
+                </c:if>
             </div>
         </div>
-        <c:if test="${riderRideRequests.size() > 0}">
+        <c:if test="${riderRideRequests != null}">
             <div class="row">
                 <div class="col-lg-12">
                         <%--Show my ride requests, fulfilled, open, or closed--%>
@@ -102,19 +105,20 @@
                 </div>
             </div> <%-- end open ride requests div --%>
             <%-- Show user's rides div --%>
-            <div class="row">
-                <div class="col-lg-12">
-                    <h3>My Rides</h3>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Ride DateTime</th>
-                            <th>Number of Riders</th>
-                            <th>Depart Time</th>
-                            <th>Ride Info</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+            <c:if test="${rides != null}">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>My Rides</h3>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Ride DateTime</th>
+                                <th>Number of Riders</th>
+                                <th>Depart Time</th>
+                                <th>Ride Info</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             <c:forEach var="ride" items="${rides}">
                                 <tr>
                                     <td>${ride.getRequestDateTime()}</td>
@@ -123,10 +127,12 @@
                                     <td><a href="/rideInfo?rideId=${ride.getRideId()}">Ride Info</a></td>
                                 </tr>
                             </c:forEach>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </c:if>
+
         </c:if>
 
     </div>

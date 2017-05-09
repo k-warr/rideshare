@@ -33,6 +33,8 @@
 
     tr, td, th {
         text-align: center;
+        padding-left: .2em;
+        padding-right: .2em;
     }
     /* Customize the text color and shadow color and to optimize text legibility. */
     .tagline {

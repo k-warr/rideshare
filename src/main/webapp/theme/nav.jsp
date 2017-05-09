@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.persistence.UserDao" %>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
+
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -17,24 +17,26 @@
             <ul class="nav navbar-nav">
                 <% if (session.getAttribute("username") == null) { %>
                     <li>
-                        <a href="/toLoginForm">Login</a>
+                        <a href="toLoginForm">Login</a>
                     </li>
                     <li>
-                        <a href="/toSignupForm">Signup</a>
+                        <a href="toSignupForm">Signup</a>
                     </li>
                 <% } else {%>
                     <li>
-                        <a href="/logout">Logout</a>
+                        <a href="logout">Logout</a>
                     </li>
                     <li>
-                        <a href="/myprofile">Profile</a>
+                        <a href="myprofile">Profile</a>
                     </li>
                     <li>
-                        <a href="/toRideRequestForm">New Ride Request</a>
+                        <a href="toRideRequestForm">New Ride Request</a>
                     </li>
-                    <li>
-                        <a href="/toBecomeADriverForm">Become a Driver</a>
-                    </li>
+                    <c:if test="${!isDriverSession}">
+                        <li>
+                            <a href="toBecomeADriverForm">Become a Driver</a>
+                        </li>
+                    </c:if>
                 <% } %>
             </ul>
         </div>

@@ -37,12 +37,11 @@ public class LoginFormServlet extends HttpServlet {
             log.info("LoginFormServlet reached. Username = " + username + " User.getUsername: " + user.getUsername());
             // Check if password matches
             if (user.getPassword().equals(password)) {
+                if (userDao.isDriverByUsername(username)) {
+                    session.setAttribute("isDriverSession", true);
+                }
                 session.setAttribute("username", username);
-//            String url = "j_security_check?j_username=" + username + "&j_password=" + password;
-                String url = "/myprofile";
-//                RequestDispatcher dispatcher =
-//                        getServletContext().getRequestDispatcher(url);
-//                dispatcher.forward(request, response);
+                String url = "myprofile";
                 response.sendRedirect(url);
             } else {
                 session.invalidate();

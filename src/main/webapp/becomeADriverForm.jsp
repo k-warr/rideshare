@@ -17,10 +17,7 @@
 <!-- Navigation -->
 <c:import url="theme/nav.jsp" />
     <div class="container">
-        <form action="/becomeADriverFormHandler" method="GET">
-            <%--<label for="username">Username: </label>--%>
-            <%--<input type="text" id="username" name="username">--%>
-            <%--<br>--%>
+        <form action="becomeADriverFormHandler" method="GET">
             <label for="make">Car Make: </label>
             <select id="make" name="make" required>
                 <option value="Alfa Romeo">Alfa Romeo</option>

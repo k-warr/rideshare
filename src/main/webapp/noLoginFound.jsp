@@ -11,6 +11,6 @@
 </head>
 <body>
     <h3>No login information found.</h3>
-    <p>Please check your user credentials and <a href="/login.jsp">Login</a> again or <a href="/signupForm.jsp">Sign Up</a> for a new account.</p>
+    <p>Please check your user credentials and <a href="toLoginForm">Login</a> again or <a href="toSignupForm">Sign Up</a> for a new account.</p>
 </body>
 </html>
