@@ -19,6 +19,11 @@ import java.util.List;
 public class AddressDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Gets all addresss.
+     *
+     * @return the all addresss
+     */
     public List<Address> getAllAddresss() {
         List<Address> addresses = new ArrayList<Address>();
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -26,6 +31,12 @@ public class AddressDao {
         return addresses;
     }
 
+    /**
+     * Gets address.
+     *
+     * @param id the id
+     * @return the address
+     */
     public Address getAddress(int id) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Address address = (Address) session.get(Address.class, id);
@@ -35,7 +46,7 @@ public class AddressDao {
     /**
      * add a address
      *
-     * @param address
+     * @param address the address
      * @return the id of the inserted record.
      */
     public int addAddress(Address address) {
@@ -70,10 +81,22 @@ public class AddressDao {
                 + " " + address.getZipCode());
     }
 
+    /**
+     * Gets address web url format.
+     *
+     * @param address the address
+     * @return the address web url format
+     */
     public String getAddressWebUrlFormat(Address address) {
         return address.getFullAddress().replace(" ", "+");
     }
 
+    /**
+     * Add address if doesnt exist int.
+     *
+     * @param address the address
+     * @return the int
+     */
     public int addAddressIfDoesntExist(Address address) {
         int id = existsAddress(address);
         if (id == -1) {
@@ -83,6 +106,12 @@ public class AddressDao {
         return id;
     }
 
+    /**
+     * Exists address int.
+     *
+     * @param address the address
+     * @return the int
+     */
     public int existsAddress(Address address) {
         Session session = null;
         List<Address> addresses = null;
@@ -119,6 +148,7 @@ public class AddressDao {
 
     /**
      * delete a address by id
+     *
      * @param id the address's id
      */
     public void deleteAddress(int id) {
@@ -142,9 +172,9 @@ public class AddressDao {
 
     /**
      * Update the address
-     * @param address
+     *
+     * @param address the address
      */
-
     public void updateAddress(Address address) {
         Session session = null;
         Transaction trans = null;

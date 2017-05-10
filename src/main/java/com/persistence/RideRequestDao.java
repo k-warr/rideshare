@@ -18,7 +18,8 @@ import java.util.List;
 public class RideRequestDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
-    /** Return a list of all rideRequests
+    /**
+     * Return a list of all rideRequests
      *
      * @return All rideRequests
      */
@@ -29,12 +30,24 @@ public class RideRequestDao {
         return rideRequests;
     }
 
+    /**
+     * Gets ride request.
+     *
+     * @param id the id
+     * @return the ride request
+     */
     public RideRequest getRideRequest(int id) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         RideRequest rideRequest = (RideRequest) session.get(RideRequest.class, id);
         return rideRequest;
     }
 
+    /**
+     * Gets ride request by user id.
+     *
+     * @param id the id
+     * @return the ride request by user id
+     */
     public List<RideRequest> getRideRequestByUserId(int id) {
         List<RideRequest> rideRequests = null;
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -58,6 +71,12 @@ public class RideRequestDao {
         return rideRequests;
     }
 
+    /**
+     * Gets all open requests exclude user.
+     *
+     * @param id the id
+     * @return the all open requests exclude user
+     */
     public List<RideRequest> getAllOpenRequestsExcludeUser(int id) {
         List<RideRequest> rideRequests = null;
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -84,7 +103,7 @@ public class RideRequestDao {
     /**
      * add a rideRequest
      *
-     * @param rideRequest
+     * @param rideRequest the ride request
      * @return the id of the inserted record.
      */
     public int addRideRequest(RideRequest rideRequest) {
@@ -112,6 +131,7 @@ public class RideRequestDao {
 
     /**
      * delete a rideRequest by id
+     *
      * @param id the rideRequest's id
      */
     public void deleteRideRequest(int id) {
@@ -135,9 +155,9 @@ public class RideRequestDao {
 
     /**
      * Update the rideRequest
-     * @param rideRequest
+     *
+     * @param rideRequest the ride request
      */
-
     public void updateRideRequest(RideRequest rideRequest) {
         Session session = null;
         Transaction trans = null;

@@ -42,7 +42,7 @@ public class BecomeADriverFormHandler extends HttpServlet {
         PropertyManager propertyManager = new PropertyManager();
         log.info("RideRequestFormHandler reached.");
         HttpSession session = request.getSession();
-
+        // Variable assignment
         if (LoginChecker.userIsLoggedIn(session)) {
             int year = -1;
             int maxOccupants = -1;
@@ -71,7 +71,7 @@ public class BecomeADriverFormHandler extends HttpServlet {
             String state = request.getParameter("state");
             String zipCode = request.getParameter("zipCode");
 
-//            if (!vehicleOwnerDao.existsVehicleOwnerByUserId(user.getUserId())) {
+            // Check if user is a driver
             if (!userDao.isDriverByUsername(user.getUsername())) {
                 Vehicle vehicle = new Vehicle(make, model, year);
                 int vehicleId = vehicleDao.addVehicleIfDoesntExist(vehicle);
@@ -90,32 +90,13 @@ public class BecomeADriverFormHandler extends HttpServlet {
                 }
                 userDao.updateUser(user);
 
-//                VehicleOwner vehicleOwner = new VehicleOwner();
-//                vehicleOwner.setVehicle(vehicle);
-//                vehicleOwner.setUser(user);
-//                vehicleOwner.setVin(vin);
-//                vehicleOwner.setDriversLicense(driversLicense);
-//                vehicleOwner.setLicensePlate(licensePlate);
-//                vehicleOwner.setMaxRidersInclDriver(maxOccupants);
-//                vehicleOwner.setInsuranceProvider(insuranceProvider);
-//
-//                user.setVehicleOwner(vehicleOwner);
-////                userDao.updateUser(user);
-//                Set<VehicleOwner> set = new HashSet<VehicleOwner>();
-//                set.add(vehicleOwner);
-//                vehicle.setVehicleOwners(set);
-//                vehicleDao.addVehicleIfDoesntExist(vehicle);
-//                vehicleOwnerDao.addVehicleOwner(vehicleOwner);
-
                 request.setAttribute("becomeADriverSignupSuccess", true);
                 RequestDispatcher dispatcher =
-//                        getServletContext().getRequestDispatcher("/myprofile");
                         getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.no_context.myprofile"));
                 dispatcher.forward(request, response);
             } else {
                 request.setAttribute("alreadyDriver", true);
                 RequestDispatcher dispatcher =
-//                        getServletContext().getRequestDispatcher("/myprofile");
                         getServletContext().getRequestDispatcher(propertyManager.getProperty("servlet.no_context.myprofile"));
                 dispatcher.forward(request, response);
             }
@@ -123,7 +104,6 @@ public class BecomeADriverFormHandler extends HttpServlet {
             log.info("no username found");
             request.setAttribute("notLoggedIn", true);
             RequestDispatcher dispatcher =
-//                    getServletContext().getRequestDispatcher("/login.jsp");
                     getServletContext().getRequestDispatcher(propertyManager.getProperty("jsp.login"));
             dispatcher.forward(request, response);
         }

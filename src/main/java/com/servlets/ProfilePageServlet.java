@@ -54,7 +54,6 @@ import javax.servlet.http.*;
             if (rideRequests != null && rideRequests.size() > 0) {
                 log.info("Ride Requests: " + rideRequests.get(0).toString());
                 request.setAttribute("riderRideRequests", rideRequests);
-//                rideRequests.get(0).getRide().getRideId()
             }
 
             // If the user has a vehicle (i.e. signed up as driver)
@@ -82,6 +81,5 @@ import javax.servlet.http.*;
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/myProfile.jsp");
         dispatcher.forward(request, response);
     }
-
 
 }

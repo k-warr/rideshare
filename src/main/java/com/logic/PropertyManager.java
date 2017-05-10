@@ -7,11 +7,14 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Created by student on 5/2/17.
+ * Created by Kien Warren on 5/2/17.
  */
 public class PropertyManager extends Properties {
     private final Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Instantiates a new Property manager that enables access to rideshare.properties.
+     */
     public PropertyManager() {
         try {
             InputStream rideShareProperties =this.getClass().getResourceAsStream("/rideshare.properties");

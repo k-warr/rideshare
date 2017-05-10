@@ -3,7 +3,7 @@ package com.entity;
 import javax.persistence.*;
 
 /**
- * Created by student on 4/30/17.
+ * Created by Kien Warren on 4/30/17.
  */
 @Entity
 @Table(name = "user_role")
@@ -12,32 +12,62 @@ public class UserRole {
     private String roleName;
     private int roleId;
 
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
     @Basic
     @Column(name = "username")
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Gets role name.
+     *
+     * @return the role name
+     */
     @Basic
     @Column(name = "role_name")
     public String getRoleName() {
         return roleName;
     }
 
+    /**
+     * Sets role name.
+     *
+     * @param roleName the role name
+     */
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 
+    /**
+     * Gets role id.
+     *
+     * @return the role id
+     */
     @Id
     @Column(name = "role_id")
     public int getRoleId() {
         return roleId;
     }
 
+    /**
+     * Sets role id.
+     *
+     * @param roleId the role id
+     */
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }

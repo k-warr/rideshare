@@ -16,12 +16,21 @@ public class Vehicle {
     private String make;
     private String model;
     private int year;
-//    private Set<VehicleOwner> vehicleOwners = new HashSet<VehicleOwner>(0);
     private Set<User> users = new HashSet<>();
 
+    /**
+     * Instantiates a new Vehicle.
+     */
     public Vehicle() {
     }
 
+    /**
+     * Instantiates a new Vehicle.
+     *
+     * @param make  the make
+     * @param model the model
+     * @param year  the year
+     */
     public Vehicle(String make, String model, int year) {
         this();
         setMake(make);
@@ -29,24 +38,30 @@ public class Vehicle {
         setYear(year);
     }
 
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy="vehicle")
-//    public Set<VehicleOwner> getVehicleOwners() {
-//        return this.vehicleOwners;
-//    }
-//
-//    public void setVehicleOwners(Set<VehicleOwner> vehicleOwners) {
-//        this.vehicleOwners = vehicleOwners;
-//    }
-
+    /**
+     * Gets users.
+     *
+     * @return the users
+     */
     @OneToMany(fetch = FetchType.EAGER, mappedBy="vehicle")
     public Set<User> getUsers() {
         return this.users;
     }
 
+    /**
+     * Sets users.
+     *
+     * @param users the users
+     */
     public void setUsers(Set<User> users) {
         this.users = users;
     }
 
+    /**
+     * Gets vehicle id.
+     *
+     * @return the vehicle id
+     */
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name="increment", strategy = "increment")
@@ -55,36 +70,71 @@ public class Vehicle {
         return vehicleId;
     }
 
+    /**
+     * Sets vehicle id.
+     *
+     * @param vehicleId the vehicle id
+     */
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
     }
 
+    /**
+     * Gets make.
+     *
+     * @return the make
+     */
     @Basic
     @Column(name = "make")
     public String getMake() {
         return make;
     }
 
+    /**
+     * Sets make.
+     *
+     * @param make the make
+     */
     public void setMake(String make) {
         this.make = make;
     }
 
+    /**
+     * Gets model.
+     *
+     * @return the model
+     */
     @Basic
     @Column(name = "model")
     public String getModel() {
         return model;
     }
 
+    /**
+     * Sets model.
+     *
+     * @param model the model
+     */
     public void setModel(String model) {
         this.model = model;
     }
 
+    /**
+     * Gets year.
+     *
+     * @return the year
+     */
     @Basic
     @Column(name = "year")
     public int getYear() {
         return year;
     }
 
+    /**
+     * Sets year.
+     *
+     * @param year the year
+     */
     public void setYear(int year) {
         this.year = year;
     }

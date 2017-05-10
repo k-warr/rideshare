@@ -16,6 +16,12 @@ import java.util.List;
 public class VehicleDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Add vehicle if doesnt exist int.
+     *
+     * @param vehicle the vehicle
+     * @return the int
+     */
     public int addVehicleIfDoesntExist(Vehicle vehicle) {
         int id = existsVehicle(vehicle);
         if (id == -1) {
@@ -24,6 +30,12 @@ public class VehicleDao {
         return id;
     }
 
+    /**
+     * Exists vehicle int.
+     *
+     * @param vehicle the vehicle
+     * @return the int
+     */
     public int existsVehicle(Vehicle vehicle) {
         Session session = null;
         List<Vehicle> vehicles = null;
@@ -54,6 +66,11 @@ public class VehicleDao {
         return -1;
     }
 
+    /**
+     * Gets all vehicles.
+     *
+     * @return the all vehicles
+     */
     public List<Vehicle> getAllVehicles() {
         List<Vehicle> users = new ArrayList<Vehicle>();
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -61,6 +78,12 @@ public class VehicleDao {
         return users;
     }
 
+    /**
+     * Gets vehicle.
+     *
+     * @param id the id
+     * @return the vehicle
+     */
     public Vehicle getVehicle(int id) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Vehicle vehicle = (Vehicle) session.get(Vehicle.class, id);
@@ -70,7 +93,7 @@ public class VehicleDao {
     /**
      * add a vehicle
      *
-     * @param vehicle
+     * @param vehicle the vehicle
      * @return the id of the inserted record.
      */
     public int addVehicle(Vehicle vehicle) {
@@ -98,6 +121,7 @@ public class VehicleDao {
 
     /**
      * delete a vehicle by id
+     *
      * @param id the vehicle's id
      */
     public void deleteVehicle(int id) {
@@ -121,7 +145,8 @@ public class VehicleDao {
 
     /**
      * Update the vehicle
-     * @param vehicle
+     *
+     * @param vehicle the vehicle
      */
     public void updateVehicle(Vehicle vehicle) {
         Session session = null;

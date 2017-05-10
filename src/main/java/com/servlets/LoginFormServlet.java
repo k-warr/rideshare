@@ -46,13 +46,11 @@ public class LoginFormServlet extends HttpServlet {
                 response.sendRedirect(propertyManager.getProperty("servlet.no_context.myprofile"));
             } else {
                 session.invalidate();
-//                response.sendRedirect("/failedLogin.jsp");
                 response.sendRedirect(propertyManager.getProperty("jsp.failed_login"));
                 return;
             }
         } else {
             session.invalidate();
-//            response.sendRedirect("/failedLogin.jsp");
             response.sendRedirect(propertyManager.getProperty("jsp.failed_login"));
             return;
         }

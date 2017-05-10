@@ -31,6 +31,8 @@ public class Admin extends HttpServlet {
         HttpSession session = request.getSession();
         PropertyManager propertyManager = new PropertyManager();
         String username = " ";
+
+        // Tries to set username
         if (session.getAttribute("username") != null) {
             username = session.getAttribute("username").toString();
         } else {

@@ -17,6 +17,12 @@ import java.util.List;
 public class RideDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Gets all upcoming rides by user id.
+     *
+     * @param user_id the user id
+     * @return the all upcoming rides by user id
+     */
     public List<Ride> getAllUpcomingRidesByUserId(int user_id) {
         List<Ride> rides = new ArrayList<Ride>();
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -47,19 +53,36 @@ public class RideDao {
         return null;
     }
 
+    /**
+     * Gets all rides.
+     *
+     * @return the all rides
+     */
     public List<Ride> getAllRides() {
         List<Ride> rides = new ArrayList<Ride>();
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         rides = session.createCriteria(Ride.class).list();
         return rides;
     }
-    
+
+    /**
+     * Gets ride.
+     *
+     * @param id the id
+     * @return the ride
+     */
     public Ride getRide(int id) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Ride ride = (Ride) session.get(Ride.class, id);
         return ride;
     }
 
+    /**
+     * Add ride int.
+     *
+     * @param ride the ride
+     * @return the int
+     */
     public int addRide(Ride ride) {
         int id = 0;
         Session session = null;
@@ -84,6 +107,11 @@ public class RideDao {
         return id;
     }
 
+    /**
+     * Delete ride.
+     *
+     * @param id the id
+     */
     public void deleteRide(int id) {
         Session session = null;
         Transaction trans = null;
@@ -103,6 +131,11 @@ public class RideDao {
         }
     }
 
+    /**
+     * Update ride.
+     *
+     * @param ride the ride
+     */
     public void updateRide(Ride ride) {
         Session session = null;
         Transaction trans = null;

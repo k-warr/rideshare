@@ -16,6 +16,11 @@ import java.util.List;
 public class UserDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Gets all users.
+     *
+     * @return the all users
+     */
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -23,12 +28,24 @@ public class UserDao {
         return users;
     }
 
+    /**
+     * Gets user.
+     *
+     * @param id the id
+     * @return the user
+     */
     public User getUser(int id) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         User user = (User) session.get(User.class, id);
         return user;
     }
 
+    /**
+     * Gets user by username.
+     *
+     * @param username the username
+     * @return the user by username
+     */
     public User getUserByUsername(String username) {
         Session session = null;
         List<User> users = null;
@@ -59,7 +76,7 @@ public class UserDao {
     /**
      * add a user
      *
-     * @param user
+     * @param user the user
      * @return the id of the inserted record.
      */
     public int addUser(User user) {
@@ -87,6 +104,7 @@ public class UserDao {
 
     /**
      * delete a user by id
+     *
      * @param id the user's id
      */
     public void deleteUser(int id) {
@@ -110,7 +128,8 @@ public class UserDao {
 
     /**
      * Update the user
-     * @param user
+     *
+     * @param user the user
      */
     public void updateUser(User user) {
         Session session = null;
@@ -134,6 +153,12 @@ public class UserDao {
 
     }
 
+    /**
+     * Is driver by username boolean.
+     *
+     * @param username the username
+     * @return the boolean
+     */
     public boolean isDriverByUsername(String username) {
         Session session = null;
         List<User> users = null;

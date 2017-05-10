@@ -9,6 +9,14 @@ import java.util.Date;
  * Created by Kien Warren on 5/8/17.
  */
 public class DateManipulator {
+
+    /**
+     * Gets next occurring Date. If the recurrenceDay is set to today, it will grab the next week's day.
+     *
+     * @param time          the time
+     * @param recurrenceDay the recurrence day
+     * @return the date
+     */
     public static Date nextDateTime(int time, String recurrenceDay) {
         Date now = new Date();
         Calendar date1 = Calendar.getInstance();
